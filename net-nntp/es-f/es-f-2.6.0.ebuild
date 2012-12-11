@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $net-nntp/es-f/es-f-2.6.0.ebuild
 
-EAPI=4
+EAPI=5
 
 inherit versionator eutils webapp
 
@@ -26,7 +26,8 @@ need_httpd_cgi
 S=${WORKDIR}
 
 src_configure() {
-        :
+		#http://sourceforge.net/tracker/index.php?func=detail&aid=3482673&group_id=185222&atid=912405
+		epatch "${FILESDIR}/${P}"-item.patch	
 }
 
 src_compile() {
@@ -37,9 +38,9 @@ src_install() {
         webapp_src_preinst
 
 	#install Docs
-	dodoc doc/BUGS doc/CONTRIBUTIONS doc/EXTENSIONS doc/INSTALL doc/NEWS
-	doc/SECURITY doc/TODO doc/UPGRADE doc/CHANGELOG doc/EVENTS
-	doc/FEATURES doc/LICENSE doc/RELEASENOTES doc/TEMPLATES
+	dodoc doc/BUGS doc/CONTRIBUTIONS doc/EXTENSIONS doc/INSTALL doc/NEWS \
+	doc/SECURITY doc/TODO doc/UPGRADE doc/CHANGELOG doc/EVENTS \
+	doc/FEATURES doc/LICENSE doc/RELEASENOTES doc/TEMPLATES \
 	doc/TRANSLATIONS
 
 	#install htdoc files

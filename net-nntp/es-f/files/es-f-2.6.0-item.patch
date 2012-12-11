@@ -1,0 +1,85 @@
+--- application/classes/ebayparser/main.xml	2011-02-20 00:19:12.000000000 +1100
++++ application/classes/ebayparser/main.xml	2012-02-03 11:20:50.000000000 +1100
+@@ -3,10 +3,12 @@
+ 
+   <section name="Patterns">
+ 
++
+     <!-- Reg. expressions that matches current item price -->
+     <pattern name="bid">
+       <![CDATA[
+-      ~<font size="-1" color="#666666">(.+?)</span>~i => 1
++        ~itemprop="price"[^>]*>(.+?)</~i => 1
++     ~<font size="-1" color="#666666">(.+?)</span>~i => 1
+       ~<div .*id="v4-31"[^>]*>(.+?)</~i => 1
+       ~<span .*id="v4-26"[^>]*>(.+?)</~i => 1
+       ]]>
+--- application/classes/ebayparser/co_uk.class.php	2011-02-20 00:19:12.000000000 +1100
++++ application/classes/ebayparser/co_uk.class.php	2012-02-03 11:16:18.000000000 +1100
+@@ -11,6 +11,7 @@
+  */
+ class ebayParser_co_uk extends ebayParser {
+ 
++
+   /**
+    * Class constructor
+    */
+@@ -25,13 +26,12 @@
+    */
+   public function getDetailEND( $dt ) {
+ 
+-    if (preg_match('~(\d+)-(\w{3})-(\d+)\s+(\d+):(\d+):(\d+)\s+(\w+)~', $dt, $ts)) {
++	if (preg_match('~(\d+) (\w{3}), (\d{4})(\d{2}):(\d+):(\d+)\s+(\w+)~', $dt, $ts)) {
+       // translate month
+       $ts[2] = array_search(strtoupper($ts[2]),
+                             array(1=>'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
+                                      'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'));
+-
+-  # _dbg($ts);
++# _dbg($ts);
+ 
+       // correct year ???
+       // if ($ts[3] < 100) $ts[3] += 2000;
+@@ -39,7 +39,7 @@
+       // local and ebay time zone
+       $tz = array($this->Timezone, $ts[7]);
+ 
+-  # _dbg($tz);
++#  _dbg($tz);
+ 
+       foreach ($tz as $t) {
+         if (!isset($this->TimeZones[$t])) {
+@@ -60,7 +60,7 @@
+ 
+       return $ts;
+     }
+-    return FALSE;
++     return FALSE;
+   }
+ 
+ } // class
+\ No newline at end of file
+--- application/classes/ebayparser/co_uk.xml	2011-02-20 00:19:12.000000000 +1100
++++ application/classes/ebayparser/co_uk.xml	2012-02-03 11:26:00.000000000 +1100
+@@ -33,11 +33,10 @@
+       ~Post to:~i => 0
+       ]]>
+     </pattern>
+-
+     <!-- Reg. expressions that matches auction title, as less as possible -->
+     <pattern name="Title">
+       <![CDATA[
+-      ~<title>(.*?) on eBay.*?</title>~is => 1
++      ~<title>(.*)\s*\|\s*eBay.*</title>~i => 1
+       ]]>
+     </pattern>
+ 
+@@ -45,7 +44,7 @@
+          <span id="DetailsTimeLeft"><b><nobr>Sep-02-07&nbsp;11:20:54 PDT</nobr></b> <nobr>(2 -->
+     <pattern name="End">
+       <![CDATA[
+-      ~<title>.*end time\s+(\d+-\w{3}-\d+\s+\d+:\d+:\d+\s+\w+).*</title>~i => 1
++		~(\d+ \w{3}, \d+</span><span class="vi-is1-t">\d+:\d+:\d+\s+\w+)~i => 1
+       ]]>
+     </pattern>
+
