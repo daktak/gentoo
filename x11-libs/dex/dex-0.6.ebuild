@@ -19,13 +19,17 @@ DEPEND=">=dev-lang/python-3.0.0
 		dev-python/argparse"
 RDEPEND="${DEPEND}"
 
+inherit git-2 eutils
 
-inherit git-2
-
+src_unpack() {
+  git-2_src_unpack
+  cd ${S}
+  epatch ${FILESDIR}/${P}-dedupe.patch || die
+}
 
 src_install() {
-	dobin dex
-	dodoc README
-	doman dex.1
+	dobin dex || die
+	dodoc README || die
+	doman dex.1 || die
 }
 
