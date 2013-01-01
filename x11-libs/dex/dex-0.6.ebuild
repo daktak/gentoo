@@ -1,28 +1,31 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
-MY_P=${P/${PV}/v${PV}}
-S=${WORKDIR}/${MY_P}
-DESCRIPTION="program to generate and execute
-DesktopEntry files of the type Application"
-HOMEPAGE="http:/e-jc.de/dex"
-SRC_URI="http://e-jc.de/dex/downloads/${MY_P}.tar.gz"
+EAPI=5
+
+DESCRIPTION="Dex is a tool to manage and launch autostart entries."
+
+HOMEPAGE="http://e-jc.de/"
+EGIT_REPO_URI="git://github.com/jceb/dex.git"
+EGIT_COMMENT="${PV}"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-DEPEND=""
+DEPEND=">=dev-lang/python-3.0.0
+		dev-python/argparse"
 RDEPEND="${DEPEND}"
 
-src_compile() {
-  :
-}
+
+inherit git-2
+
 
 src_install() {
-  doman dex.1 || die
-  dobin dex   || die
+	dobin dex
+	dodoc README
+	doman dex.1
 }
+
