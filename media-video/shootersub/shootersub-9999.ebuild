@@ -19,7 +19,9 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="dev-python/configobj"
+DEPEND="dev-python/configobj
+		dev-python/guess-language
+		dev-python/chardet"
 RDEPEND="${DEPEND}"
 
 src_install() {
