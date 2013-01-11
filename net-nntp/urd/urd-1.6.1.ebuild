@@ -43,6 +43,8 @@ src_compile() {
 
 src_install() {
         webapp_src_preinst
+		# Install init
+		doinitd "${FILESDIR}/urd" 
 		# Install docs
 		cd "${S}"
 		dodoc docs/CHANGELOG docs/INSTALL docs/README docs/TODO \
