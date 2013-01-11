@@ -13,7 +13,7 @@ SRC_URI="http://urdland.com/${P}.tar.gz"
 LICENSE="GPL-3"
 #SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="arj p7zip ace zip +par2 +rar +cfv trickle +cksfv"
+IUSE="arj p7zip ace zip +par2 +rar +cfv trickle +cksfv yencode subdownloader"
 
 DEPEND=">=dev-lang/php-5.0i[gmp,cli,curl,pcntl,ssl,sockets,gd,xmlreader,xmlwriter]
 		>=www-servers/apache-2.0
@@ -28,6 +28,8 @@ DEPEND=">=dev-lang/php-5.0i[gmp,cli,curl,pcntl,ssl,sockets,gd,xmlreader,xmlwrite
 		ace? ( app-arch/unace )
 		zip? ( || ( app-arch/zip app-arch/unzip ) )
 		cfv? ( app-arch/cfv )
+		yencode? ( net-news/yencode )
+		subdownloader? ( media-video/subdownloader )
 		cksfv? ( app-arch/cksfv )"
 RDEPEND="${DEPEND}"
 
