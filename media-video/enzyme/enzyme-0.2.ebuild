@@ -23,4 +23,3 @@ DEPEND="dev-python/setuptools"
 RDEPEND="dev-python/setuptools
 	test? ( dev-python/requests )"
 
-
