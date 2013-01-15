@@ -62,10 +62,10 @@ src_install() {
 			  make_x_lang.php urdd.sh || die
 	    
 		# Install server config file
-		webapp_server_configfile apache urd.conf
+#		webapp_server_configfile apache urd.conf
 
 		# Web Server needs to write and modify the following
-		webapp_serverowned -R "${MY_HTDOCSDIR}"
+#		webapp_serverowned -R "${MY_HTDOCSDIR}"
 
 		webapp_src_install
 }
