@@ -9,7 +9,7 @@ RESTRICT_PYTHON_ABIS="3.*"
 
 inherit distutils
 
-
+MY_PN=${PN/-/_}
 DESCRIPTION="Guess the natural language of a text"
 HOMEPAGE="http://code.google.com/p/guess-language"
 SRC_URI="http://pypi.python.org/packages/source/g/guess-language/${P}.tar.gz"
@@ -22,3 +22,13 @@ IUSE=""
 
 PYTHON_MODNAME="guess_language"
 
+src_test() {
+    test_blocks() {
+        PYTHONPATH="build-${PYTHON_ABI}/lib" "$(PYTHON)" "${MY_PN}/blocks_test.py" 
+    }
+	test_guess_lang() {
+	    PYTHONPATH="build-${PYTHON_ABI}/lib" "$(PYTHON)" "${MY_PN}/guess_language_test.py"
+	}
+    python_execute_function test_blocks || die "Failed blocks_test.py"
+	python_execute_function test_guess_lang || die "Failed guess_language_test.py"
+}

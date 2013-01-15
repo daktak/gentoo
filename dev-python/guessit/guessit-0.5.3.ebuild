@@ -22,5 +22,3 @@ IUSE="+language_detection"
 DEPEND="dev-python/setuptools"
 RDEPEND="dev-python/setuptools
 	language_detection? ( >=dev-python/guess-language-0.2 )"
-
-
