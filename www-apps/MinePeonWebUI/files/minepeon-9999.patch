@@ -1,0 +1,10 @@
+--- MinePeonWebUI-9999/index.php   2013-05-20 15:44:38.265453098 +1000
++++ MinePeonWebUI-9999/index.php      2013-05-20 15:45:48.440456725 +1000
+@@ -1,7 +1,7 @@
+ <?php
+  
+  -include('inc/ssl.inc.php');
+  -include('inc/timezone.inc.php');
+  +include('ssl.inc.php');
+  +include('timezone.inc.php');
+
