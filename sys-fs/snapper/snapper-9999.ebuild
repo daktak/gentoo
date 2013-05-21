@@ -8,7 +8,7 @@ inherit git-2 autotools
 
 DESCRIPTION="Command-line program for btrfs and ext4 snapshot management"
 HOMEPAGE="http://snapper.io/"
-EGIT_REPO_URI="git://github.com/openSUSE/snapper.git"
+EGIT_REPO_URI="http://github.com/openSUSE/snapper.git"
 
 LICENSE="GPL-2"
 SLOT="0"

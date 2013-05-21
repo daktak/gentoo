@@ -5,19 +5,23 @@
 EAPI=5
 
 inherit games subversion autotools-utils
-MY_S=${S}/gamewatch/tags/rel-${PV}
+
+BUILD_DIR="${S}/gamewatch/tags/rel-${PV}"
 DESCRIPTION="This is a generic engine for simulation of Game & Watch-like games"
 HOMEPAGE="http://www.rangelreale.com/programming/game-watch-simulator"
 
 ESVN_REPO_URI="https://${PN}.svn.sourceforge.net/svnroot/${PN}"
 ESVN_PROJECT="rel-${PV}"
+AUTOTOOLS_AUTORECONF=Y
+ECONF_SOURCE=${BUILD_DIR}
 
+PATCHES=( "${FILESDIR}/${P}.patch" )
 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
-
+#BUILD_DIR="${MY_S}"
 DEPEND="media-libs/sdl-mixer \
 	    media-libs/sdl-image \
 		media-libs/sdl-gfx \
@@ -29,22 +33,13 @@ RDEPEND="${DEPEND}"
 
 INSOPTIONS="-ggames"
 
-src_configure() {
-  cd ${MY_S}
-  ./autogen.sh || die "failed autogen"
-  if [[ -x ${ECONF_SOURCE:-.}/configure ]] ; then
-	econf || die "failed configure"
-  fi
-  epatch "${FILESDIR}/${P}.patch" || die
-}
-
-src_compile() {
-  cd ${MY_S}
-  emake
+src_prepare() {
+  cd ${ECONF_SOURCE}
+  autotools-utils_src_prepare || die
 }
 
 src_install() {
   insinto /usr/share/${PN} || die
-  doins -r ${MY_S}/data || die
-  dobin ${MY_S}/src/gameandwatch || die
+  doins -r ${ECONF_SRC}/data || die
+  dobin ${ECONF_SRC}src/gameandwatch || die
 }
