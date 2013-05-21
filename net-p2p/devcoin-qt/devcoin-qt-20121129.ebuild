@@ -8,8 +8,11 @@ inherit versionator eutils
 
 MY_PV="29-Nov-2012"
 
-DESCRIPTION=""
-HOMEPAGE=""
+DESCRIPTION="Devcoin is an ethically inspired project based on the BitCoin
+crypto-currency and created to help fund open source projects created by
+programmers, hardware developers, writers, musicians, painters, graphic artists
+and filmmakers."
+HOMEPAGE="http://www.devtome.com/doku.php?id=devcoin"
 SRC_URI="mirror://sourceforge/galacticmilieu/${PN}-${MY_PV}.tgz"
 
 LICENSE=""
