@@ -12,7 +12,7 @@ HOMEPAGE="https://bitcointalk.org/index.php?topic=148462"
 SRC_URI=""
 EGIT_REPO_URI="https://github.com/prof7bit/goxtool.git"
 
-LICENSE=""
+LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~ppc"
 IUSE=""
