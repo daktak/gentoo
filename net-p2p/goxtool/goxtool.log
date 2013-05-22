@@ -1,0 +1,19 @@
+2013-05-22 15:13:09,761:DEBUG:strategy.Strategy:strategy.Strategy loaded
+2013-05-22 15:13:09,762:DEBUG:goxapi.Gox:starting gox streaming API, trading BTCUSD
+2013-05-22 15:13:09,766:DEBUG:goxapi.WebsocketClient:trying plain old Websocket: wss://websocket.mtgox.com?Channel=depth.BTCUSD/ticker.BTCUSD ... 
+2013-05-22 15:13:10,529:DEBUG:goxapi.WebsocketClient:connected, subscribing needed channels
+2013-05-22 15:13:10,532:DEBUG:goxapi.WebsocketClient:requesting initial full depth
+2013-05-22 15:13:10,533:DEBUG:goxapi.WebsocketClient:waiting for data...
+2013-05-22 15:13:10,540:DEBUG:goxapi.WebsocketClient:requesting history
+2013-05-22 15:13:12,111:DEBUG:goxapi.Gox:depth: bid:      18.31230000 @    119.03915 total vol:      18.31230000 (age: 0.43 s)
+2013-05-22 15:13:12,171:DEBUG:goxapi.Gox:depth: bid:     -18.33473478 @    118.86729 total vol:       0.00256522 (age: 0.48 s)
+2013-05-22 15:13:12,179:DEBUG:goxapi.Gox:depth: bid:      -0.00405717 @    118.38991 total vol:      14.11800000 (age: 0.48 s)
+2013-05-22 15:13:13,071:DEBUG:goxapi.History:### got 97 updated candle(s)
+2013-05-22 15:13:13,259:DEBUG:goxapi.Gox:depth: bid:      -1.00000000 @    119.00482 total vol:       0.00000000 (age: 0.47 s)
+2013-05-22 15:13:13,415:DEBUG:goxapi.Gox:depth: bid:       1.00000000 @    119.04870 total vol:       1.00000000 (age: 0.45 s)
+2013-05-22 15:13:13,847:DEBUG:goxapi.OrderBook:### got full depth: updating orderbook...
+2013-05-22 15:13:14,665:DEBUG:goxapi.Gox:depth: bid:       0.25000000 @    120.79485 total vol:       0.25000000 (age: 0.43 s)
+2013-05-22 15:13:14,681:DEBUG:goxapi.Gox:depth: bid:      -0.01500000 @    109.80900 total vol:       0.61500000 (age: 0.42 s)
+2013-05-22 15:13:15,721:DEBUG:strategy.Strategy:strategy.Strategy unloaded
+2013-05-22 15:13:15,723:DEBUG:goxapi.Gox:shutdown...
+2013-05-22 15:13:15,723:DEBUG:goxapi.WebsocketClient:closing socket
