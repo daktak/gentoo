@@ -31,6 +31,9 @@ RDEPEND="${DEPEND}"
 
 ECONF_SOURCE="${BUILD_DIR}"
 
+src_prepare() {
+	EPATCH ${FILESDIR}/{$PN}.patch
+}
 
 src_compile() {
 	OPTS=()
