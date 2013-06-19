@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit eutils multilib
 
@@ -11,7 +11,7 @@ MY_P=${MY_P/c/C}
 
 
 inherit git-2
-EGIT_REPO_URI="git://github.com/prof7bit/${MY_P}.git"
+EGIT_REPO_URI="http://github.com/prof7bit/${MY_P}.git"
 
 
 DESCRIPTION="Decentralized anonymous instant messenger on top of Tor Hidden Services"
@@ -29,8 +29,8 @@ RDEPEND="
 	"
 
 DEPEND="${RDEPEND}"
-src_install() {
-	  
-		make all
-		make install
-		}
+src_compile()
+{
+	epatch ${FILESDIR}/respect-prefix.patch
+	make all
+}
