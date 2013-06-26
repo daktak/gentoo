@@ -1,0 +1,24 @@
+Common subdirectories: cpuminer-2.2.3-orig/compat and cpuminer-2.2.3/compat
+diff -u cpuminer-2.2.3-orig/scrypt-arm.S cpuminer-2.2.3/scrypt-arm.S
+--- cpuminer-2.2.3-orig/scrypt-arm.S	2012-10-11 13:32:02.909066735 -0400
++++ cpuminer-2.2.3/scrypt-arm.S	2012-10-11 13:32:24.092087967 -0400
+@@ -1171,3 +1171,7 @@
+ #endif /* __ARM_NEON__ */
+ 
+ #endif
++
++#if defined(__linux__) && defined(__ELF__)
++.section .note.GNU-stack,"",%progbits
++#endif
+diff -u cpuminer-2.2.3-orig/sha2-arm.S cpuminer-2.2.3/sha2-arm.S
+--- cpuminer-2.2.3-orig/sha2-arm.S	2012-10-11 13:32:02.907066733 -0400
++++ cpuminer-2.2.3/sha2-arm.S	2012-10-11 13:32:33.453097350 -0400
+@@ -1581,3 +1581,7 @@
+ #endif /* __ARM_NEON__ */
+ 
+ #endif
++
++#if defined(__linux__) && defined(__ELF__)
++.section .note.GNU-stack,"",%progbits
++#endif
+

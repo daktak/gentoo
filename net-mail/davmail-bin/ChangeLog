@@ -1,0 +1,89 @@
+# ChangeLog for net-mail/davmail-bin
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*davmail-bin-4.2.1 (12 Apr 2013)
+
+  12 Apr 2013; Sven Eden <sven.eden@gmx.de>
+  +davmail-4.2.1.ebuild,
+  -davmail-4.2.0.ebuild
+  Version bump
+
+*davmail-bin-4.2.0 (28 Sep 2012)
+
+  11 Mar 2013; Sven Eden <sven.eden@gmx.de> +davmail-4.2.0.ebuild,
+  Version bump
+
+  11 Mar 2013; Sven Eden <sven.eden@gmx.de>
+  -davmail-4.1.0-r1.ebuild
+  remove obsolete ebuild
+
+*davmail-bin-4.1.0-r1 (03 Jan 2013)
+
+  03 Jan 2013; Sven Eden <sven.eden@gmx.de> +davmail-4.1.0-r1.ebuild,
+  +files/davmail.conf,
+  +files/davmail.properties,
+  +files/davmail.init:
+  Added changes from the davmail-3.9.8.ebuild created by Jiri Tyr and
+  posted in bug #351417.
+
+  03 Jan 2013; Sven Eden <sven.eden@gmx.de> -davmail-4.1.0.ebuild,
+  -files/initd,
+  -files/davmail.desktop:
+  Removed obsolete files.
+
+*davmail-bin-4.1.0 (28 Sep 2012)
+
+  28 Sep 2012; Sven Eden <sven.eden@gmx.de> +davmail-4.1.0.ebuild,
+  Version bump
+
+  28 Sep 2012; Sven Eden <sven.eden@gmx.de>
+  -davmail-4.0.0.ebuild
+  remove obsolete ebuild
+
+*davmail-bin-4.0.0 (14 Sep 2012)
+
+  14 Sep 2012; Sven Eden <sven.eden@gmx.de> +davmail-4.0.0.ebuild,
+  Version bump
+
+  14 Sep 2012; Sven Eden <sven.eden@gmx.de>
+  -davmail-3.9.9.ebuild
+  remove obsolete ebuild
+
+*davmail-bin-3.9.9 (18 Jul 2012)
+
+  18 Jul 2012; Sven Eden <sven.eden@gmx.de> +davmail-3.9.9.ebuild,
+  Version bump
+
+  18 Jul 2012; Sven Eden <sven.eden@gmx.de>
+  -davmail-3.9.8.ebuild
+  remove obsolete ebuild
+
+*davmail-bin-3.9.8 (28 Feb 2012)
+
+  28 Feb 2012; Sven Eden <sven.eden@gmx.de> +davmail-3.9.8.ebuild,
+  Version bump
+
+  28 Feb 2012; Sven Eden <sven.eden@gmx.de>
+  -davmail-3.9.6-r1.ebuild
+  -davmail-3.9.7.ebuild
+  remove obsolete ebuilds
+
+*davmail-bin-3.9.7 (11 Jan 2012)
+
+  11 Jan 2012; Sven Eden <sven.eden@gmx.de> +davmail-3.9.7.ebuild,
+  Version bump
+
+*davmail-bin-3.9.6-r1 (23 Nov 2011)
+
+  23 Nov 2011; Sven Eden <sven.eden@gmx.de> +davmail-3.9.6-r1.ebuild,
+  -davmail-3.9.6.ebuild :
+  Fixed some stupid errors. The old ebuild is obsolete.
+
+*davmail-bin-3.9.6 (21 Nov 2011)
+
+  21 Nov 2011; Sven Eden <sven.eden@gmx.de> +davmail-3.9.6.ebuild :
+  Re-added to my overlay, and renamed to davmail-bin. The unbundled
+  version in the java-overlay causes too many problems on my system,
+  I have therefore decided to keep the bundled (binary) version in my own
+  overlay.

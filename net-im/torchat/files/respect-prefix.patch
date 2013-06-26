@@ -1,0 +1,14 @@
+--- src/purple/Makefile	2013-06-19 14:10:51.032119584 +1000
++++ src/purple/Makefile.new	2013-06-19 14:10:36.122668048 +1000
+@@ -23,8 +23,8 @@
+ 	fpc $(FPCOPT) -dDebugToConsole -dDebugToFile purpletorchat.lpr
+ 	
+ install:
+-	mkdir -p $(PLUGINDIR)
+-	install --mode=0644 $(COMPILEDIR)/libpurpletorchat.so $(PLUGINDIR)
++	mkdir -p $(DESTDIR)$(PLUGINDIR)
++	install --mode=0644 $(COMPILEDIR)/libpurpletorchat.so $(DESTDIR)$(PLUGINDIR)
+ 
+ clean:
+ 	$(RM) -r lib
+
