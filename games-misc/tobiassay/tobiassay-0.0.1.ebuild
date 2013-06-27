@@ -12,7 +12,7 @@ EGIT_REPO_URI="https://github.com/daktak/tobias-say.git"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="games-misc/cowsay
@@ -20,9 +20,10 @@ DEPEND="games-misc/cowsay
 RDEPEND="${DEPEND}"
 
 src_install () {
-  insinto /usr/share/fortune
-  doins tobias
-  doins tobias.dat || die
-  insinto /usr/share/cowsay/cows
-  doins tobias.cow || die
+	insinto /usr/share/fortune
+	doins tobias
+	doins tobias.dat || die
+	insinto /usr/share/cowsay/cows
+	doins tobias.cow || die
+	dobin tobias.sh || die
 }
