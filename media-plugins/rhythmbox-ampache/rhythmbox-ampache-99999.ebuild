@@ -4,15 +4,14 @@
 
 EAPI=5
 
-PYTHON_DEPEND="2:2.6"
+PYTHON_COMPAT=( python2_5 python2_6 python2_7 )
 
-inherit eutils multilib python subversion
+inherit eutils multilib python-r1 subversion distutils-r1
 
 MY_P="${PN}-read-only"
 RB_PI="rhythmbox/plugins/ampache"
 
-DESCRIPTION="This is a plugin for Rhythmbox music player that allows it to
-stream directly from an instance of an Ampache music streaming server."
+DESCRIPTION="Rhythmbox plugin to stream from Ampache"
 HOMEPAGE="http://code.google.com/p/rhythmbox-ampache/"
 ESVN_REPO_URI="http://${PN}.googlecode.com/svn/branches/for_rhythmbox-gtk+3"
 ESVN_PROJECT="${PN}-read-only"
@@ -28,22 +27,4 @@ RDEPEND="${DEPEND}
 
 S="${WORKDIR}/${MY_P}"
 
-pkg_setup() {
-    python_set_active_version 2
-	python_pkg_setup
-}
-
-src_install() {
-	"$(PYTHON)" setup.py install --root "${D}"|| die
-    insinto /usr/$(get_libdir)/${RB_PI}
-    doins -r * || die
-}
-
-pkg_postinst() {
-    python_mod_optimize /usr/$(get_libdir)/${RB_PI}
-}
-
-pkg_postrm() {
-    python_mod_cleanup /usr/$(get_libdir)/${RB_PI}
-}
 
