@@ -23,8 +23,6 @@ IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}
-    >=media-sound/rhythmbox-2.95[python]"
+	>=media-sound/rhythmbox-2.95[python]"
 
 S="${WORKDIR}/${MY_P}"
-
-
