@@ -32,3 +32,4 @@ pkg_setup() {
 src_install() {
     "$(PYTHON)" setup.py install --root "${D}"|| die
 }
+
