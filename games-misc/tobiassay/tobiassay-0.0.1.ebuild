@@ -21,7 +21,7 @@ RDEPEND="${DEPEND}"
 
 
 src_install () {
-	COWV=`equery list cowsay | cut -d / -f 2 | cut -d - -f1-2`
+	COWV=`equery list --format='$name-$version' cowsay`
 	insinto /usr/share/fortune
 	doins tobias
 	doins tobias.dat || die
