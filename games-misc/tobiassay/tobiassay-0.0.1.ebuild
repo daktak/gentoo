@@ -19,11 +19,13 @@ DEPEND="games-misc/cowsay
 		games-misc/fortune-mod"
 RDEPEND="${DEPEND}"
 
+
 src_install () {
+	COWV=`equery list cowsay | cut -d / -f 2 | cut -d - -f1-2`
 	insinto /usr/share/fortune
 	doins tobias
 	doins tobias.dat || die
-	insinto /usr/share/cowsay/cows
+	insinto /usr/share/${COWV}/cows
 	doins tobias.cow || die
 	dobin tobias.sh || die
 }
