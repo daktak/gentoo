@@ -10,7 +10,7 @@ EGIT_REPO_URI="https://github.com/evilhero/mylar.git"
 
 inherit eutils user git-2 python
 
-DESCRIPTION="Automatic music downloader for SABnzbd"
+DESCRIPTION="Automatic comic book downloader for SABnzbd"
 HOMEPAGE="https://github.com/evilhero/mylar#readme"
 
 LICENSE="GPL-2" # only
