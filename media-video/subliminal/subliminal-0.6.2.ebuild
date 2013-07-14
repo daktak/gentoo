@@ -29,6 +29,3 @@ RDEPEND=">=dev-python/beautifulsoup-4.0.0
 	lxml? ( dev-python/lxml )"
 
 
-python_test() {
-	"${PYTHON}" setup.py test || die
-}
