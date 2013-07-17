@@ -16,7 +16,9 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 S="${WORKDIR}/Automatic-${PV}"
 
-DEPEND=""
+DEPEND="dev-libs/libxml2
+		dev-libs/libpcre
+		net-misc/curl"
 RDEPEND="${DEPEND}"
 
 src_prepare() {
