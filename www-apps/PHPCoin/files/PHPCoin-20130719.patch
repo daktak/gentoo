@@ -1,6 +1,6 @@
-diff -uNar ./html/main.php PHPCoin-99999-new/html/main.php
+diff -uNar ./html/main.php /var/tmp/portage/www-apps/PHPCoin-99999-base/work/PHPCoin-99999-new/html/main.php
 --- ./html/main.php	2013-07-19 14:26:10.117714720 +1000
-+++ PHPCoin-99999-new/html/main.php	2013-07-19 14:27:50.440846961 +1000
++++ /var/tmp/portage/www-apps/PHPCoin-99999-base/work/PHPCoin-99999-new/html/main.php	2013-07-19 14:27:50.440846961 +1000
 @@ -24,7 +24,8 @@
      <label>Name</label> <?php echo $_SESSION['name'];?>
  </div>
@@ -11,9 +11,28 @@ diff -uNar ./html/main.php PHPCoin-99999-new/html/main.php
      $accountBalance = 0;
  ?>
  <div class="infoLine">
-diff -uNar ./login/login.php PHPCoin-99999-new/login/login.php
+diff -uNar ./inc/general_functions.php /var/tmp/portage/www-apps/PHPCoin-99999-base/work/PHPCoin-99999-new/inc/general_functions.php
+--- ./inc/general_functions.php	2013-07-19 14:26:10.117714720 +1000
++++ /var/tmp/portage/www-apps/PHPCoin-99999-base/work/PHPCoin-99999-new/inc/general_functions.php	2013-07-19 14:53:46.108225914 +1000
+@@ -2,7 +2,7 @@
+     defined("_V") || die("Direct access not allowed!");
+     
+   function isValidEmail($email){
+-    return eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$", $email);
++    return preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i", $email);
+   }
+   
+   function makeSQLSafe($str){
+@@ -10,4 +10,4 @@
+       return mysql_real_escape_string($str);
+   }
+     
+-?>
+\ No newline at end of file
++?>
+diff -uNar ./login/login.php /var/tmp/portage/www-apps/PHPCoin-99999-base/work/PHPCoin-99999-new/login/login.php
 --- ./login/login.php	2013-07-19 14:26:10.119715720 +1000
-+++ PHPCoin-99999-new/login/login.php	2013-07-19 14:27:17.772522348 +1000
++++ /var/tmp/portage/www-apps/PHPCoin-99999-base/work/PHPCoin-99999-new/login/login.php	2013-07-19 14:27:17.772522348 +1000
 @@ -11,7 +11,7 @@
  </head>
  <body>
@@ -30,9 +49,9 @@ diff -uNar ./login/login.php PHPCoin-99999-new/login/login.php
 -</html>
 \ No newline at end of file
 +</html>
-diff -uNar ./proc/doCreateAccount.php PHPCoin-99999-new/proc/doCreateAccount.php
+diff -uNar ./proc/doCreateAccount.php /var/tmp/portage/www-apps/PHPCoin-99999-base/work/PHPCoin-99999-new/proc/doCreateAccount.php
 --- ./proc/doCreateAccount.php	2013-07-19 14:26:10.119715720 +1000
-+++ PHPCoin-99999-new/proc/doCreateAccount.php	2013-07-19 14:28:04.196720876 +1000
++++ /var/tmp/portage/www-apps/PHPCoin-99999-base/work/PHPCoin-99999-new/proc/doCreateAccount.php	2013-07-19 14:28:04.196720876 +1000
 @@ -19,7 +19,7 @@
      if($fwd == 1 && !$fwdto) $e[] = "You must enter a bitcoin address to forward to!";
      
