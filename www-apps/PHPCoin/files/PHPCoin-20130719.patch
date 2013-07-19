@@ -1,3 +1,22 @@
+diff -uNar ./html/accounts.php /var/tmp/portage/www-apps/PHPCoin-99999-base/work/PHPCoin-99999-new/html/accounts.php
+--- ./html/accounts.php	2013-07-19 14:26:10.117714720 +1000
++++ /var/tmp/portage/www-apps/PHPCoin-99999-base/work/PHPCoin-99999-new/html/accounts.php	2013-07-19 14:59:53.791960303 +1000
+@@ -36,7 +36,7 @@
+     $accounts = 0;
+     while($r = mysql_fetch_assoc($q)){
+         $total_accounts += $r['balance'];
+-        $acounts++;
++        $accounts++;
+ ?>
+     <tr class="listingRow<?php echo $k;?>">
+         <td align="right"><?php echo $r['account_id'];?></td>
+@@ -57,4 +57,4 @@
+ ?>    
+ </table>
+ <h4>Total amount in accounts: <?php echo number_format($total_accounts,8,".",",");?> BTC</h4>
+-</div>
+\ No newline at end of file
++</div>
 diff -uNar ./html/main.php /var/tmp/portage/www-apps/PHPCoin-99999-base/work/PHPCoin-99999-new/html/main.php
 --- ./html/main.php	2013-07-19 14:26:10.117714720 +1000
 +++ /var/tmp/portage/www-apps/PHPCoin-99999-base/work/PHPCoin-99999-new/html/main.php	2013-07-19 14:27:50.440846961 +1000
