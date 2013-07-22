@@ -6,12 +6,12 @@ EAPI=4
 
 PYTHON_DEPEND="2:2.6"
 
-EGIT_REPO_URI="https://github.com/Conjuro/LazyLibrarian.git"
+EGIT_REPO_URI="https://github.com/herman-rogers/LazyLibrarian-1.git"
 
 inherit eutils user git-2 python
 
 DESCRIPTION="LazyLibrarian is an automated book downloader for SABnzbd."
-HOMEPAGE="http://github.com/Conjuro/LazyLibrarian"
+HOMEPAGE="http://github.com/herman-rogers/LazyLibrarian-1"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -35,6 +35,7 @@ src_install() {
 	newconfd "${FILESDIR}/${PN}.conf" ${PN}
 	newinitd "${FILESDIR}/${PN}.init" ${PN}
 
+	epatch "${FILESDIR}/path.patch" || die
 	# Location of log and data files
 	keepdir /var/${PN}
 	fowners -R ${PN}:${PN} /var/${PN}

@@ -1,0 +1,89 @@
+diff -uNar lazylibrarian/__init__.py lazylibrarian/__init__.py
+--- lazylibrarian/__init__.py	2013-07-22 14:02:41.528064953 +1000
++++ lazylibrarian/__init__.py	2013-07-22 13:55:18.374617768 +1000
+@@ -258,9 +258,9 @@
+         logger.lazylibrarian_log.initLogger(loglevel=LOGLEVEL)
+ 
+         # Clearing cache
+-        if os.path.exists(".ProviderCache"):
+-            for f in os.listdir(".ProviderCache"):
+-                os.unlink("%s/%s" % (".ProviderCache", f))
++        if os.path.exists("/var/lazylibrarian/cache/.ProviderCache"):
++            for f in os.listdir("/var/lazylibrarian/cache/.ProviderCache"):
++                os.unlink("%s/%s" % ("/var/lazylibrarian/cache/.ProviderCache", f))
+         # Clearing throttling timeouts
+         t = SimpleCache.ThrottlingProcessor()
+         t.lastRequestTime.clear()
+diff -uNar lazylibrarian/gr.py lazylibrarian/gr.py
+--- lazylibrarian/gr.py	2013-07-22 14:02:41.529065453 +1000
++++ lazylibrarian/gr.py	2013-07-22 13:54:15.741319427 +1000
+@@ -22,7 +22,7 @@
+ 
+         # Cache our request
+         request = urllib2.Request(URL)
+-        opener = urllib2.build_opener(SimpleCache.CacheHandler(".AuthorCache"), SimpleCache.ThrottlingProcessor(5))
++        opener = urllib2.build_opener(SimpleCache.CacheHandler("/var/lazylibrarian/cache/.AuthorCache"), SimpleCache.ThrottlingProcessor(5))
+         resp = opener.open(request)
+ 
+         try:
+@@ -53,7 +53,7 @@
+ 
+         # Cache our request
+         request = urllib2.Request(URL)
+-        opener = urllib2.build_opener(SimpleCache.CacheHandler(".AuthorCache"), SimpleCache.ThrottlingProcessor(5))
++        opener = urllib2.build_opener(SimpleCache.CacheHandler("/var/lazylibrarian/cache/.AuthorCache"), SimpleCache.ThrottlingProcessor(5))
+         resp = opener.open(request)
+ 
+         try:
+@@ -87,7 +87,7 @@
+         try:
+             # Cache our request
+             request = urllib2.Request(URL)
+-            opener = urllib2.build_opener(SimpleCache.CacheHandler(".AuthorCache"), SimpleCache.ThrottlingProcessor(5))
++            opener = urllib2.build_opener(SimpleCache.CacheHandler("/var/lazylibrarian/cache/.AuthorCache"), SimpleCache.ThrottlingProcessor(5))
+             resp = opener.open(request)
+             sourcexml = ElementTree.parse(resp)
+         except Exception, e:
+@@ -141,7 +141,7 @@
+ 							try:
+ 							    # Cache our request
+ 							    request = urllib2.Request(BOOK_URL)
+-							    opener = urllib2.build_opener(SimpleCache.CacheHandler(".AuthorCache"), SimpleCache.ThrottlingProcessor(5))
++							    opener = urllib2.build_opener(SimpleCache.CacheHandler("/var/lazylibrarian/cache/.AuthorCache"), SimpleCache.ThrottlingProcessor(5))
+ 							    resp = opener.open(request)
+ 							except Exception, e:
+ 							    logger.error("Error finding results: ", e)
+@@ -205,7 +205,7 @@
+ 				try:
+ 				    # Cache our request
+ 				    request1 = urllib2.Request(URL)
+-				    opener1 = urllib2.build_opener(SimpleCache.CacheHandler(".AuthorCache"), SimpleCache.ThrottlingProcessor(5))
++				    opener1 = urllib2.build_opener(SimpleCache.CacheHandler("/var/lazylibrarian/cache/.AuthorCache"), SimpleCache.ThrottlingProcessor(5))
+ 				    resp1 = opener1.open(request1)
+ 				except Exception, e:
+ 				    logger.error("Error finding results: " + str(e))				
+@@ -234,7 +234,7 @@
+             try:
+                 # Cache our request
+                 request = urllib2.Request(set_url)
+-                opener = urllib2.build_opener(SimpleCache.CacheHandler(".AuthorCache"), SimpleCache.ThrottlingProcessor(5))
++                opener = urllib2.build_opener(SimpleCache.CacheHandler("/var/lazylibrarian/cache/.AuthorCache"), SimpleCache.ThrottlingProcessor(5))
+                 resp = opener.open(request)
+                 sourcexml = ElementTree.parse(resp)
+             except Exception, e:
+diff -uNar lazylibrarian/searchnzb.py lazylibrarian/searchnzb.py
+--- lazylibrarian/searchnzb.py	2013-07-22 14:02:41.529065453 +1000
++++ lazylibrarian/searchnzb.py	2013-07-22 13:54:49.051965012 +1000
+@@ -23,9 +23,9 @@
+         searchbooks = myDB.select('SELECT BookID, AuthorName, Bookname from books WHERE Status="Wanted"')
+ 
+         # Clear cache
+-        if os.path.exists(".ProviderCache"):
+-            for f in os.listdir(".ProviderCache"):
+-                os.unlink("%s/%s" % (".ProviderCache", f))
++        if os.path.exists("/var/lazylibrarian/cache/.ProviderCache"):
++            for f in os.listdir("/var/lazylibrarian/cache/.ProviderCache"):
++                os.unlink("%s/%s" % ("/var/lazylibrarian/cache/.ProviderCache", f))
+ 
+         # Clearing throttling timeouts
+         t = SimpleCache.ThrottlingProcessor()
