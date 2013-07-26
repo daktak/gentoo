@@ -27,5 +27,6 @@ src_install () {
 	doins tobias.dat || die
 	insinto /usr/share/${COWV}/cows
 	doins tobias.cow || die
+	doins tobias-blue.cow || die
 	dobin tobias.sh || die
 }
