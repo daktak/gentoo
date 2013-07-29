@@ -1,8 +1,8 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=5
 
 inherit versionator eutils
 
@@ -20,9 +20,8 @@ IUSE=""
 DEPEND=""
 RDEPEND="${DEPEND}"
 
-
-src_unpack() {
-	mkdir ${S}
+src_prepare() {
+	mkdir "${S}"
 	cp -L "${DISTDIR}/${A}" "${S}/woof"
 	cd "${S}"
 	epatch "${FILESDIR}/${PN}"-python2.patch
@@ -33,4 +32,3 @@ src_install() {
 	doins "${FILESDIR}/${PN}"rc || die
 	dobin woof  || die
 }
-
