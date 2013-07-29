@@ -1,13 +1,13 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI="5"
 
 DESCRIPTION="Dex is a tool to manage and launch autostart entries."
 
 HOMEPAGE="http://e-jc.de/"
-EGIT_REPO_URI="git://github.com/jceb/dex.git"
+EGIT_REPO_URI="http://github.com/jceb/dex.git"
 EGIT_COMMENT="${PV}"
 
 LICENSE="GPL-3"
@@ -21,10 +21,8 @@ RDEPEND="${DEPEND}"
 
 inherit git-2 eutils
 
-src_unpack() {
-  git-2_src_unpack
-  cd ${S}
-  epatch ${FILESDIR}/${P}-dedupe.patch || die
+src_prepare() {
+	epatch "${FILESDIR}/${P}-dedupe.patch" || die
 }
 
 src_install() {
@@ -32,4 +30,3 @@ src_install() {
 	dodoc README || die
 	doman dex.1 || die
 }
-
