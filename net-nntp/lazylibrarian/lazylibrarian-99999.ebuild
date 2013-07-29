@@ -1,14 +1,14 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-PYTHON_DEPEND="2:2.6"
+PYTHON_COMPAT=(python2_6 python2_7)
 
 EGIT_REPO_URI="https://github.com/herman-rogers/LazyLibrarian-1.git"
 
-inherit eutils user git-2 python
+inherit eutils user git-2 python-r1
 
 DESCRIPTION="LazyLibrarian is an automated book downloader for SABnzbd."
 HOMEPAGE="http://github.com/herman-rogers/LazyLibrarian-1"
@@ -19,10 +19,6 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 pkg_setup() {
-	# Control PYTHON_USE_WITH
-	python_set_active_version 2
-	python_pkg_setup
-
 	# Create lazylibrarian group
 	enewgroup ${PN}
 	# Create lazylibrarian user, put in lazylibrarian group

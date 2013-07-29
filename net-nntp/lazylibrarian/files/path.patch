@@ -1,5 +1,5 @@
 diff -uNar lazylibrarian/__init__.py lazylibrarian/__init__.py
---- lazylibrarian/__init__.py	2013-07-22 14:02:41.528064953 +1000
+--- lazylibrarian/__init__.py	2013-07-22 14:17:39.895986312 +1000
 +++ lazylibrarian/__init__.py	2013-07-22 13:55:18.374617768 +1000
 @@ -258,9 +258,9 @@
          logger.lazylibrarian_log.initLogger(loglevel=LOGLEVEL)
@@ -15,7 +15,7 @@ diff -uNar lazylibrarian/__init__.py lazylibrarian/__init__.py
          t = SimpleCache.ThrottlingProcessor()
          t.lastRequestTime.clear()
 diff -uNar lazylibrarian/gr.py lazylibrarian/gr.py
---- lazylibrarian/gr.py	2013-07-22 14:02:41.529065453 +1000
+--- lazylibrarian/gr.py	2013-07-22 14:17:39.895986312 +1000
 +++ lazylibrarian/gr.py	2013-07-22 13:54:15.741319427 +1000
 @@ -22,7 +22,7 @@
  
@@ -71,8 +71,20 @@ diff -uNar lazylibrarian/gr.py lazylibrarian/gr.py
                  resp = opener.open(request)
                  sourcexml = ElementTree.parse(resp)
              except Exception, e:
+diff -uNar lazylibrarian/providers.py lazylibrarian/providers.py
+--- lazylibrarian/providers.py	2013-07-22 14:17:39.895986312 +1000
++++ lazylibrarian/providers.py	2013-07-22 14:17:14.721406382 +1000
+@@ -42,7 +42,7 @@
+     try :
+         request = urllib2.Request(URL)
+         request.add_header('User-Agent', 'lazylibrary/0.0 +https://github.com/herman-rogers/LazyLibrarian-1')
+-        opener = urllib2.build_opener(SimpleCache.CacheHandler(".ProviderCache"), SimpleCache.ThrottlingProcessor(5))
++        opener = urllib2.build_opener(SimpleCache.CacheHandler("/var/lazylibrarian/cache/.ProviderCache"), SimpleCache.ThrottlingProcessor(5))
+         resp = opener.open(request)
+ 
+         try:
 diff -uNar lazylibrarian/searchnzb.py lazylibrarian/searchnzb.py
---- lazylibrarian/searchnzb.py	2013-07-22 14:02:41.529065453 +1000
+--- lazylibrarian/searchnzb.py	2013-07-22 14:17:39.895986312 +1000
 +++ lazylibrarian/searchnzb.py	2013-07-22 13:54:49.051965012 +1000
 @@ -23,9 +23,9 @@
          searchbooks = myDB.select('SELECT BookID, AuthorName, Bookname from books WHERE Status="Wanted"')

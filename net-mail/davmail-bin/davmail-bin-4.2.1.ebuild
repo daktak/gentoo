@@ -29,20 +29,18 @@ DEPEND="|| (
 	virtual/jre:1.6
 	virtual/jdk:1.6
 	)
-  !net-mail/davmail"
+	!net-mail/davmail"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${MY_P}-${PV}-${MY_REV}"
 
 pkg_setup() {
-  if use server ; then
-    enewuser davmail -1 -1 /dev/null
-  fi
+	if use server ; then
+		enewuser davmail -1 -1 /dev/null
+	fi
 }
 
 src_install() {
-	cd "${S}"
-
 	# libraries
 	java-pkg_dojar lib/*.jar
 	java-pkg_dojar ${MY_PN}.jar

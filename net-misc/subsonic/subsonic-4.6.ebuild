@@ -1,8 +1,8 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI="5"
 
 inherit eutils
 
@@ -30,26 +30,26 @@ USER_GROUP="subsonic"
 
 pkg_setup() {
 	ebegin "Creating ${UG} user and group"
-    enewgroup "${USER_GROUP}"
-    enewuser "${USER_GROUP}" -1 -1 ${SUBSONIC_HOME} "${USER_GROUP}"
+	enewgroup "${USER_GROUP}"
+	enewuser "${USER_GROUP}" -1 -1 ${SUBSONIC_HOME} "${USER_GROUP}"
 }
 
 src_install() {
 	dodoc README.TXT
 	dohtml "Getting Started.html"
-	
+
 	insinto ${INSTALL_BASE}
 	doins subsonic-booter-jar-with-dependencies.jar
 	doins subsonic.war
-	
+
 	exeinto ${INSTALL_BASE}
 	doexe subsonic.sh
-	
+
 	dodir ${SUBSONIC_HOME}
 	fowners ${USER_GROUP}:${USER_GROUP} ${SUBSONIC_HOME}
-	
+
 	newinitd "${FILESDIR}/subsonic.initd" subsonic
 	newconfd "${FILESDIR}/subsonic.confd" subsonic
 
-	dosym ${INSTALL_BASE}/subsonic.sh /opt/bin/subsonic	
+	dosym ${INSTALL_BASE}/subsonic.sh /opt/bin/subsonic
 }

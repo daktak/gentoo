@@ -1,7 +1,8 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: $
 
-EAPI=4
+EAPI=3
 
 inherit versionator
 
@@ -32,4 +33,3 @@ pkg_postinst() {
 	elog "Please find a sample config at /usr/share/doc/${PF}/sample_config.txt.bz2"
 	elog
 }
-
