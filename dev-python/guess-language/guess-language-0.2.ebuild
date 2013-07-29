@@ -12,7 +12,8 @@ inherit distutils-r1 python-r1
 MY_PN=${PN/-/_}
 DESCRIPTION="Guess the natural language of a text"
 HOMEPAGE="http://code.google.com/p/guess-language"
-SRC_URI="http://pypi.python.org/packages/source/g/guess-language/${P}.tar.gz"
+SRC_URI="mirror://pypi/g/${PN}/${P}.tar.gz"
+#SRC_URI="http://pypi.python.org/packages/source/g/guess-language/${P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 KEYWORDS="~x86 ~amd64"
@@ -20,6 +21,6 @@ SLOT="0"
 IUSE=""
 
 python_test() {
-    "${PYTHON}" "${MY_PN}/blocks_test.py" || die "Failed blocks_test.py"
+	"${PYTHON}" "${MY_PN}/blocks_test.py" || die "Failed blocks_test.py"
 	"${PYTHON}" "${MY_PN}/guess_language_test.py" || die "Failed guess_language_test.py"
 }
