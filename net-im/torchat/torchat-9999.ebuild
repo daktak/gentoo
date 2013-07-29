@@ -1,18 +1,17 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI="5"
 
 inherit eutils multilib
 
 MY_P=${PN/t/T}
 MY_P=${MY_P/c/C}
 
-
 inherit git-2
-EGIT_REPO_URI="http://github.com/prof7bit/${MY_P}.git"
 
+EGIT_REPO_URI="http://github.com/prof7bit/${MY_P}.git"
 
 DESCRIPTION="Decentralized anonymous instant messenger on top of Tor Hidden Services"
 HOMEPAGE="https://github.com/prof7bit/TorChat#readme"
@@ -31,6 +30,6 @@ RDEPEND="
 DEPEND="${RDEPEND}"
 src_compile()
 {
-	epatch ${FILESDIR}/respect-prefix.patch
+	epatch "${FILESDIR}"/respect-prefix.patch
 	make all
 }

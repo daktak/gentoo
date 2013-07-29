@@ -6,7 +6,7 @@ EAPI=4
 
 inherit git-2
 
-DESCRIPTION="Bitmessage is a P2P communications protocol used to send encrypted messages to another person or to many subscribers."
+DESCRIPTION="P2P communications protocol used to send encrypted messages to another person or to many subscribers"
 HOMEPAGE="http://bitmessage.org"
 
 EGIT_REPO_URI="http://github.com/Bitmessage/PyBitmessage.git"
@@ -17,5 +17,4 @@ KEYWORDS="~x86 ~amd64"
 
 DEPEND="dev-python/PyQt4
 		dev-libs/openssl"
-                                                                                                                                                                                                                              
 RDEPEND="${DEPEND}"
