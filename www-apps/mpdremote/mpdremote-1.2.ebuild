@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -23,8 +23,8 @@ RDEPEND="${DEPEND}"
 src_install() {
 	webapp_src_preinst
 
-	dodoc README 
-	rm -f COPYING README 
+	dodoc README
+	rm -f COPYING README
 
 	insinto "${MY_HTDOCSDIR}"
 	doins -r .

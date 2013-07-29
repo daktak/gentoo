@@ -22,7 +22,7 @@ RDEPEND="${DEPEND}"
 src_install() {
 	webapp_src_preinst
 
-	epatch ${FILESDIR}/${PN}-20130719.patch || die "Could not patch"
+	epatch "${FILESDIR}/${PN}-20130719.patch" || die "Could not patch"
 
 	rm -f README.md
 	rm -f TODO.md

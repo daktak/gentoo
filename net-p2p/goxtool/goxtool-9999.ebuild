@@ -29,4 +29,3 @@ src_install() {
 		doexe ${PN}.py || die
 		dosym /usr/share/${PN}/${PN}.py /usr/bin/${PN} || die
 }
-

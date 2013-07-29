@@ -1,10 +1,10 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header $
+# $Header: $
 
-EAPI=4
+EAPI=5
 
-inherit webapp eutils depend.php 
+inherit webapp eutils depend.php
 
 DESCRIPTION="Web based (PHP Script) photo album viewer/creator"
 HOMEPAGE="http://gallery.menalto.com/"
@@ -29,34 +29,31 @@ RDEPEND="
 REQUIRED_USE="|| ( gd imagemagick )
 	|| ( mysql mysqli )"
 
-
 My_PN="${PN}3"
 S=${WORKDIR}/${My_PN}
 
 need_httpd_cgi
 need_php_httpd
 
-
 src_install() {
 	webapp_src_preinst
 
 	INSTALL_DIR="/${My_PN}"
 
-	cp -R * ${D}/${MY_HTDOCSDIR}
-	cp .htaccess ${D}/${MY_HTDOCSDIR}
+	cp -R * "${D}/${MY_HTDOCSDIR}"
+	cp .htaccess "${D}/${MY_HTDOCSDIR}"
 
-	keepdir ${MY_HTDOCSDIR}/var
-	webapp_serverowned ${MY_HTDOCSDIR}/var
-	webapp_configfile ${MY_HTDOCSDIR}/.htaccess
+	keepdir "${MY_HTDOCSDIR}"/var
+	webapp_serverowned "${MY_HTDOCSDIR}"/var
+	webapp_configfile "${MY_HTDOCSDIR}"/.htaccess
 
 	ewarn "ATTANTION!"
 	ewarn "gallery3 requires short_open_tag to be On"
-	ewarn "You need to edit \"/etc/php/apache2-php5.?/php.ini\"" 
+	ewarn "You need to edit \"/etc/php/apache2-php5.?/php.ini\""
 	ewarn "and change short_open_tag to \"On\" and "
 	ewarn "re-start apache (/etc/init.d/apache2 restart)"
 
-	webapp_postinst_txt en ${FILESDIR}/postinstall-en.txt
+	webapp_postinst_txt en "${FILESDIR}"/postinstall-en.txt
 
 	webapp_src_install
 }
-
