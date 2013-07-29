@@ -1,8 +1,8 @@
-# Copyright 1999-2005 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $net-nntp/es-f/es-f-2.6.0.ebuild
+# $Header: $
 
-EAPI=5
+EAPI="5"
 
 inherit versionator eutils webapp
 
@@ -26,16 +26,16 @@ need_httpd_cgi
 S=${WORKDIR}
 
 src_configure() {
-		#http://sourceforge.net/tracker/index.php?func=detail&aid=3482673&group_id=185222&atid=912405
-		epatch "${FILESDIR}/${P}"-item.patch	
+	#http://sourceforge.net/tracker/index.php?func=detail&aid=3482673&group_id=185222&atid=912405
+	epatch "${FILESDIR}/${P}"-item.patch
 }
 
 src_compile() {
-        :
+	:
 }
 
 src_install() {
-        webapp_src_preinst
+	webapp_src_preinst
 
 	#install Docs
 	dodoc doc/BUGS doc/CONTRIBUTIONS doc/EXTENSIONS doc/INSTALL doc/NEWS \
@@ -45,7 +45,7 @@ src_install() {
 
 	#install htdoc files
 	insinto "${MY_HTDOCSDIR}"
-    doins prepend.dist.php
+	doins prepend.dist.php
 	doins index.inc.php
 	doins favicon.ico
 	doins index.php
@@ -61,7 +61,6 @@ src_install() {
 	doins -r utilities
 	doins -r setup
 	doins web-install.php
-	
+
 	webapp_src_install
 }
-

@@ -34,7 +34,7 @@ DEPEND=">=dev-lang/php-5.0i[gmp,cli,curl,pcntl,ssl,sockets,gd,xmlreader,xmlwrite
 RDEPEND="${DEPEND}"
 
 src_configure() {
-    :
+	:
 }
 
 src_compile() {
@@ -42,36 +42,36 @@ src_compile() {
 }
 
 src_install() {
-        webapp_src_preinst
-		# Install init
-		doinitd "${FILESDIR}/urd" 
-		# Install docs
-		cd "${S}"
-		dodoc docs/CHANGELOG docs/INSTALL docs/README docs/TODO \
-			  docs/UPDATE docs/urdd_protocol docs/COPYING || die
+	webapp_src_preinst
+	# Install init
+	doinitd "${FILESDIR}/urd"
+	# Install docs
+	cd "${S}"
+	dodoc docs/CHANGELOG docs/INSTALL docs/README docs/TODO \
+		docs/UPDATE docs/urdd_protocol docs/COPYING || die
 
-		# Install htdoc files
-		insinto  "${MY_HTDOCSDIR}" 
-		doins -r functions || die
-		doins -r mail_templates || die
-		doins -r html || die
-		doins -r examples || die
-		doins -r install || die
-		doins -r urdd
-		doins index.php urdd.init urdd_syslog.conf \
-			  make_x_lang.php urdd.sh || die
-	    
-		# Install server config file
+	# Install htdoc files
+	insinto  "${MY_HTDOCSDIR}"
+	doins -r functions || die
+	doins -r mail_templates || die
+	doins -r html || die
+	doins -r examples || die
+	doins -r install || die
+	doins -r urdd
+	doins index.php urdd.init urdd_syslog.conf \
+		make_x_lang.php urdd.sh || die
+
+# Install server config file
 #		webapp_server_configfile apache urd.conf
 
-		# Web Server needs to write and modify the following
+# Web Server needs to write and modify the following
 #		webapp_serverowned -R "${MY_HTDOCSDIR}"
 
-		webapp_src_install
+	webapp_src_install
 }
 
 pkg_postinst() {
-    elog "Open 'install.php' in your web browser and follow the install procedure"
+	elog "Open 'install.php' in your web browser and follow the install procedure"
 	elog "Optionally: Run the install.sh from the console as root (eg \
 	sudo ./install.php) to create a system user and group for urd"
 }
