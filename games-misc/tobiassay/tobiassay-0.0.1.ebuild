@@ -19,7 +19,6 @@ DEPEND="games-misc/cowsay
 		games-misc/fortune-mod"
 RDEPEND="${DEPEND}"
 
-
 src_install () {
 	COWV=`equery list --format='$name-$version' cowsay`
 	insinto /usr/share/fortune
