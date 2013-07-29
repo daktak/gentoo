@@ -6,8 +6,7 @@ EAPI=5
 
 inherit eutils
 
-DESCRIPTION="gpgdir is a perl script that uses the CPAN GnuPG::Interface module
-to encrypt and decrypt directories using a gpg key specified in ~/.gpgdirrc."
+DESCRIPTION="Encrypt and decrypt directories using a gpg key specified in ~/.gpgdirrc."
 HOMEPAGE="http://cipherdyne.org/gpgdir/"
 SRC_URI="http://cipherdyne.org/gpgdir/download/${PN}-nodeps-${PV}.tar.gz"
 
@@ -27,8 +26,8 @@ src_install() {
 }
 
 src_test() {
-	cd ${S}/test/
-	for test in ${S}/test/*_test.pl; do
+	cd "${S}"/test/
+	for test in "${S}"/test/*_test.pl; do
 	 ${PERL} $test || die "Failed test "$test
-    done
+	done
 }
