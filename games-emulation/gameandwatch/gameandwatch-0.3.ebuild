@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI="5"
 
 inherit games subversion autotools-utils
 
@@ -34,12 +34,12 @@ RDEPEND="${DEPEND}"
 INSOPTIONS="-ggames"
 
 src_prepare() {
-  cd ${ECONF_SOURCE}
-  autotools-utils_src_prepare || die
+	cd "${ECONF_SOURCE}"
+	autotools-utils_src_prepare || die
 }
 
 src_install() {
-  insinto /usr/share/${PN} || die
-  doins -r ${ECONF_SRC}/data || die
-  dobin ${ECONF_SRC}src/gameandwatch || die
+	insinto /usr/share/${PN} || die
+	doins -r ${ECONF_SRC}/data || die
+	dobin ${ECONF_SRC}src/gameandwatch || die
 }

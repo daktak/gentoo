@@ -27,15 +27,15 @@ INSTALL_BASE="/opt/games/${PN}"
 INSOPTIONS="-ggames"
 
 src_prepare() {
-    :
+	:
 }
 
 src_configure() {
-    :
+	:
 }
 
 src_compile() {
-    :
+	:
 }
 
 src_install() {
