@@ -20,8 +20,7 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 
 src_install() {
-
-	exeinto /usr/local/whack
+	exeinto /usr/local/bin
 	doexe whack-run
 	chmod +s whack-run
 }
