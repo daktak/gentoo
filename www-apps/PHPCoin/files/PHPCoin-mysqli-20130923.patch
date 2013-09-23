@@ -1,0 +1,589 @@
+diff -uNar /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/admin/bitcoind.php ./admin/bitcoind.php
+--- /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/admin/bitcoind.php	2013-09-23 13:20:47.146168182 +1000
++++ ./admin/bitcoind.php	2013-09-23 13:32:01.498203669 +1000
+@@ -33,8 +33,8 @@
+ <?php
+ 	$users_balance = 0;
+ 	$sql = "SELECT `balance` FROM accounts";
+-	$q = mysql_query($sql);
+-	while($r = mysql_fetch_assoc($q)){
++	$q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++	while($r = mysqli_fetch_assoc($q)){
+ 		$users_balance += $r['balance'];
+ 	}
+ 	$diff = $info['balance'] - $users_balance;
+@@ -58,8 +58,8 @@
+ 	}
+ 	
+ 	$sql = "SELECT COUNT(*) AS nUsers FROM users";
+-	$q = mysql_query($sql);
+-	$r = mysql_fetch_array($q);
++	$q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++	$r = mysqli_fetch_array($q);
+ ?>	
+ 	<div class="infoLine">
+ 		<label>Reg. Users</label>
+@@ -67,8 +67,8 @@
+ 	</div>	
+ <?php
+ 	$sql = "SELECT COUNT(*) AS nAccounts FROM accounts";
+-	$q = mysql_query($sql);
+-	$t = mysql_fetch_array($q);	
++	$q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++	$t = mysqli_fetch_array($q);	
+ ?>	
+ 	<div class="infoLine">
+ 		<label>Nr. Accounts</label>
+diff -uNar /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/html/accounts.php ./html/accounts.php
+--- /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/html/accounts.php	2013-09-23 13:21:12.679169525 +1000
++++ ./html/accounts.php	2013-09-23 13:32:01.506203669 +1000
+@@ -4,8 +4,8 @@
+     include("menus/menus.php");
+     
+     $sql = "SELECT COUNT(*) AS myAccounts FROM accounts WHERE uid = {$_SESSION['id']}";
+-    $q = mysql_query($sql);
+-    $r = mysql_fetch_array($q);
++    $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++    $r = mysqli_fetch_array($q);
+     $nrAccounts = $r['myAccounts'];
+ ?>
+ <div id="mainBodyLMenu">
+@@ -30,11 +30,11 @@
+     </tr>
+ <?php
+     $sql = "SELECT * FROM accounts WHERE uid = {$_SESSION['id']} ORDER BY account_id ASC";
+-    $q = mysql_query($sql);
++    $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
+     $k = 0;
+     $total_accounts = 0;
+     $accounts = 0;
+-    while($r = mysql_fetch_assoc($q)){
++    while($r = mysqli_fetch_assoc($q)){
+         $total_accounts += $r['balance'];
+         $accounts++;
+ ?>
+diff -uNar /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/html/main.php ./html/main.php
+--- /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/html/main.php	2013-09-23 13:22:12.431172670 +1000
++++ ./html/main.php	2013-09-23 13:32:01.508203669 +1000
+@@ -33,8 +33,8 @@
+     <select id="active_account">
+ <?php
+     $sql = "SELECT * FROM accounts WHERE uid = {$_SESSION['id']}";
+-    $q = mysql_query($sql);
+-    while($r = mysql_fetch_assoc($q)){
++    $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++    while($r = mysqli_fetch_assoc($q)){
+         if($actAcount == $r['account_id']){
+          $accountBalance = $r['balance'];
+          $activeAccounID = $r['id'];
+@@ -94,14 +94,14 @@
+         </tr>
+ <?php
+     $sql = "SELECT * FROM movements WHERE account_id = $activeAccounID ORDER BY id DESC LIMIT 0,10";
+-    $q = mysql_query($sql);
+-    if(!mysql_num_rows($q)){
++    $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++    if(!mysqli_num_rows($q)){
+ ?>
+     <tr><td colspan="5" align="center">nothing to display</td></tr>
+ <?php        
+     }
+     $k = 0;
+-    while($r = mysql_fetch_assoc($q)){
++    while($r = mysqli_fetch_assoc($q)){
+ ?>
+      <tr class="listingRow<?php echo $k;?>">
+         <td><?php echo $r['dtime'];?></td>
+diff -uNar /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/inc/general_functions.php ./inc/general_functions.php
+--- /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/inc/general_functions.php	2013-09-23 13:22:38.077174019 +1000
++++ ./inc/general_functions.php	2013-09-23 13:32:01.509203669 +1000
+@@ -7,7 +7,7 @@
+   
+   function makeSQLSafe($str){
+       if(get_magic_quotes_gpc()) $str = stripslashes($str);
+-      return mysql_real_escape_string($str);
++      return ((isset($GLOBALS["___mysqli_ston"]) && is_object($GLOBALS["___mysqli_ston"])) ? mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $str) : ((trigger_error("[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.", E_USER_ERROR)) ? "" : ""));
+   }
+     
+ ?>
+diff -uNar /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/phpcoin-cron/cron.php ./phpcoin-cron/cron.php
+--- /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/phpcoin-cron/cron.php	2013-09-23 13:20:47.153168182 +1000
++++ ./phpcoin-cron/cron.php	2013-09-23 13:32:01.524203670 +1000
+@@ -22,76 +22,76 @@
+       if(!is_array($acc) || sizeof($acc) != 3) continue; //Invalid account identifier
+       //Get the account
+       $sql = "SELECT * FROM accounts WHERE uid = {$acc[1]} AND account_id = {$acc[2]}";
+-      $q = mysql_query($sql);
+-      if(!mysql_num_rows($q)) continue; //Account not found
+-      $act = mysql_fetch_assoc($q);
++      $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++      if(!mysqli_num_rows($q)) continue; //Account not found
++      $act = mysqli_fetch_assoc($q);
+       $b->move($k,$config['central_account']['value'],$a);
+       $prevBal = 0;
+       $sql = "SELECT balance FROM movements WHERE account_id = {$act['id']} ORDER BY id DESC LIMIT 0,1";
+-      $q = mysql_query($sql);
+-      if(mysql_num_rows($q)){
+-          $pbal = mysql_fetch_assoc($q);
++      $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++      if(mysqli_num_rows($q)){
++          $pbal = mysqli_fetch_assoc($q);
+           $prevBal = $pbal['balance'];
+       }
+       $newBal = $prevBal + $a;
+       //Get the current block
+       $cBlock = $b->getblockcount();      
+-      mysql_query("INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$act['id']},'".date("Y-m-d H:i:s")."','Bitcoin deposit',$a,1,$newBal,$cBlock)");
+-      mysql_query("UPDATE accounts SET balance = balance + $a WHERE id = {$act['id']}");
++      mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$act['id']},'".date("Y-m-d H:i:s")."','Bitcoin deposit',$a,1,$newBal,$cBlock)");
++      mysqli_query($GLOBALS["___mysqli_ston"], "UPDATE accounts SET balance = balance + $a WHERE id = {$act['id']}");
+       
+       //Check if account is forwarded
+       if($act['forward'] == 1){
+           $isValid = $b->validateaddress($act['forward_to']);
+           if($isValid['isvalid'] != 1){
+               $invBTC = makeSQLSafe($act['forward_to']);
+-              mysql_query("INSERT INTO messages(`uid`,`dtime`,`message`) VALUES({$acc[1]},'".date("Y-m-d H:i:s")."','ERROR Invalid address to forward your deposits to :: $invBTC. Amount remains in your account!')");
++              mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO messages(`uid`,`dtime`,`message`) VALUES({$acc[1]},'".date("Y-m-d H:i:s")."','ERROR Invalid address to forward your deposits to :: $invBTC. Amount remains in your account!')");
+           }elseif($isValid['ismine'] == 1){
+               //It's forward to a local address, so we just move the balance
+               $recAct = explode("_",$isValid['account']);
+               
+               if(!is_array($recAct) || sizeof($recAct) != 3){
+-                mysql_query("INSERT INTO messages(`uid`,`dtime`,`message`) VALUES({$acc[1]},'".date("Y-m-d H:i:s")."','ERROR Invalid account to forward your deposits to - local account is not an user account :: $invBTC. Amount remains in your account!')");    
++                mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO messages(`uid`,`dtime`,`message`) VALUES({$acc[1]},'".date("Y-m-d H:i:s")."','ERROR Invalid account to forward your deposits to - local account is not an user account :: $invBTC. Amount remains in your account!')");    
+               }else{
+                 $sql = "SELECT * FROM accounts WHERE uid = {$recAct[1]} AND account_id = {$recAct[2]}";
+-                $q = mysql_query($sql);
+-                if(!mysql_num_rows($q)){
+-                    mysql_query("INSERT INTO messages(`uid`,`dtime`,`message`) VALUES({$acc[1]},'".date("Y-m-d H:i:s")."','ERROR Invalid account to forward your deposits to - local account not found :: $invBTC. Amount remains in your account!')");                            
++                $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++                if(!mysqli_num_rows($q)){
++                    mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO messages(`uid`,`dtime`,`message`) VALUES({$acc[1]},'".date("Y-m-d H:i:s")."','ERROR Invalid account to forward your deposits to - local account not found :: $invBTC. Amount remains in your account!')");                            
+                 }else{
+-                    $receiver = mysql_fetch_assoc($q);  
++                    $receiver = mysqli_fetch_assoc($q);  
+                     $nextBal = $newBal - $a;    
+-                    mysql_query("INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$act['id']},'".date("Y-m-d H:i:s")."','Forward to {$act['forward_to']}',$a,0,$nextBal,$cBlock)");
+-                    mysql_query("UPDATE accounts SET balance = balance - $a WHERE id = {$act['id']}"); 
++                    mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$act['id']},'".date("Y-m-d H:i:s")."','Forward to {$act['forward_to']}',$a,0,$nextBal,$cBlock)");
++                    mysqli_query($GLOBALS["___mysqli_ston"], "UPDATE accounts SET balance = balance - $a WHERE id = {$act['id']}"); 
+                     //A small issue; re-forwarded accounts will not forward to prevent loop attacks.
+                    $prevBal = 0;
+                    $sql = "SELECT balance FROM movements WHERE account_id = {$receiver['id']} ORDER BY id DESC LIMIT 0,1";
+-                   $q = mysql_query($sql);
+-                   if(mysql_num_rows($q)){
+-                       $pbal = mysql_fetch_assoc($q);
++                   $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++                   if(mysqli_num_rows($q)){
++                       $pbal = mysqli_fetch_assoc($q);
+                        $prevBal = $pbal['balance'];
+                    }
+                    $newBal = $prevBal + $a;                    
+-                   mysql_query("INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$receiver['id']},'".date("Y-m-d H:i:s")."','Bitcoin forward',$a,1,$newBal,$cBlock)");
+-                   mysql_query("UPDATE accounts SET balance = balance + $a WHERE id = {$receiver['id']}");                    
++                   mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$receiver['id']},'".date("Y-m-d H:i:s")."','Bitcoin forward',$a,1,$newBal,$cBlock)");
++                   mysqli_query($GLOBALS["___mysqli_ston"], "UPDATE accounts SET balance = balance + $a WHERE id = {$receiver['id']}");                    
+                     
+                 }
+               }
+           }else{
+                     $txamount = $a - 0.0005;
+                     if($txamount < 0){
+-                       mysql_query("INSERT INTO messages(`uid`,`dtime`,`message`) VALUES({$acc[1]},'".date("Y-m-d H:i:s")."','ERROR Funds to forward aren\'t enough to pay the bitcoin network fee. Amount remains in your account!')");                             
++                       mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO messages(`uid`,`dtime`,`message`) VALUES({$acc[1]},'".date("Y-m-d H:i:s")."','ERROR Funds to forward aren\'t enough to pay the bitcoin network fee. Amount remains in your account!')");                             
+                     }else{
+                         $txid = $b->sendfrom($config['central_account']['value'],$act['forward_to'],$txamount,(int)$config['confirmations']['value']);
+                         $nextBal = $newBal - $txamount;    
+-                        mysql_query("INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$act['id']},'".date("Y-m-d H:i:s")."','Forward to {$act['forward_to']}',$txamount,0,$nextBal,$cBlock)");
+-                        mysql_query("UPDATE accounts SET balance = balance - $txamount WHERE id = {$act['id']}");               
++                        mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$act['id']},'".date("Y-m-d H:i:s")."','Forward to {$act['forward_to']}',$txamount,0,$nextBal,$cBlock)");
++                        mysqli_query($GLOBALS["___mysqli_ston"], "UPDATE accounts SET balance = balance - $txamount WHERE id = {$act['id']}");               
+                         //Get the transaction info to see what went with fees
+                         $txinfo = $b->gettransaction($txid);
+                         $fee = 0;
+                         $fee -= $txinfo['fee'];
+                         $nextBal -= $fee;
+                         if($fee > 0){
+-                            mysql_query("INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$act['id']},'".date("Y-m-d H:i:s")."','Bitcoin Network Fee',$fee,0,$nextBal,$cBlock)");
+-                            mysql_query("UPDATE accounts SET balance = balance - $fee WHERE id = {$act['id']}");                                           
++                            mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$act['id']},'".date("Y-m-d H:i:s")."','Bitcoin Network Fee',$fee,0,$nextBal,$cBlock)");
++                            mysqli_query($GLOBALS["___mysqli_ston"], "UPDATE accounts SET balance = balance - $fee WHERE id = {$act['id']}");                                           
+                         }
+                     }
+           }
+diff -uNar /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/proc/changePassword.php ./proc/changePassword.php
+--- /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/proc/changePassword.php	2013-09-23 13:20:47.154168182 +1000
++++ ./proc/changePassword.php	2013-09-23 13:32:01.526203670 +1000
+@@ -9,8 +9,8 @@
+     if(empty($e) && $npass != $npass2) $e[] = "Password and confirmation doesn't match!";
+    if(empty($e)){
+        $sql = "SELECT a.pass, b.salt FROM users AS a, salt AS b WHERE a.id = {$_SESSION['id']} AND b.uid = a.id";
+-       $q = mysql_query($sql);
+-       $mu = mysql_fetch_assoc($q);
++       $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++       $mu = mysqli_fetch_assoc($q);
+        $testPass = hash("ripemd160",$pass . $mu['salt']);
+        if($testPass != $mu['pass']) $e[] = "Wrong current password!";
+    }     
+@@ -18,8 +18,8 @@
+    if(empty($e)){
+        $npass_salt = md5(rand() . microtime() . $_SESSION['name']);
+        $npass_hash = hash("ripemd160",$npass . $npass_salt);
+-       mysql_query("UPDATE users SET pass = '$npass_hash' WHERE id = {$_SESSION['id']}");
+-       mysql_query("UPDATE salt SET salt = '$npass_salt' WHERE uid = {$_SESSION['id']}");
++       mysqli_query($GLOBALS["___mysqli_ston"], "UPDATE users SET pass = '$npass_hash' WHERE id = {$_SESSION['id']}");
++       mysqli_query($GLOBALS["___mysqli_ston"], "UPDATE salt SET salt = '$npass_salt' WHERE uid = {$_SESSION['id']}");
+        
+        $success = "Password updated";
+    }else{
+diff -uNar /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/proc/createAccount.php ./proc/createAccount.php
+--- /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/proc/createAccount.php	2013-09-23 13:20:47.154168182 +1000
++++ ./proc/createAccount.php	2013-09-23 13:32:01.526203670 +1000
+@@ -4,8 +4,8 @@
+     $e = array();
+     
+     $sql = "SELECT COUNT(*) AS myAccounts FROM accounts WHERE uid = {$_SESSION['id']}";
+-    $q = mysql_query($sql);
+-    $r = mysql_fetch_array($q);
++    $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++    $r = mysqli_fetch_array($q);
+     $nrAccounts = $r['myAccounts'];
+     
+     if($nrAccounts > $config['user_l_accounts']['value']) $e[] = "You already have the maximum allowed accounts per user in this system!";    
+diff -uNar /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/proc/doCreateAccount.php ./proc/doCreateAccount.php
+--- /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/proc/doCreateAccount.php	2013-09-23 13:24:19.869179376 +1000
++++ ./proc/doCreateAccount.php	2013-09-23 13:32:01.548203671 +1000
+@@ -4,8 +4,8 @@
+     $e = array();
+     
+     $sql = "SELECT COUNT(*) AS myAccounts FROM accounts WHERE uid = {$_SESSION['id']}";
+-    $q = mysql_query($sql);
+-    $r = mysql_fetch_array($q);
++    $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++    $r = mysqli_fetch_array($q);
+     $nrAccounts = $r['myAccounts'];
+     
+     if($nrAccounts > $config['user_l_accounts']['value']) $e[] = "You already have the maximum allowed accounts per user in this system!";    
+@@ -20,8 +20,8 @@
+     
+     if(empty($e)){
+         $sql = "SELECT * FROM accounts WHERE account_name LIKE '$name' AND uid = {$_SESSION['id']}" ## AND id != $aid";
+-        $q = mysql_query($sql);
+-        if(mysql_num_rows($q)) $e[] = "You already have another account with that same name!";                
++        $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++        if(mysqli_num_rows($q)) $e[] = "You already have another account with that same name!";                
+     }    
+     
+     if(empty($e) && $fwd == 1){
+@@ -31,8 +31,8 @@
+     
+     if(empty($e)){
+         $sql = "SELECT account_id FROM accounts WHERE uid = {$_SESSION['id']} ORDER BY account_id DESC LIMIT 0,1";
+-        $q = mysql_query($sql);
+-        $r = mysql_fetch_assoc($q);
++        $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++        $r = mysqli_fetch_assoc($q);
+         $myNewId = $r['account_id'] + 1;
+         $c = array(); $v = array();
+         $c[] = "`uid`"; $v[] = $_SESSION['id'];
+@@ -42,7 +42,7 @@
+         $c[] = "`forward`"; $v[] = $fwd;
+         $c[] = "`forward_to`"; $v[] = "'$fwdto'";
+         $sql = "INSERT INTO accounts(".implode(",",$c).") VALUES(".implode(",",$v).")";
+-        mysql_query($sql);
++        mysqli_query($GLOBALS["___mysqli_ston"], $sql);
+         $success = "Account created!";
+     }else{
+         $error = implode("<br/>",$e);
+diff -uNar /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/proc/edit_account.php ./proc/edit_account.php
+--- /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/proc/edit_account.php	2013-09-23 13:20:47.155168182 +1000
++++ ./proc/edit_account.php	2013-09-23 13:32:01.527203670 +1000
+@@ -7,11 +7,11 @@
+     
+     if(empty($e)){
+         $sql = "SELECT * FROM accounts WHERE id = $aid AND uid = {$_SESSION['id']}";
+-        $q = mysql_query($sql);
+-        if(!mysql_num_rows($q)) $e[] = "Account not found!";
++        $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++        if(!mysqli_num_rows($q)) $e[] = "Account not found!";
+     }
+     if(empty($e)){
+-        $account_to_edit = mysql_fetch_assoc($q);
++        $account_to_edit = mysqli_fetch_assoc($q);
+         $pg = "forms/edit_account.php";
+     }else{
+         $error = implode("<br/>",$e);
+diff -uNar /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/proc/login.php ./proc/login.php
+--- /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/proc/login.php	2013-09-23 13:20:47.155168182 +1000
++++ ./proc/login.php	2013-09-23 13:32:01.527203670 +1000
+@@ -7,11 +7,11 @@
+     
+    if(empty($e)){
+        $sql = "SELECT a.*, b.salt FROM users AS a, salt AS b WHERE a.user LIKE '$user' AND b.uid = a.id";
+-       $q = mysql_query($sql);
+-       if(!mysql_num_rows($q)) $e[] = "Username not found or wrong password!";
++       $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++       if(!mysqli_num_rows($q)) $e[] = "Username not found or wrong password!";
+    } 
+    if(empty($e)){
+-       $u = mysql_fetch_assoc($q);
++       $u = mysqli_fetch_assoc($q);
+        $tpass = hash("ripemd160",$pass.$u['salt']);
+        if($tpass != $u['pass']) $e[] = "Username not found or wrong password!";
+    } 
+diff -uNar /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/proc/prepare_send.php ./proc/prepare_send.php
+--- /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/proc/prepare_send.php	2013-09-23 13:20:47.155168182 +1000
++++ ./proc/prepare_send.php	2013-09-23 13:32:01.531203670 +1000
+@@ -6,11 +6,11 @@
+   
+   if(empty($e)){
+     $sql = "SELECT balance FROM accounts WHERE uid = {$_SESSION['id']} AND account_id = {$act[2]}";
+-    $q = mysql_query($sql);
+-    if(!mysql_num_rows($q)) $e[] = "Active account not found!";
++    $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++    if(!mysqli_num_rows($q)) $e[] = "Active account not found!";
+   }
+   if(empty($e)){
+-    $account = mysql_fetch_assoc($q);
++    $account = mysqli_fetch_assoc($q);
+     $available = $account['balance'] - 0.0005;    
+     if($available <= 0) $e[] = "You've no funds to withdraw!";
+   }
+diff -uNar /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/proc/register.php ./proc/register.php
+--- /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/proc/register.php	2013-09-23 13:20:47.155168182 +1000
++++ ./proc/register.php	2013-09-23 13:32:01.534203671 +1000
+@@ -19,23 +19,23 @@
+    
+    if(empty($e)){
+        $sql = "SELECT * FROM users WHERE user LIKE '$user'";
+-       $q = mysql_query($sql);
+-       if(mysql_num_rows($q)) $e[] = "Username in use!";
++       $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++       if(mysqli_num_rows($q)) $e[] = "Username in use!";
+    }
+    
+    if(empty($e) && $email){
+        $sql = "SELECT * FROM users WHERE email LIKE '$email'";
+-       $q = mysql_query($sql);
+-       if(mysql_num_rows($q)) $e[] = "Email already registered!";
++       $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++       if(mysqli_num_rows($q)) $e[] = "Email already registered!";
+    }   
+    
+    if(empty($e)){
+        $salt = md5(rand().$name.microtime());
+        $passh = hash("ripemd160",$pass.$salt);
+-       mysql_query("INSERT INTO users(user,pass,name,email) VALUES('$user','$passh','$name','$email')");
+-       $myuid = mysql_insert_id();
+-       mysql_query("INSERT INTO salt(uid,salt) VALUES($myuid,'$salt')");
+-       mysql_query("INSERT INTO accounts(uid,account_id,account_name) VALUES($myuid,1,'Default')");
++       mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO users(user,pass,name,email) VALUES('$user','$passh','$name','$email')");
++       $myuid = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);
++       mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO salt(uid,salt) VALUES($myuid,'$salt')");
++       mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO accounts(uid,account_id,account_name) VALUES($myuid,1,'Default')");
+        $success = "You're now registered to this system";
+        $_SESSION['id'] = $myuid;
+        $_SESSION['user'] = $user;
+diff -uNar /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/proc/send.php ./proc/send.php
+--- /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/proc/send.php	2013-09-23 13:20:47.155168182 +1000
++++ ./proc/send.php	2013-09-23 13:32:01.540203671 +1000
+@@ -8,8 +8,8 @@
+     
+     if(empty($e)){
+        $sql = "SELECT a.pass, b.salt FROM users AS a, salt AS b WHERE a.id = {$_SESSION['id']} AND b.uid = a.id";
+-       $q = mysql_query($sql);
+-       $mu = mysql_fetch_assoc($q);
++       $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++       $mu = mysqli_fetch_assoc($q);
+        $testPass = hash("ripemd160",$pass . $mu['salt']);
+        if($testPass != $mu['pass']) $e[] = "Wrong current password!";        
+     }
+@@ -26,12 +26,12 @@
+     
+     if(empty($e)){
+         $sql = "SELECT id,balance FROM accounts WHERE uid = {$_SESSION['id']} AND account_id = {$act[2]}";
+-        $q = mysql_query($sql);
+-        if(!mysql_num_rows($q)) $e[] = "Active account not found!";        
++        $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++        if(!mysqli_num_rows($q)) $e[] = "Active account not found!";        
+     }
+     
+     if(empty($e)){
+-        $account = mysql_fetch_assoc($q);
++        $account = mysqli_fetch_assoc($q);
+         $available = $account['balance'] - 0.0005;    
+         if($available <= 0) $e[] = "You've no funds to withdraw!";        
+     }
+@@ -49,9 +49,9 @@
+         
+         $previous_balance = 0;
+         $sql = "SELECT * FROM movements WHERE account_id = {$account['id']} ORDER BY id DESC LIMIT 0,1";
+-        $q = mysql_query($sql);
+-        if(mysql_num_rows($q)){
+-            $lastmove = mysql_fetch_assoc($q);
++        $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++        if(mysqli_num_rows($q)){
++            $lastmove = mysqli_fetch_assoc($q);
+             $previous_balance = $lastmove['balance'];
+         }
+         
+@@ -63,27 +63,27 @@
+                 $e[] = "Invalid destination local account!";
+               }else{
+                 $sql = "SELECT * FROM accounts WHERE uid = {$recAct[1]} AND account_id = {$recAct[2]}";
+-                $q = mysql_query($sql);
+-                if(!mysql_num_rows($q)){
++                $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++                if(!mysqli_num_rows($q)){
+                     $e[] = "Local destination address but the destination account wasn't found!";
+                 }else{
+-                    $receiver = mysql_fetch_assoc($q);  
++                    $receiver = mysqli_fetch_assoc($q);  
+                     $new_balance = $previous_balance - $amount;    
+                     //Get the current block
+                     $cBlock = $b->getblockcount();
+-                    mysql_query("INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$account['id']},'".date("Y-m-d H:i:s")."','Payment to $addrto',$amount,0,$new_balance,$cBlock)");
+-                    mysql_query("UPDATE accounts SET balance = balance - $amount WHERE id = {$account['id']}"); 
++                    mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$account['id']},'".date("Y-m-d H:i:s")."','Payment to $addrto',$amount,0,$new_balance,$cBlock)");
++                    mysqli_query($GLOBALS["___mysqli_ston"], "UPDATE accounts SET balance = balance - $amount WHERE id = {$account['id']}"); 
+                     //A small issue; if the destination account is forwarded, will not forward to prevent loop attacks.
+                    $prevBal = 0;
+                    $sql = "SELECT balance FROM movements WHERE account_id = {$receiver['id']} ORDER BY id DESC LIMIT 0,1";
+-                   $q = mysql_query($sql);
+-                   if(mysql_num_rows($q)){
+-                       $pbal = mysql_fetch_assoc($q);
++                   $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++                   if(mysqli_num_rows($q)){
++                       $pbal = mysqli_fetch_assoc($q);
+                        $prevBal = $pbal['balance'];
+                    }
+                    $newBal = $prevBal + $amount;                    
+-                   mysql_query("INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$receiver['id']},'".date("Y-m-d H:i:s")."','Payment from {$_SESSION['name']}',$amount,1,$newBal,$cBlock)");
+-                   mysql_query("UPDATE accounts SET balance = balance + $amount WHERE id = {$receiver['id']}");                    
++                   mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$receiver['id']},'".date("Y-m-d H:i:s")."','Payment from {$_SESSION['name']}',$amount,1,$newBal,$cBlock)");
++                   mysqli_query($GLOBALS["___mysqli_ston"], "UPDATE accounts SET balance = balance + $amount WHERE id = {$receiver['id']}");                    
+                     
+                 }
+               }        
+@@ -94,16 +94,16 @@
+                         $new_balance = $previous_balance - $amount;    
+                         //Get the current block
+                         $cBlock = $b->getblockcount();
+-                        mysql_query("INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$account['id']},'".date("Y-m-d H:i:s")."','Payment to $addrto',$amount,0,$new_balance,$cBlock)");
+-                        mysql_query("UPDATE accounts SET balance = balance - $amount WHERE id = {$account['id']}");               
++                        mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$account['id']},'".date("Y-m-d H:i:s")."','Payment to $addrto',$amount,0,$new_balance,$cBlock)");
++                        mysqli_query($GLOBALS["___mysqli_ston"], "UPDATE accounts SET balance = balance - $amount WHERE id = {$account['id']}");               
+                         //Get the transaction info to see what went with fees
+                         $txinfo = $b->gettransaction($txid);
+                         $fee = 0;
+                         $fee -= $txinfo['fee'];
+                         $new_balance -= $fee;
+                         if($fee > 0){
+-                            mysql_query("INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$account['id']},'".date("Y-m-d H:i:s")."','Bitcoin Network Fee',$fee,0,$new_balance,$cBlock)");
+-                            mysql_query("UPDATE accounts SET balance = balance - $fee WHERE id = {$account['id']}");                                           
++                            mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$account['id']},'".date("Y-m-d H:i:s")."','Bitcoin Network Fee',$fee,0,$new_balance,$cBlock)");
++                            mysqli_query($GLOBALS["___mysqli_ston"], "UPDATE accounts SET balance = balance - $fee WHERE id = {$account['id']}");                                           
+                         }                
+             }
+     }
+diff -uNar /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/proc/switchAccount.php ./proc/switchAccount.php
+--- /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/proc/switchAccount.php	2013-09-23 13:20:47.155168182 +1000
++++ ./proc/switchAccount.php	2013-09-23 13:32:01.540203671 +1000
+@@ -7,8 +7,8 @@
+     
+     if(empty($e)){
+         $sql = "SELECT * FROM accounts WHERE account_id = $id AND uid = {$_SESSION['id']} LIMIT 0,1";
+-        $q = mysql_query($sql);
+-        if(!mysql_num_rows($q)) $e[] = "Account not found!";
++        $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++        if(!mysqli_num_rows($q)) $e[] = "Account not found!";
+     }
+     
+     if(empty($e)){
+diff -uNar /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/proc/updateAccount.php ./proc/updateAccount.php
+--- /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/proc/updateAccount.php	2013-09-23 13:20:47.155168182 +1000
++++ ./proc/updateAccount.php	2013-09-23 13:32:01.543203671 +1000
+@@ -12,20 +12,20 @@
+     if($fwd == 1 && !$fwdto) $e[] = "You must enter a bitcoin address to forward to!";
+     if(empty($e)){
+        $sql = "SELECT a.pass, b.salt FROM users AS a, salt AS b WHERE a.id = {$_SESSION['id']} AND b.uid = a.id";
+-       $q = mysql_query($sql);
+-       $mu = mysql_fetch_assoc($q);
++       $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++       $mu = mysqli_fetch_assoc($q);
+        $testPass = hash("ripemd160",$pass . $mu['salt']);
+        if($testPass != $mu['pass']) $e[] = "Wrong current password!";        
+     }
+     if(empty($e)){
+         $sql = "SELECT * FROM accounts WHERE id = $aid AND uid = {$_SESSION['id']}";
+-        $q = mysql_query($sql);
+-        if(!mysql_num_rows($q)) $e[] = "Account not found!";        
++        $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++        if(!mysqli_num_rows($q)) $e[] = "Account not found!";        
+     }
+     if(empty($e)){
+         $sql = "SELECT * FROM accounts WHERE account_name LIKE '$name' AND uid = {$_SESSION['id']} AND id != $aid";
+-        $q = mysql_query($sql);
+-        if(mysql_num_rows($q)) $e[] = "You already have another account with that same name!";                
++        $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++        if(mysqli_num_rows($q)) $e[] = "You already have another account with that same name!";                
+     }
+     
+     if(empty($e) && $fwd == 1){
+@@ -34,7 +34,7 @@
+     }
+     if(empty($e)){
+         $sql = "UPDATE accounts SET account_name = '$name', forward = $fwd, forward_to = '$fwdto' WHERE id = $aid";
+-        mysql_query($sql);
++        mysqli_query($GLOBALS["___mysqli_ston"], $sql);
+         $success = "Account updated";
+     }else{
+         $error = implode("<br/>",$e);
+diff -uNar /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/proc/updateBasicInfo.php ./proc/updateBasicInfo.php
+--- /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/proc/updateBasicInfo.php	2013-09-23 13:20:47.155168182 +1000
++++ ./proc/updateBasicInfo.php	2013-09-23 13:32:01.546203671 +1000
+@@ -14,17 +14,17 @@
+     
+    if(empty($e)){
+        $sql = "SELECT * FROM users WHERE user LIKE '$user' AND id != {$_SESSION['id']}";
+-       $q = mysql_query($sql);
+-       if(mysql_num_rows($q)) $e[] = "Username in use!";
++       $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++       if(mysqli_num_rows($q)) $e[] = "Username in use!";
+    }
+    if(empty($e) && $email){
+        $sql = "SELECT * FROM users WHERE email LIKE '$email' AND id != {$_SESSION['id']}";
+-       $q = mysql_query($sql);
+-       if(mysql_num_rows($q)) $e[] = "Email already registered!";
++       $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++       if(mysqli_num_rows($q)) $e[] = "Email already registered!";
+    }       
+    
+    if(empty($e)){
+-        mysql_query("UPDATE users SET user = '$user', name = '$name', email = '$email' WHERE id = {$_SESSION['id']}");
++        mysqli_query($GLOBALS["___mysqli_ston"], "UPDATE users SET user = '$user', name = '$name', email = '$email' WHERE id = {$_SESSION['id']}");
+         $_SESSION['name'] = $name;
+         $_SESSION['user'] = $user;
+         $_SESSION['email'] = $email;
+diff -uNar /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/sys/config.php ./sys/config.php
+--- /var/tmp/portage/www-apps/PHPCoin-9999-after1patch/work/PHPCoin-9999/sys/config.php	2013-09-23 13:20:47.155168182 +1000
++++ ./sys/config.php	2013-09-23 13:32:01.549203671 +1000
+@@ -11,13 +11,13 @@
+   $btc_port = "8332";
+   
+ //----------------------- NOTHING TO CONFIGURE BELLOW THIS LINE ---------//
+-  mysql_connect($db_host,$db_user,$db_pass) || die("Unable to connect to DB!");
+-  mysql_select_db($db_name) || die("Unable to select DB!");
++  ($GLOBALS["___mysqli_ston"] = mysqli_connect($db_host, $db_user, $db_pass)) || die("Unable to connect to DB!");
++  ((bool)mysqli_query($GLOBALS["___mysqli_ston"], "USE $db_name")) || die("Unable to select DB!");
+   
+   $config = array();
+   $sql = "SELECT * FROM config";
+-  $q = mysql_query($sql);
+-  while($r = mysql_fetch_assoc($q)){
++  $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
++  while($r = mysqli_fetch_assoc($q)){
+       $config[$r['key']] = array("value" => $r['value'], "explain" => $r['explain']);
+   }
+ ?>
