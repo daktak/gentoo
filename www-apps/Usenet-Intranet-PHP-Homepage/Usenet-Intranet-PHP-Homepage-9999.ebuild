@@ -20,6 +20,7 @@ RDEPEND="${DEPEND}"
 
 src_prepare() {
 	epatch "${FILESDIR}/webroot.patch"
+	epatch "${FILESDIR}/multi-dl.patch"
 }
 
 src_install() {

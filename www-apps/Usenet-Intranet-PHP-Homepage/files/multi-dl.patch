@@ -1,0 +1,24 @@
+--- index.php	2013-10-11 16:49:55.445810543 +1100
++++ htdocs/index.php	2013-10-11 16:45:56.727535003 +1100
+@@ -128,9 +128,10 @@
+ 					$sabStatusXML = $sabURL."/api?mode=qstatus&output=xml&apikey=".$config['sabnzbdAPI'];
+ 					if($config['debug']){echo "SABnzbd Status URL: ".$sabStatusXML;}
+ 					$data = simplexml_load_file($sabStatusXML);
+-					$filename = $data->jobs[0]->job->filename;
+-					$mbFull = $data->jobs[0]->job->mb;
+-					$mbLeft = $data->jobs[0]->job->mbleft;
++					for($i = 0, $j = count($data->jobs[0]->job); $i < $j ; $i++) {
++					$filename = $data->jobs[0]->job[$i]->filename;
++					$mbFull = $data->jobs[0]->job[$i]->mb;
++					$mbLeft = $data->jobs[0]->job[$i]->mbleft;
+ 					$mbDone = $mbFull - $mbLeft;
+ 
+ 					if($filename) {
+@@ -150,6 +151,7 @@
+ 						echo "<em class='currentdl'>No current downloads</em>";
+ 
+ 					}
++					}
+ 				?>
+ 
+ 			</div>
