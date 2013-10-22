@@ -13,18 +13,15 @@ EGIT_REPO_URI="https://github.com/BCEmporium/${PN}.git"
 
 LICENSE=""
 KEYWORDS="~amd64 ~x86"
-IUSE="mysqli"
+IUSE=""
 
 DEPEND="net-p2p/bitcoind
 dev-lang/php
-mysqli? ( dev-lang/php[mysqli] )"
+dev-lang/php[mysqli] "
 RDEPEND="${DEPEND}"
 
 src_install() {
 webapp_src_preinst
-
-#epatch "${FILESDIR}/${PN}-20130719.patch" || die "Could not patch"
-#use mysqli && epatch "${FILESDIR}/${PN}-mysqli-20130923.patch" || die "Could not patch for mysqli"
 
 rm -f README.md
 rm -f TODO.md
