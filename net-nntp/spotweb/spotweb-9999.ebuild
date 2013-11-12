@@ -9,7 +9,7 @@ inherit eutils user git-2 webapp
 PYTHON_DEPEND="2:2.6"                                                                                                                                                                                              
                                                                                                                                                                                                                    
 EGIT_REPO_URI="https://github.com/spotweb/spotweb.git"                                                                                                                                                             
-EGIT_MASTER="refactor" 
+#EGIT_MASTER="refactor" 
                                                                                                                                                                                                                    
 DESCRIPTION="Spotweb is a webbased usenet binary resource indexer based on the protocol and development done by Spotnet"                                                                                           
 HOMEPAGE="http://github.com/spotnet"                                                                                                                                                                               
