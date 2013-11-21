@@ -10,7 +10,7 @@ inherit db-use eutils versionator
 
 DESCRIPTION="A P2P network based domain name system"
 HOMEPAGE="https://dot-bit.org/"
-SRC_URI="https://github.com/namecoin/namecoin/tarball/nc0.3.50.00 -> ${P}.tgz"
+SRC_URI="https://github.com/namecoinq/namecoinq/archive/v${PV/0/Q}.zip -> ${P}.zip"
 
 LICENSE="MIT ISC"
 SLOT="0"
@@ -30,7 +30,7 @@ DEPEND="${RDEPEND}
 	>=app-shells/bash-4.1
 "
 
-S="${WORKDIR}/namecoin-namecoin-20dcc50"
+S="${WORKDIR}/namecoinq-v${PV/0/Q}"
 
 pkg_setup() {
 	local UG='namecoin'
@@ -40,17 +40,14 @@ pkg_setup() {
 
 src_prepare() {
 	cd src || die
-	cp "${FILESDIR}/0.3.24-Makefile.gentoo" "Makefile" || die
+	cp "${FILESDIR}/0.3.72-Makefile.gentoo" "Makefile" || die
 }
 
 src_compile() {
 	local OPTS=()
 
-	OPTS+=("CXXFLAGS=${CXXFLAGS}")
-	OPTS+=( "LDFLAGS=${LDFLAGS}")
-
-	OPTS+=("DB_CXXFLAGS=-I$(db_includedir "${DB_VER}")")
-	OPTS+=("DB_LDFLAGS=-ldb_cxx-${DB_VER}")
+	OPTS+=("CXXFLAGS=${CXXFLAGS} -I$(db_includedir "${DB_VER}")")
+	OPTS+=("LDFLAGS=${LDFLAGS} -ldb_cxx-${DB_VER}")
 
 	use ssl  && OPTS+=(USE_SSL=1)
 	use upnp && OPTS+=(USE_UPNP=1)
