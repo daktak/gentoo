@@ -13,7 +13,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND=""
+DEPEND="net-lib/nodejs"
 RDEPEND="${DEPEND}"
 
 src_install() {
