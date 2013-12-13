@@ -1,0 +1,9 @@
+[Unit]
+Description=Node Miner-dashboard
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/npm start /var/lib/miner-dashboard
+
+[Install]
+WantedBy=multi-user.target
