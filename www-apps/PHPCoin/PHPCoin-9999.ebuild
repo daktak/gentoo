@@ -13,11 +13,11 @@ EGIT_REPO_URI="https://github.com/BCEmporium/${PN}.git"
 
 LICENSE=""
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="qrcode"
 
 DEPEND="net-p2p/bitcoind
-dev-lang/php
-dev-lang/php[mysqli] "
+dev-lang/php[mysqli] 
+qrcode? ( dev-php/phpqrcode )"
 RDEPEND="${DEPEND}"
 
 src_install() {
