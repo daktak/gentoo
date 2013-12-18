@@ -13,7 +13,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="media-gfx/qrencode"
+DEPEND="media-gfx/qrencode
+dev-lang/php"
 RDEPEND="${DEPEND}"
 
 S=${WORKDIR}/${PN}
