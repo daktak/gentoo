@@ -13,9 +13,9 @@ EGIT_REPO_URI="https://github.com/daktak/${PN}.git"
 
 LICENSE=""
 KEYWORDS="~amd64 ~x86"
-IUSE="i"
+IUSE="deluge"
 
-DEPEND=""
+DEPEND="deluge? ( dev-php/DelugeApi )"
 RDEPEND="${DEPEND}"
 
 src_install() {
