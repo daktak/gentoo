@@ -19,7 +19,7 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 
 src_install() {
-	insinto "$(python_get_sitedir)/${P}" 
+	insinto "$(python_get_sitedir)/${PN}" 
 	doins ${PN}/* || die
 	dobin mangler.py || die
 	dodoc docs/CHANGELOG docs/TODO docs/sample.conf || die	
