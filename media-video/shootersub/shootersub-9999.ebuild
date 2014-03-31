@@ -21,7 +21,8 @@ IUSE=""
 
 DEPEND="dev-python/configobj
 		dev-python/guess-language
-		dev-python/chardet"
+		dev-python/chardet
+		dev-python/python-daemon"
 RDEPEND="${DEPEND}"
 
 src_install() {
