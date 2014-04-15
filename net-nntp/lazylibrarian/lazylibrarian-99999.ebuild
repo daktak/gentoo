@@ -6,12 +6,12 @@ EAPI=5
 
 PYTHON_COMPAT=(python2_6 python2_7)
 
-EGIT_REPO_URI="https://github.com/herman-rogers/LazyLibrarian-1.git"
+EGIT_REPO_URI="https://github.com/DobyTang/LazyLibrarian.git"
 
 inherit eutils user git-2 python-r1
 
 DESCRIPTION="LazyLibrarian is an automated book downloader for SABnzbd."
-HOMEPAGE="http://github.com/herman-rogers/LazyLibrarian-1"
+HOMEPAGE="http://github.com/DobyTang/LazyLibrarian"
 
 LICENSE="GPL-3"
 SLOT="0"
