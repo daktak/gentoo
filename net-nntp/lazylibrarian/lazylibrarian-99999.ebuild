@@ -54,6 +54,7 @@ src_install() {
 
 	insinto /usr/share/${PN}
 	doins -r cherrypy data lazylibrarian lib mako LazyLibrarian.py version.txt
+	fowners ${PN}:${PN} /usr/share/${PN}/version.txt
 }
 
 pkg_postinst() {
