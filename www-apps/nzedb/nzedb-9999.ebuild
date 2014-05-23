@@ -2,6 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+
+# COULD NOT GET THIS WORKNIG WELL,
+# ended up just running from /opt
+# https://gist.github.com/daktak/dba6de537ec0a9fcebea
 EAPI="5"
 
 inherit webapp depend.php git-2

@@ -1,0 +1,50 @@
+#!/sbin/runscript
+# Copyright 1999-2012 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+depend() {
+        need net
+}
+
+run_dir="/var/run/sickrage"
+pidfile="$run_dir/sickrage.pid"
+etc_dir="/etc/sickrage"
+var_dir="/var/sickrage"
+log_dir="/var/log/sickrage"
+program="$CODE_DIR/SickBeard.py"
+bin=`which $PYTHON_BIN`
+
+check_config() {
+	
+	if [ ! -d "${run_dir}" ]; then
+        	mkdir "${run_dir}"
+	fi
+
+	# Permission stuff. Should ensure that the daemon user always have write permissions.
+	# Quick and ugly but should get the job done.
+
+	chown -R ${USER}:${GROUP} "${run_dir}"
+        chown -R ${USER}.${GROUP} "${var_dir}"
+	chown -R ${USER}.${GROUP} "${etc_dir}"
+	chown -R ${USER}.${GROUP} "${log_dir}"
+	if [ "${WEBUPDATER}" = "YES" ]; then
+                chown -R ${USER}.${GROUP} "${CODE_DIR}"
+        fi
+}
+
+start() {
+	check_config
+
+        ebegin "Starting SickBeard"
+        start-stop-daemon --start --pidfile ${pidfile} -u ${USER} -g ${GROUP}\
+	--exec ${bin} ${program} -- \
+	--daemon --pidfile ${pidfile} --datadir ${var_dir} --nolaunch --config ${CONFIG_FILE} --port ${PORT}
+        eend $?
+}
+
+stop() {
+        ebegin "Stopping SickBeard"
+        start-stop-daemon --stop --pidfile ${pidfile} --retry 15
+        eend $?
+}
