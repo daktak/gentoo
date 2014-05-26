@@ -8,7 +8,8 @@ inherit webapp depend.php
 
 DESCRIPTION="self hostable application for saving web pages"
 HOMEPAGE="https://www.wallabag.org"
-SRC_URI="https://github.com/${PN}/${PN}/archive/${PV}.tar.gz"
+SRC_URI="https://github.com/${PN}/${PN}/archive/${PV}.tar.gz \
+http://static.wallabag.org/files/vendor.zip"
 
 LICENSE=""
 KEYWORDS="~amd64 ~x86"
@@ -22,7 +23,8 @@ src_install() {
 
 	dodoc CONTRIBUTING.md COPYING.md CREDITS.md TRANSLATION.md
 	rm -f README.md CONTRIBUTING.md COPYING.md CREDITS.md TRANSLATION.md
-
+	rm -f vendor.zip
+	webapp_serverowned -R .
 	insinto "${MY_HTDOCSDIR}"
 	doins -r .
 
