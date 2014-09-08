@@ -8,15 +8,13 @@ EAPI="4"
 PYTHON_DEPEND="2:2.7"
 PYTHON_USE_WITH="sqlite"
 
-inherit eutils python user
+inherit eutils git-2 python user
 
-MY_PV="${PV/_beta/.b}"
-S="${WORKDIR}/${PN}-${MY_PV}"
 
 DESCRIPTION="MovieGrabber is a fully automated way of downloading movie from
 usenet"
 HOMEPAGE="https://github.com/binhex/moviegrabber/"
-SRC_URI="https://github.com/binhex/moviegrabber/archive/v${MY_PV}.tar.gz"
+EGIT_REPO_URI="https://github.com/binhex/moviegrabber.git"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -36,13 +34,6 @@ pkg_setup() {
 	enewgroup ${PN}
 	# Create moviegrabber user, put in moviegrabber group
 	enewuser ${PN} -1 -1 -1 ${PN}
-}
-
-
-src_unpack() {
-    unpack ${A}
-	cd "${S}"
-	epatch "${FILESDIR}/root.patch" || die
 }
 
 src_install() {

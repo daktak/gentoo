@@ -1,0 +1,99 @@
+--- MovieGrabber.py	2014-08-21 02:18:13.000000000 +1000
++++ MovieGrabber.py	2014-09-08 14:21:11.176735592 +1000
+@@ -278,11 +278,10 @@
+         config_write_option("xbmc","xbmc_notification","no")
+         config_write_option("xbmc","xbmc_library_update","no")
+ 
+-        config_write_option("webconfig","address","0.0.0.0")
+-        config_write_option("webconfig","port","9191")
+         config_write_option("webconfig","username","")
+         config_write_option("webconfig","password","")
+         config_write_option("webconfig","enable_ssl","no")
++        config_write_option("webconfig","http_root","")
+ 
+         config_write_option("misc","post_schedule_hour","1")
+         config_write_option("misc","post_schedule_minute","0")
+@@ -2438,6 +2437,7 @@
+                         config_webconfig_address = config_parser.get("webconfig", "address")
+                         config_webconfig_port = config_parser.get("webconfig", "port")
+                         config_webconfig_enable_ssl = config_parser.get("webconfig", "enable_ssl")
++                        config_webconfig_http_root =  config_parser.get("webconfig", "http_root")
+ 
+                         #create message container
+                         msg = email.mime.multipart.MIMEMultipart('alternative')
+@@ -4277,6 +4277,7 @@
+                 template.username = config_parser.get("webconfig", "username")
+                 template.password = config_parser.get("webconfig", "password")
+                 template.enable_ssl = config_parser.get("webconfig", "enable_ssl")
++                template.http_root = config_parser.get("webconfig", "http_root")
+                 template.log_level = config_parser.get("misc", "log_level")
+                 template.log_level_list = ["INFO", "WARNING", "exception"]
+                 template.check_version = config_parser.get("misc", "check_version")
+@@ -4324,6 +4325,7 @@
+                 config_parser.set("webconfig", "username", kwargs["username2"])
+                 config_parser.set("webconfig", "password", kwargs["password2"])
+                 config_parser.set("webconfig", "enable_ssl", kwargs["enable_ssl2"])
++                config_parser.set("webconfig", "http_root",  kwargs["http_root2"])
+                 config_parser.set("misc", "post_cert_system", kwargs["post_cert_system2"])
+                 config_parser.set("misc", "post_rename_files", kwargs["post_rename_files2"])
+                 config_parser.set("misc", "index_preferred_group", kwargs["index_preferred_group2"])
+@@ -4361,6 +4363,10 @@
+ 
+                         config_parser.set("webconfig", "address", kwargs["address2"])
+ 
++                if kwargs["http_root2"]:
++
++                        config_parser.set("webconfig", "http_root",  kwargs["http_root2"])
++
+                 if kwargs["port2"]:
+ 
+                         config_parser.set("webconfig", "port", kwargs["port2"])
+@@ -6063,7 +6069,7 @@
+                 os._exit(1)
+ 
+         #quickstart cherrypy using python defined cherrypy config
+-        cherrypy.quickstart(HomeRoot(), config=webconfig_settings)
++        cherrypy.quickstart(HomeRoot(), config_parser.get("webconfig", "http_root"), config=webconfig_settings)
+ 
+ #download thread class
+ class DownloadThread(object):
+@@ -6476,6 +6482,7 @@
+         webui_hostname = config_parser.get("webconfig", "address")
+         webui_portnumber = config_parser.get("webconfig", "port")
+         webui_ssl = config_parser.get("webconfig", "enable_ssl")
++        webui_http_root = config_parser.get("webconfig", "http_root")
+ 
+         #check if ssl is enabled
+         if webui_ssl == "yes":
+diff -uNar interfaces/classic/templates/config.tmpl /usr/share/moviegrabber/interfaces/classic/templates/config.tmpl
+--- interfaces/classic/templates/config.tmpl	2014-08-21 02:18:13.000000000 +1000
++++ interfaces/classic/templates/config.tmpl	2014-09-08 14:18:51.263739766 +1000
+@@ -1,4 +1,4 @@
+-#set global $statpath="../.."
++#set global $statpath=".."
+ #set global $topmenu="config"
+ #set global $submenu=""
+ #include $templates_dir + "/inc_top.tmpl"
+@@ -15,4 +15,4 @@
+ 
+ </form>
+ 
+-#include $templates_dir + "/inc_bottom.tmpl"
+\ No newline at end of file
++#include $templates_dir + "/inc_bottom.tmpl"
+diff -uNar interfaces/classic/templates/config_general.tmpl /usr/share/moviegrabber/interfaces/classic/templates/config_general.tmpl
+--- interfaces/classic/templates/config_general.tmpl	2014-08-21 02:18:13.000000000 +1000
++++ interfaces/classic/templates/config_general.tmpl	2014-09-08 14:05:08.382764318 +1000
+@@ -27,6 +27,12 @@
+ 		<br>
+ 		<br>
+ 
++		<a title="Allows you to specify the web root for the web interface."><strong>(?)</strong></a><strong>Web Root:</strong><br>
++		Enter the http root location - restart required.<br/>
++		<input type="text" class="form_textbox_padding" name="http_root2" value="$http_root" maxlength="1000" placeholder="e.g. /moviegrabber"/>
++		<br>
++		<br>
++
+ 		<a title="Allows you to specify whether to use ssl for the web interface."><strong>(?)</strong></a><strong>SSL:</strong><br>
+ 		Switch SSL on/off - restart required.<br/>
+ 		
