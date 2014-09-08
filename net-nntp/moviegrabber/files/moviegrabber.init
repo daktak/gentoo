@@ -33,8 +33,7 @@ start() {
 	check_config
         ebegin "Starting Moviegrabber"
         start-stop-daemon --start --background --make-pidfile --pidfile ${pidfile} -u ${USER} -g ${GROUP}\
-	--exec ${bin} ${program} -d ${code_dir} -- \
-	-p ${PORT}
+	--exec ${bin} ${program} -d ${code_dir} --
         eend $?
 }
 
