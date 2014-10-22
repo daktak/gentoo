@@ -25,9 +25,9 @@ pkg_setup() {
 	enewuser ${PN} -1 -1 -1 ${PN}
 }
 
-src_prepare() {
-	epatch "${FILESDIR}/post-process-py3.patch"
-}
+#src_prepare() {
+#	epatch "${FILESDIR}/post-process-py3.patch"
+#}
 
 src_install() {
 	dodoc README.md
@@ -56,7 +56,7 @@ src_install() {
 	echo ${last_commit} > version.txt
 
 	insinto /usr/share/${PN}
-	doins -r bs4 cherrypy data mylar lib mako Mylar.py version.txt sabnzbd
+	doins -r bs4 cherrypy data mylar lib mako Mylar.py version.txt post-processing
 }
 
 pkg_postinst() {
