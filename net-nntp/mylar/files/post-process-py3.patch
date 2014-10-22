@@ -1,5 +1,5 @@
---- sabnzbd/autoProcessComics.py	2013-10-11 12:09:08.135234689 +1100
-+++ sabnzbd/scripts/autoProcessComics.py	2013-10-11 11:43:43.139415793 +1100
+--- post-processing/autoProcessComics.py	2014-10-22 13:47:59.587399724 +1100
++++ post-processing/autoProcessComics.py	2014-10-22 13:42:54.281391002 +1100
 @@ -1,14 +1,14 @@
  import sys
 -import urllib
@@ -27,13 +27,14 @@
 +        return urllib.request.FancyURLopener.open(self, url)
  
  
- def processEpisode(dirName, nzbName=None):
+-def processIssue(dirName, nzbName=None, failed=False):
++def processEpisode(dirName, nzbName=None):
  
 -    config = ConfigParser.ConfigParser()
 +    config = configparser.ConfigParser()
      configFilename = os.path.join(os.path.dirname(sys.argv[0]), "autoProcessComics.cfg")
 -    print "Loading config from", configFilename
-+    print(("Loading config from "+configFilename))
++    print("Loading config from "+configFilename)
      
      if not os.path.isfile(configFilename):
 -        print "ERROR: You need an autoProcessComics.cfg file - did you rename and edit the .sample?"
@@ -47,7 +48,7 @@
 -    except IOError, e:
 -        print "Could not read configuration file: ", str(e)
 +    except (IOError) as e:
-+        print(("Could not read configuration file: "+ str(e)))
++        print("Could not read configuration file: "+ str(e))
          sys.exit(1)
      
      host = config.get("Mylar", "host")
@@ -66,7 +67,16 @@
          web_root = ""
      
      params = {}
-@@ -67,21 +67,21 @@
+@@ -59,8 +59,6 @@
+     params['nzb_folder'] = dirName
+     if nzbName != None:
+         params['nzb_name'] = nzbName
+-
+-    params['failed'] = failed
+         
+     myOpener = AuthURLOpener(username, password)
+     
+@@ -69,21 +67,21 @@
      else:
          protocol = "http://"
  
@@ -74,40 +84,40 @@
 +    url = protocol + host + ":" + port + web_root + "/post_process?" + urllib.parse.urlencode(params)
      
 -    print "Opening URL:", url
-+    print(("Opening URL:"+ url))
++    print("Opening URL:"+ url)
      
      try:
          urlObj = myOpener.openit(url)
 -    except IOError, e:
 -        print "Unable to open URL: ", str(e)
 +    except (IOError) as e:
-+        print(("Unable to open URL: "+ str(e)))
++        print("Unable to open URL: "+ str(e))
          sys.exit(1)
      
      result = urlObj.readlines()
      for line in result:
 -        print line
-+        print (line)
++        print (str(line,encoding='utf8' ))
  
--    if any("Post Processing SUCCESSFULL" in s for s in result):
+-    if any("Post Processing SUCCESSFUL" in s for s in result):
 +    if any("Post Processing SUCCESSFULL" in str(s,encoding='utf8' ) for s in result):
          return 0
      else:
          return 1
---- sabnzbd/ComicRN.py	2013-10-11 12:09:08.134234709 +1100
-+++ sabnzbd/scripts/ComicRN.py	2013-10-11 12:10:17.834855268 +1100
+--- post-processing/sabnzbd/ComicRN.py	2014-10-22 13:47:59.609399725 +1100
++++ post-processing/sabnzbd/ComicRN.py	2014-10-22 13:54:12.615410382 +1100
 @@ -1,4 +1,4 @@
 -#!/usr/bin/env python
 +#!/usr/bin/env python3
+ #
+ ##############################################################################
+ ### SABNZBD POST-PROCESSING SCRIPT                                         ###
+@@ -14,7 +14,7 @@
  
- 
- 
-@@ -11,7 +11,7 @@
-         #if this variable is set, we're being called from NZBGet
-         autoProcessComics.processEpisode(os.getenv('NZBPP_DIRECTORY'), os.getenv('NZBPP_NZBFILENAME'))
-     else:
--        print "No folder supplied - is this being called from SABnzbd or NZBGet?"
-+        print( "No folder supplied - is this being called from SABnzbd or NZBGet?" )
-         sys.exit()
+ #the code.
+ if len(sys.argv) < 2:
+-    print "No folder supplied - is this being called from SABnzbd or NZBGet?"
++    print ( "No folder supplied - is this being called from SABnzbd or NZBGet?" )
+     sys.exit()
  elif len(sys.argv) >= 3:
-     sys.exit(autoProcessComics.processEpisode(sys.argv[1], sys.argv[3]))
+     sys.exit(autoProcessComics.processIssue(sys.argv[1], sys.argv[3], sys.argv[7]))
