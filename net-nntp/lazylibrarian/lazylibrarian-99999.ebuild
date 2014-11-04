@@ -31,7 +31,8 @@ src_install() {
 	newconfd "${FILESDIR}/${PN}.conf" ${PN}
 	newinitd "${FILESDIR}/${PN}.init" ${PN}
 
-	epatch "${FILESDIR}/path.patch" || die
+	# AuthorCache patch no longer required 
+	#epatch "${FILESDIR}/path.patch" || die
 	# Location of log and data files
 	keepdir /var/${PN}
 	fowners -R ${PN}:${PN} /var/${PN}
