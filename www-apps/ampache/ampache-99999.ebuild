@@ -29,6 +29,10 @@ need_httpd_cgi
 src_install() {
         webapp_src_preinst
 
+    	# wierd stuff ;-)
+	    last_commit=$(git rev-parse HEAD)
+		echo ${last_commit} > version.txt
+
         doman docs/man/*/*
         rm -rf docs/man/
 
