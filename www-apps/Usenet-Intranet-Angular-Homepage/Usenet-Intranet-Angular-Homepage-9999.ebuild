@@ -20,9 +20,14 @@ RDEPEND="${DEPEND}"
 
 src_install() {
 webapp_src_preinst
+# wierd stuff ;-)
+last_commit=$(git rev-parse HEAD)
+echo ${last_commit} > version.txt
 
 insinto "${MY_HTDOCSDIR}"
 doins -r .
+
+webapp_configfile ${MY_HTDOCSDIR}/intranet/settings.json 
 
 webapp_src_install
 }
