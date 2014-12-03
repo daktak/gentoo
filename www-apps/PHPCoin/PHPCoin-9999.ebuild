@@ -9,7 +9,7 @@ inherit webapp depend.php git-2 eutils
 DESCRIPTION="A PHP frontend for Bitcoind"
 HOMEPAGE="http://github.com/BCEmporium/PHPCoin"
 SRC_URI=""
-EGIT_REPO_URI="https://github.com/BCEmporium/${PN}.git"
+EGIT_REPO_URI="https://github.com/daktak/${PN}.git"
 
 LICENSE=""
 KEYWORDS="~amd64 ~x86"
@@ -22,6 +22,9 @@ RDEPEND="${DEPEND}"
 
 src_install() {
 webapp_src_preinst
+# wierd stuff ;-)
+last_commit=$(git rev-parse HEAD)
+echo ${last_commit} > version.txt
 
 rm -f README.md
 rm -f TODO.md
@@ -29,6 +32,8 @@ rm -f configure.sh
 
 insinto "${MY_HTDOCSDIR}"
 doins -r .
+
+webapp_configfile ${MY_HTDOCSDIR}/sys/config.php
 
 webapp_src_install
 }
