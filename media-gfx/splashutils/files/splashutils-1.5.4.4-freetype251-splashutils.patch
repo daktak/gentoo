@@ -1,0 +1,26 @@
+--- splashutils-1.5.4.4/src/ttf.h.orig	2014-04-02 19:28:48.242615384 +0100
++++ splashutils-1.5.4.4/src/ttf.h	2014-04-02 19:32:17.290341606 +0100
+@@ -1,8 +1,8 @@
+ #ifndef _TTF_H
+ #define _TTF_H
+ #include <ft2build.h>
+-#include <freetype/ftoutln.h>
+-#include <freetype/ttnameid.h>
++#include FT_OUTLINE_H
++#include FT_TRUETYPE_IDS_H
+ 
+ #define CACHED_METRICS  0x10
+ #define CACHED_BITMAP   0x01
+--- splashutils-1.5.4.4/src/ttf.c.orig	2014-04-02 19:31:42.186385795 +0100
++++ splashutils-1.5.4.4/src/ttf.c	2014-04-02 19:32:48.554302811 +0100
+@@ -25,8 +25,8 @@
+ #include <assert.h>
+ 
+ #include <ft2build.h>
+-#include <freetype/ftoutln.h>
+-#include <freetype/ttnameid.h>
++#include FT_OUTLINE_H
++#include FT_TRUETYPE_IDS_H
+ 
+ #include "common.h"
+ #include "render.h"
