@@ -1,0 +1,19 @@
+#!/sbin/runscript
+
+depend() {
+	use logger
+	need net
+}
+
+start() {
+	ebegin "Starting nntp-proxy"
+	start-stop-daemon --start --quiet --pidfile "${PIDFILE}" --make-pidfile \
+	--background --exec /usr/bin/nntp-proxy -- "${NNTPD_OPTS}"
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping nntp-proxy"
+	start-stop-daemon --stop --quiet --exec /usr/bin/nntp-proxy --pidfile /var/run/nntp-proxy.pid
+	eend $?
+}
