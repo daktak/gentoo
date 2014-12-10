@@ -25,7 +25,8 @@ last_commit=$(git rev-parse HEAD)
 echo ${last_commit} > version.txt
 
 insinto "${MY_HTDOCSDIR}"
-doins -r .
+doins -r intranet
+doins index.html version.txt
 
 webapp_configfile ${MY_HTDOCSDIR}/intranet/settings.json 
 
