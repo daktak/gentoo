@@ -47,7 +47,7 @@ use pvrclient_nextpvr || sed -i "s:pvr.nextpvr::" addons/Makefile.am
 use pvrclient_njoy || sed -i "s:pvr.njoy::" addons/Makefile.am
 use pvrclient_vnsi || sed -i "s:pvr.vdr.vnsi::" addons/Makefile.am
 use pvrclient_vuplus || sed -i "s:pvr.vuplus::" addons/Makefile.am
-if ! use pvrclient_vuplus && ! use pvrclient_nextpvr && ! use pvrclient_njoy && ! use pvrclient_demo && ! use pvrclient_mediaportal; then
+if ! use pvrclient_vuplus && ! use pvrclient_nextpvr && ! use pvrclient_njoy && ! use pvrclient_demo && ! use pvrclient_mediaportal && ! use pvrclient_mythtv ; then
 sed -i "s: tinyxml::" lib/Makefile.am
 fi
 if ! use pvrclient_argustv; then
