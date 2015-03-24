@@ -19,6 +19,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 IUSE=""
-DEPEND="dev-python/pyasn1-modules"
+DEPEND="dev-python/pyasn1-modules
+		dev-python/paramiko"
 RDEPEND="${DEPEND}"
 
