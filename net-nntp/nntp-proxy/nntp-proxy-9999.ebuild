@@ -9,6 +9,7 @@ inherit git-2 eutils
 DESCRIPTION="simple NNTP proxy with SSL support"
 HOMEPAGE="https://github.com/nieluj/nntp-proxy"
 EGIT_REPO_URI="https://github.com/nieluj/nntp-proxy.git"
+EGIT_BRANCH="ignore_sigpipe"
 
 LICENSE="GPL-2"
 SLOT="0"
