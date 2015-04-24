@@ -30,7 +30,8 @@ CONFIG_CHECK="~TUN"
 
 src_install() {
 	insinto /
+	dobin usr/bin/vpnc usr/bin/vpnc-disconnect  || die
+	doman usr/share/man/man8/vpnc.8.gz || die
 	doins -r etc || die
-	doins -r usr || die
 }
 
