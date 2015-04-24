@@ -14,7 +14,7 @@ S=${WORKDIR}
 LICENSE="GPL-2 BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~ppc ~ppc64 ~sparc ~x86"
-IUSE="resolvconf +gnutls selinux"
+IUSE="+gnutls"
 
 DEPEND="
 	dev-lang/perl
@@ -22,10 +22,7 @@ DEPEND="
 	>=sys-apps/iproute2-2.6.19.20061214[-minimal]
 	gnutls? ( net-libs/gnutls )
 	!gnutls? ( dev-libs/openssl:0= )"
-RDEPEND="${DEPEND}
-	resolvconf? ( net-dns/openresolv )
-	selinux? ( sec-policy/selinux-vpn )
-"
+RDEPEND="${DEPEND}"
 
 RESTRICT="!gnutls? ( bindist )"
 
@@ -33,7 +30,7 @@ CONFIG_CHECK="~TUN"
 
 src_install() {
 	insinto /
-	dodir etc || die
-	dodir usr || die
+	doins -r etc || die
+	doins -r usr || die
 }
 
