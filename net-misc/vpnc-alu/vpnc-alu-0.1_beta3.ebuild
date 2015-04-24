@@ -29,9 +29,11 @@ RESTRICT="!gnutls? ( bindist )"
 CONFIG_CHECK="~TUN"
 
 src_install() {
-	insinto /
 	dobin usr/bin/vpnc usr/bin/vpnc-disconnect  || die
 	doman usr/share/man/man8/vpnc.8.gz || die
-	doins -r etc || die
+	insinto /etc/vpnc 
+	doins etc/vpnc/alu.conf || die
+	exeinto /etc/vpnc
+	doexe etc/vpnc/vpnc-script || die
 }
 
