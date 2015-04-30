@@ -1,0 +1,18 @@
+--- remotebox	2014-10-26 13:10:27.000000000 +1100
++++ remotebox	2015-04-30 15:29:52.119809060 +1000
+@@ -7,12 +7,12 @@
+ use POSIX qw(ceil);
+ use MIME::Base64;
+ # *** PACKAGERS MAY WISH TO PATCH THIS LOCATION ***
+-use lib "$Bin/share/remotebox";
++use lib "/usr/share/remotebox";
+ # *************************************************
+ use vboxService qw($endpoint $fault :all);
+ # *** PACKAGERS MAY WISH TO PATCH THESE LOCATIONS ***
+-our $sharedir = "$Bin/share/remotebox";
+-our $docdir   = "$Bin/docs";
++our $sharedir = "/usr/share/remotebox";
++our $docdir   = "/usr/share/doc/RemoteBox-1.9";
+ # ***************************************************
+ 
+ require 'vboxserializers.pl';
