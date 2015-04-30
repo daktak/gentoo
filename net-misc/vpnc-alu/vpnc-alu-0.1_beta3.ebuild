@@ -24,9 +24,16 @@ DEPEND="
 	!gnutls? ( dev-libs/openssl:0= )"
 RDEPEND="${DEPEND}"
 
-RESTRICT="!gnutls? ( bindist )"
+RESTRICT="!gnutls? ( bindist ) fetch"
 
 CONFIG_CHECK="~TUN"
+
+pkg_nofetch() {
+    elog "Download the client file ${A} from
+	https://acos.alcatel-lucent.com/frs/download.php/6819/${PN}.tar.gz"
+    elog "and place it in ${DISTDIR:-/usr/portage/distfiles}."
+}
+
 
 src_install() {
 	dobin usr/bin/vpnc usr/bin/vpnc-disconnect  || die
