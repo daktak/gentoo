@@ -19,7 +19,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND="dev-libs/protobuf
+DEPEND=">=dev-libs/protobuf-2.4[python]
 		dev-python/requests
 		dev-python/ndg-httpsclient
 		dev-python/pyasn1
