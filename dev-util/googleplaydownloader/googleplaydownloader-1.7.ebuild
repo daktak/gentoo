@@ -29,5 +29,5 @@ DEPEND=">=dev-libs/protobuf-2.4[python]
 RDEPEND="${DEPEND}"
 
 src_prepare() {
-	epatch "${FILESDIR}/${PN}.patch"  
+	epatch "${FILESDIR}/${P}.patch"  
 }
