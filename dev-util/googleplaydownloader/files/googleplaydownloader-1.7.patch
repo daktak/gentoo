@@ -1,5 +1,16 @@
+--- googleplaydownloader/__init__.py	2015-01-27 10:25:26.000000000 +1100
++++ googleplaydownloader/__init__.py	2015-05-11 15:50:42.873341521 +1000
+@@ -4,7 +4,7 @@
+ 
+ import os
+ HERE = os.path.abspath(os.path.dirname(__file__))
+-with open(os.path.join(HERE, "googleplaydownloader", "version.txt"), "r") as f:
++with open(os.path.join(HERE, "version.txt"), "r") as f:
+   __version__ = f.read().strip()
+ 
+ from .googleplaydownloader import main as start_gui
 --- googleplaydownloader/googleplaydownloader.py	2015-01-27 10:15:52.000000000 +1100
-+++ googleplaydownloader/googleplaydownloader.py	2015-05-11 15:40:57.493348755 +1000
++++ googleplaydownloader/googleplaydownloader.py	2015-05-11 15:50:36.453341600 +1000
 @@ -18,10 +18,10 @@
  
  HERE = os.path.abspath(os.path.dirname(__file__))
@@ -80,7 +91,15 @@
  
  
    def search(self, results_list, search_string, nb_results):
-@@ -405,11 +409,15 @@
+@@ -370,6 +374,7 @@
+       config["android_ID"] = dlg.android_ID.GetValue()
+       config["gmail_address"] = dlg.gmail_address.GetValue()
+       config["gmail_password"] = dlg.gmail_password.GetValue()
++      config["download_folder_path"] = dlg.directory.GetValue()
+ 
+ 
+     dlg.Destroy()
+@@ -405,11 +410,15 @@
          else:
            message += "\n%s" % package_name
          message += "\n%s\n" % exception
@@ -101,7 +120,7 @@
  
    def ask_download_folder_path(self):
      dlg = wx.DirDialog(self, "Choose a download folder:",  defaultPath = config["download_folder_path"], style=wx.DD_DEFAULT_STYLE)
-@@ -470,12 +478,17 @@
+@@ -470,12 +479,17 @@
        for packagename, filename, apk_version_code, store_version_code in list_apks_to_update :
          message += u"\n%s Version : %s -> %s" % (filename ,apk_version_code, store_version_code)
          list_of_packages_to_download.append([packagename, filename])
@@ -124,7 +143,7 @@
          #Progress Dialog
          dlg = wx.ProgressDialog("Updating APKs",
                                   " " * 30 + "\n"*4,
-@@ -484,6 +497,9 @@
+@@ -484,6 +498,9 @@
                                   style = wx.PD_CAN_ABORT|wx.PD_AUTO_HIDE
                                   )
          thread.start_new_thread(download_selection, (self.playstore_api, list_of_packages_to_download, dlg, self.after_download))
@@ -134,7 +153,29 @@
  
  class ConfigDialog(wx.Dialog):
    def __init__(self, parent):
-@@ -635,6 +651,10 @@
+@@ -539,6 +556,13 @@
+     gridSizer.Add(label,0, wx.ALIGN_CENTER_VERTICAL|wx.LEFT,5)
+     gridSizer.Add(self.language,1, wx.EXPAND|wx.ALIGN_CENTRE|wx.ALL, 5)
+ 
++    label = wx.StaticText(self, -1, "Directory:")
++    self.custom_widgets.append(label)
++    self.directory  = wx.TextCtrl(self, -1, "", size=(text_size,-1))
++    self.custom_widgets.append(self.directory)
++    gridSizer.Add(label,0, wx.ALIGN_CENTER_VERTICAL|wx.LEFT,5)
++    gridSizer.Add(self.directory,1, wx.EXPAND|wx.ALIGN_CENTRE|wx.ALL, 5)
++
+     line = wx.StaticLine(self, -1, size=(20,-1), style=wx.LI_HORIZONTAL)
+     sizer.Add(line, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL|wx.RIGHT|wx.TOP, 5)
+ 
+@@ -579,6 +603,7 @@
+     self.android_ID.SetValue(config["android_ID"])
+     self.gmail_address.SetValue(config["gmail_address"])
+     self.gmail_password.SetValue(config["gmail_password"])
++    self.directory.SetValue(config["download_folder_path"])
+ 
+   def generate_android_id(self, event=None):
+     #Launch Java to create an AndroidID
+@@ -635,6 +660,10 @@
  
      #Connection
      self.panel.connect_to_googleplay_api()
@@ -145,14 +186,3 @@
  
  class App(wx.App):
    def OnInit(self):
---- googleplaydownloader/__init__.py	2015-01-27 10:25:26.000000000 +1100
-+++ googleplaydownloader/__init__.py	2015-05-11 14:47:57.000000000 +1000
-@@ -4,7 +4,7 @@
- 
- import os
- HERE = os.path.abspath(os.path.dirname(__file__))
--with open(os.path.join(HERE, "googleplaydownloader", "version.txt"), "r") as f:
-+with open(os.path.join(HERE, "version.txt"), "r") as f:
-   __version__ = f.read().strip()
- 
- from .googleplaydownloader import main as start_gui
