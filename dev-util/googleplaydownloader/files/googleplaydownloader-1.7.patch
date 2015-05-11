@@ -1,5 +1,5 @@
 --- googleplaydownloader/googleplaydownloader.py	2015-01-27 10:15:52.000000000 +1100
-+++ googleplaydownloader/googleplaydownloader.py	2015-05-08 11:49:13.959996306 +1000
++++ googleplaydownloader/googleplaydownloader.py	2015-05-11 15:40:57.493348755 +1000
 @@ -18,10 +18,10 @@
  
  HERE = os.path.abspath(os.path.dirname(__file__))
@@ -134,18 +134,19 @@
  
  class ConfigDialog(wx.Dialog):
    def __init__(self, parent):
-@@ -635,6 +651,9 @@
+@@ -635,6 +651,10 @@
  
      #Connection
      self.panel.connect_to_googleplay_api()
-+    if sys.argv[1] == '--update':
-+        self.panel.autoUpdate = True 
-+        self.panel.prepare_analyse_apks(self.panel)
++    if len(sys.argv) > 1:
++        if sys.argv[1] == '--update':
++            self.panel.autoUpdate = True 
++            self.panel.prepare_analyse_apks(self.panel)
  
  class App(wx.App):
    def OnInit(self):
 --- googleplaydownloader/__init__.py	2015-01-27 10:25:26.000000000 +1100
-+++ googleplaydownloader/__init__.py	2015-05-05 10:53:59.000000000 +1000
++++ googleplaydownloader/__init__.py	2015-05-11 14:47:57.000000000 +1000
 @@ -4,7 +4,7 @@
  
  import os
