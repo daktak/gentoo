@@ -2,13 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI="5"
 
-SUPPORT_PYTHON_ABIS="1"
-PYTHON_DEPEND="2:2.5"
-RESTRICT_PYTHON_ABIS="3.*"
+PYTHON_COMPAT=( python2_5 python2_6 python2_7 )
 
-inherit python distutils eutils git-2
+inherit python-r1 eutils git-2 distutils-r1
 
 DESCRIPTION="Installable catalogue of FOSS applications for the Android platform"
 HOMEPAGE="https://gitlab.com/fdroid/fdroidserver"
@@ -19,7 +17,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 IUSE=""
-DEPEND="dev-python/pyasn1-modules
-		dev-python/paramiko"
+DEPEND="${PYTHON_DEPS}
+	dev-python/pyasn1-modules
+	dev-python/paramiko"
 RDEPEND="${DEPEND}"
-

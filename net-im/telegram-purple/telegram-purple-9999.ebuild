@@ -17,13 +17,16 @@ KEYWORDS=""
 IUSE=""
 
 DEPEND="net-im/pidgin
-		dev-libs/openssl
+		dev-libs/openssl:*
 		sys-libs/glibc
 		"
 RDEPEND="${DEPEND}"
 
-src_compile(){
+src_configure(){
 	econf || die "econf failed"
+}
+
+src_compile(){
 	emake || die "emake failed"
 }
 

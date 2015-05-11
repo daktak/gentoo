@@ -1,4 +1,4 @@
-# Copyright 2000-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -35,8 +35,6 @@ case ${PV} in
 	S=${WORKDIR}/xbmc-${PV}-${CODENAME}
 	;;
 esac
-
-
 
 DESCRIPTION="Kodi is a free and open source media-player and entertainment hub"
 HOMEPAGE="http://kodi.tv/"
@@ -83,7 +81,7 @@ COMMON_DEPEND="${PYTHON_DEPS}
 	media-libs/libmodplug
 	media-libs/libmpeg2
 	media-libs/libogg
-	media-libs/libpng
+	media-libs/libpng:*
 	projectm? ( media-libs/libprojectm )
 	media-libs/libsamplerate
 	sdl? ( media-libs/libsdl[sound,opengl,video,X] )
@@ -96,7 +94,7 @@ COMMON_DEPEND="${PYTHON_DEPS}
 		media-libs/sdl-mixer
 		media-libs/sdl-sound
 	)
-	media-libs/tiff
+	media-libs/tiff:*
 	pulseaudio? ( media-sound/pulseaudio )
 	media-sound/wavpack
 	|| ( >=media-video/ffmpeg-1.2.1:0=[encode] ( media-libs/libpostproc >=media-video/libav-10_alpha:=[encode] ) )
@@ -111,8 +109,8 @@ COMMON_DEPEND="${PYTHON_DEPS}
 	sys-apps/dbus
 	caps? ( sys-libs/libcap )
 	sys-libs/zlib
-	virtual/jpeg
-	usb? ( virtual/libusb )
+	virtual/jpeg:*
+	usb? ( virtual/libusb:* )
 	mysql? ( virtual/mysql )
 	opengl? (
 		virtual/glu
@@ -264,10 +262,10 @@ src_install() {
 
 	domenu tools/Linux/kodi.desktop
 	newicon media/icon48x48.png kodi.png
-	
+
 	# Remove conflicts with xbmc
-    #rm "${ED}"/usr/bin/xbmc
-    #rm "${ED}"/usr/bin/xbmc-standalone
+	#rm "${ED}"/usr/bin/xbmc
+	#rm "${ED}"/usr/bin/xbmc-standalone
 
 	# Remove optional addons (platform specific and disabled by USE flag).
 	local disabled_addons=(

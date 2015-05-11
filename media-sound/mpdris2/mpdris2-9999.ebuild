@@ -2,9 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI="5"
 
-inherit python autotools eutils git-2
+PYTHON_COMPAT=( python2_5 python2_6 python2_7 )
+
+inherit python-r1 autotools eutils git-2
 
 MY_PN="${PN/d/D}"
 
@@ -19,9 +21,9 @@ KEYWORDS="~amd64 ~ppc ~ppc64 ~x86"
 
 IUSE=""
 
-DEPEND=">=dev-lang/python-2.4
+DEPEND="${PYTHON_DEPS}
 		>=dev-python/dbus-python-0.80
-		>=dev-python/pygobject-2.14
+		>=dev-python/pygobject-2.14:2
 		>=dev-python/python-mpd-0.3.0"
 RDEPEND="${DEPEND}"
 

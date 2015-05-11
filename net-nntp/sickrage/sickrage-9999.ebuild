@@ -1,15 +1,14 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-PYTHON_DEPEND="2:2.6"
-PYTHON_USE_WITH="sqlite"
+PYTHON_COMPAT=( python2_6 python2_7 )
 
 EGIT_REPO_URI="https://github.com/echel0n/SickRage.git"
 
-inherit eutils user git-2 python
+inherit eutils user git-2 python-r1
 
 DESCRIPTION="SickRage - Searches TheTVDB and TVRage for shows"
 HOMEPAGE="http://www.sickrage.tv/"
@@ -19,6 +18,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
+DEPEND="${PTYHON_DEPS}"
 RDEPEND="
 	dev-python/cheetah
 "

@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -15,7 +15,7 @@ LICENSE=""
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="dev-lang/php[json]"
+DEPEND="dev-lang/php:*[json]"
 RDEPEND="${DEPEND}"
 
 src_install() {

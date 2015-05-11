@@ -1,10 +1,12 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-inherit git-2 python
+PYTHON_COMPAT=( python2_6 python2_7 )
+
+inherit git-2 python-r1
 
 DESCRIPTION="NNTP binary poster with mulitple connection support"
 HOMEPAGE="https://github.com/madcowfred/newsmangler"
@@ -19,9 +21,8 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 
 src_install() {
-	insinto "$(python_get_sitedir)/${PN}" 
+	insinto "$(python_get_sitedir)/${PN}"
 	doins ${PN}/* || die
 	dobin mangler.py || die
-	dodoc docs/CHANGELOG docs/TODO docs/sample.conf || die	
+	dodoc docs/CHANGELOG docs/TODO docs/sample.conf || die
 }
-

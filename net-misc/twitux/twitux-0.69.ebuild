@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -16,7 +16,7 @@ KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="x11-libs/libsexy
-		>=x11-libs/gtk+-2.14.0
+		>=x11-libs/gtk+-2.14.0:2
 		>=dev-libs/glib-2.15.0
 		>=media-libs/libcanberra-0.4[gtk]
 		net-libs/libsoup

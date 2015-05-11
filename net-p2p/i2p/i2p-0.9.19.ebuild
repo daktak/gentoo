@@ -1,8 +1,8 @@
-# Copyright 1999-2013 Gentoo Foundation
-# Distributed under the terms of the WTFPL
+# Copyright 1999-2015 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 
 inherit toolchain-funcs systemd user eutils java-pkg-2 java-ant-2 pax-utils
 
@@ -12,14 +12,14 @@ SRC_URI="https://launchpad.net/i2p/trunk/${PV}/+download/${PN}source_${PV}.tar.b
 HOMEPAGE="http://www.i2p2.de/"
 
 SLOT="0"
-KEYWORDS="~x86 ~amd64 ~x86-fbsd ~amd64-fbsd ~ppc"
+KEYWORDS="~x86 ~amd64"
 LICENSE="Apache-2.0 BSD GPL-2 GPL-3 IJG LGPL-2.1 LGPL-3 MIT MPL-1.1 public-domain"
 IUSE="initscript systemd"
-DEPEND=">=virtual/jdk-1.6
+DEPEND=">=virtual/jdk-1.6:*
 	dev-java/jakarta-jstl
 	dev-java/java-service-wrapper
 	dev-java/jrobin
-	dev-libs/gmp
+	dev-libs/gmp:*
 	sys-devel/gettext
 	systemd? ( sys-apps/systemd )"
 RDEPEND="${DEPEND}"
@@ -146,7 +146,7 @@ pkg_postinst() {
 		NEW_HOME="/var/lib/i2p"
 		if [[ -n "${OLD_HOME}" && "${OLD_HOME}" != "${NEW_HOME}" ]]; then
 			esethome i2p "${NEW_HOME}" || die
-			#     mv "${OLD_HOME}"/* "${NEW_HOME}"/ || ewarn "Couldn't move some files to i2p's new home dir."
+			#	 mv "${OLD_HOME}"/* "${NEW_HOME}"/ || ewarn "Couldn't move some files to i2p's new home dir."
 			ewarn "I2P's home directory have been changed to \"${NEW_HOME}\""
 			ewarn "Be sure to move your stuff in systemwide i2p home directory"
 			ewarn "to new location like that:"

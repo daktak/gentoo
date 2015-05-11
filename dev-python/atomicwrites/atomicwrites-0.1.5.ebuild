@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -9,7 +9,7 @@ inherit distutils-r1
 
 DESCRIPTION="Atomic file writes."
 HOMEPAGE="https://pypi.python.org/pypi/atomicwrites/"
-SRC_URI="https://pypi.python.org/packages/source/a/atomicwrites/${P}.tar.gz"
+SRC_URI="mirror://pypi/a/${PN}/${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"

@@ -1,15 +1,12 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 
-# Require python-2 with sqlite USE flag
-PYTHON_DEPEND="2:2.7"
-PYTHON_USE_WITH="sqlite"
+PYTHON_COMPAT=( python2_7 )
 
-inherit eutils git-2 python user
-
+inherit eutils git-2 python-r1 user
 
 DESCRIPTION="MovieGrabber is a fully automated way of downloading movie from
 usenet"
@@ -21,6 +18,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
+DEPEND="${PYTHON_DEPS}"
 RDEPEND=""
 
 DHOMEDIR="/var/${PN}"

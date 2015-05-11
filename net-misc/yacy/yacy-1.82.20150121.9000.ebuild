@@ -1,44 +1,45 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $HEADER: $
+# $Header: $
 
-inherit eutils versionator
+EAPI=5
+
+inherit eutils versionator user
 
 MAJOR_PV="$(get_version_component_range 1-2)"
 REL_PV="$(get_version_component_range 3)"
 SVN_PV="$(get_version_component_range 4)"
 
-DESCRIPTION="YaCy - p2p based distributed web-search engine"
+DESCRIPTION="p2p based distributed web-search engine - latest stable binary"
 HOMEPAGE="http://www.yacy.net/"
-SRC_URI="http://www.yacy.net/release/yacy_v${MAJOR_PV}_${REL_PV}_${SVN_PV}.tar.gz"
+SRC_URI="http://yacy.net/release/yacy_v${MAJOR_PV}_${REL_PV}_${SVN_PV}.tar.gz"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-DEPEND=">=virtual/jdk-1.6.0
-	app-admin/sudo"
+DEPEND=">=virtual/jdk-1.5.0"
+RESTRICT="mirror"
 LICENSE="GPL-2"
-
 IUSE=""
 
 S="${WORKDIR}/yacy"
 
 src_install() {
-	dodir /opt
-	mv "${S}" "${D}/opt/yacy"
-	chown -R yacy:yacy "${D}/opt/yacy"
+		dodir /opt
+		mv "${S}" "${D}/opt/${PN}"
+		chown -R ${PN}:${PN} "${D}/opt/${PN}"
 
 	dodir /var/log/yacy
 	chown yacy:yacy "${D}/var/log/yacy"
-	dosed "s:DATA/LOG/:/var/log/yacy/:g" "/opt/yacy/yacy.logging"
+	sed -i "s:DATA/LOG/:/var/log/yacy/:g" "${D}/opt/yacy/defaults/yacy.logging"
 
 	exeinto /etc/init.d
-	newexe "${FILESDIR}/yacy-${MAJOR_PV}.rc" yacy
+	newexe "${FILESDIR}/yacy.rc" yacy
 	insinto /etc/conf.d
-	newins "${FILESDIR}/yacy-${MAJOR_PV}.confd" yacy
+	newins "${FILESDIR}/yacy.confd" yacy
 }
 
 pkg_setup() {
-	enewgroup yacy
-	enewuser yacy -1 /bin/bash /opt/yacy yacy
+		enewgroup ${PN}
+		enewuser ${PN} -1 /bin/bash /opt/${PN} ${PN}
 }
 
 pkg_postinst() {

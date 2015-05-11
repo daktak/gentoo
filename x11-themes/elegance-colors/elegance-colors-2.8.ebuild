@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-inherit vala 
+inherit vala
 
 DESCRIPTION="Chameleon theme for Gnome Shell"
 HOMEPAGE="https://github.com/satya164/elegance-colors"
@@ -16,11 +16,10 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND=">=dev-libs/glib-2
-    x11-libs/gtk+:3
-    gnome-base/gnome-shell"
+	x11-libs/gtk+:3
+	gnome-base/gnome-shell"
 RDEPEND="${DEPEND}"
 
 src_prepare() {
 	sed -i -e 's/CC=valac/CC=valac-0.22/' Makefile || die "Sed failed!"
 }
-

@@ -2,19 +2,17 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 
-SUPPORT_PYTHON_ABIS="1"
-PYTHON_DEPEND="2:2.5"
-RESTRICT_PYTHON_ABIS="3.*"
+PYTHON_COMPAT=( python2_5 python2_6 python2_7 )
 
-inherit python distutils eutils
+inherit python-r1 distutils-r1 eutils
 
 DESCRIPTION="Download APKs from the Google PlayStore"
 HOMEPAGE="http://codingteam.net/project/googleplaydownloader"
 SRC_URI="http://codingteam.net/project/googleplaydownloader/download/file/googleplaydownloader_1.7.orig.tar.gz"
 
-LICENSE="GNU AGPL"
+LICENSE="GPL"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
@@ -29,5 +27,5 @@ DEPEND=">=dev-libs/protobuf-2.4[python]
 RDEPEND="${DEPEND}"
 
 src_prepare() {
-	epatch "${FILESDIR}/${P}.patch"  
+	epatch "${FILESDIR}/${P}.patch"
 }

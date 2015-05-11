@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -12,11 +12,11 @@ SRC_URI=""
 EGIT_REPO_URI="https://github.com/uberdiesel/${PN}.git"
 
 LICENSE=""
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="www-apache/mod_auth_token
-		dev-lang/php[sqlite]
+		dev-lang/php:*[sqlite]
 		www-servers/apache
 		net-nntp/sickbeard"
 RDEPEND="${DEPEND}"

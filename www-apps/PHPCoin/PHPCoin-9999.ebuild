@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -16,7 +16,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="qrcode"
 
 DEPEND="net-p2p/bitcoind
-dev-lang/php[mysqli] 
+dev-lang/php:*[mysqli]
 qrcode? ( dev-php/phpqrcode )"
 RDEPEND="${DEPEND}"
 

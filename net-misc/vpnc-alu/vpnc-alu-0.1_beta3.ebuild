@@ -29,18 +29,16 @@ RESTRICT="!gnutls? ( bindist ) fetch"
 CONFIG_CHECK="~TUN"
 
 pkg_nofetch() {
-    elog "Download the client file ${A} from
+	elog "Download the client file ${A} from
 	https://acos.alcatel-lucent.com/frs/download.php/6819/${PN}.tar.gz"
-    elog "and place it in ${DISTDIR:-/usr/portage/distfiles}."
+	elog "and place it in ${DISTDIR:-/usr/portage/distfiles}."
 }
-
 
 src_install() {
 	dobin usr/bin/vpnc usr/bin/vpnc-disconnect  || die
 	doman usr/share/man/man8/vpnc.8.gz || die
-	insinto /etc/vpnc 
+	insinto /etc/vpnc
 	doins etc/vpnc/alu.conf || die
 	exeinto /etc/vpnc
 	doexe etc/vpnc/vpnc-script || die
 }
-

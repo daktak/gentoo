@@ -1,5 +1,6 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: $
 
 inherit base
 
@@ -21,5 +22,3 @@ src_compile() {
 	sed -i '/#define in_addr_t/ s:^://:' config.h
 	emake -j1 || die "make failed"
 }
-
-

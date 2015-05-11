@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -18,5 +18,6 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND="media-plugins/gst-plugins-meta[http]"
+DEPEND="${PYTHON_DEPS}
+	media-plugins/gst-plugins-meta:=[http]"
 RDEPEND="${DEPEND}"

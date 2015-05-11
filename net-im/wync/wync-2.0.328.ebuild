@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -14,9 +14,9 @@ KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="
-	dev-libs/openssl
+	dev-libs/openssl:*
 	net-misc/freerdp
-	sys-libs/glibc
+	virtual/libc
 	sys-libs/zlib
 	x11-libs/libX11
 	x11-libs/libXfixes
@@ -28,15 +28,15 @@ DEPEND="
 RDEPEND="${DEPEND}"
 
 src_unpack() {
-    mkdir "${S}"
-    cd "${S}"
-    unpack wync_ubuntu64_v${PV}.deb 
-    unpack ./data.tar.gz
+	mkdir "${S}"
+	cd "${S}"
+	unpack wync_ubuntu64_v${PV}.deb
+	unpack ./data.tar.gz
 }
 
 src_install() {
-    cp -pPR "${S}"/etc "${D}"/ || die "Installation failed"
-    cp -pPR "${S}"/opt "${D}"/ || die "Installation failed"
-    cp -pPR "${S}"/usr "${D}"/ || die "Installation failed"
+	cp -pPR "${S}"/etc "${D}"/ || die "Installation failed"
+	cp -pPR "${S}"/opt "${D}"/ || die "Installation failed"
+	cp -pPR "${S}"/usr "${D}"/ || die "Installation failed"
 	dosym /opt/wync_linux/wync.sh /usr/bin/wync
 }

@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -28,7 +28,7 @@ insinto "${MY_HTDOCSDIR}"
 doins -r intranet
 doins index.html version.txt
 
-webapp_configfile ${MY_HTDOCSDIR}/intranet/settings.json 
+webapp_configfile ${MY_HTDOCSDIR}/intranet/settings.json
 
 webapp_src_install
 }

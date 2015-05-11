@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -17,8 +17,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="net-misc/esniper
-	dev-lang/php
-	virtual/httpd-php"
+	dev-lang/php:*
+	virtual/httpd-php:*"
 RDEPEND="${DEPEND}"
 
 need_httpd_cgi

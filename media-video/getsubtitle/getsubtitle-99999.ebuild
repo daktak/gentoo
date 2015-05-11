@@ -12,11 +12,11 @@ DESCRIPTION="Tool to download subtitles from shooter automatically."
 HOMEPAGE="https://github.com/firnsan/GetSubtitle"
 EGIT_REPO_URI="https://github.com/firnsan/GetSubtitle.git"
 
-LICENSE=""
+LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="net-misc/curl
-		dev-libs/openssl[zlib]"
+		dev-libs/openssl:*[zlib]"
 RDEPEND="${DEPEND}"

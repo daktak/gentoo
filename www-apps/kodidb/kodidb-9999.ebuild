@@ -1,15 +1,14 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-PYTHON_DEPEND="2:2.6"
-PYTHON_USE_WITH="sqlite"
+PYTHON_COMPAT=( python2_6 python2_7 )
 
 EGIT_REPO_URI="https://github.com/theguardian/KodiDB.git"
 
-inherit eutils user git-2 python
+inherit eutils user git-2 python-r1
 
 DESCRIPTION=" A python-based WebApp to interact with Kodi MySQL library "
 HOMEPAGE="https://github.com/theguardian/KodiDB/"
@@ -59,7 +58,7 @@ src_install() {
 	echo ${last_commit} > version.txt
 
 	epatch "${FILESDIR}/${PN}-dbandport.patch" || die
-	
+
 	insinto /usr/share/${PN}
 	doins -r cherrypy cherrystrap data lib mako KodiDB.py version.txt
 }
