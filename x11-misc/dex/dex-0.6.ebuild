@@ -1,32 +1,33 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/x11-misc/dex/dex-0.6.ebuild,v 1.6 2015/04/08 17:27:17 mgorny Exp $
 
-EAPI="5"
+EAPI=5
 
-DESCRIPTION="Dex is a tool to manage and launch autostart entries."
+PYTHON_COMPAT=( python{3_3,3_4} )
+inherit eutils python-r1
 
+DESCRIPTION="DesktopEntry eXecution - tool to manage and launch autostart entries"
 HOMEPAGE="http://e-jc.de/"
-EGIT_REPO_URI="http://github.com/jceb/dex.git"
-EGIT_COMMENT="${PV}"
+SRC_URI="https://github.com/jceb/dex/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86 ~amd64-linux"
+
 IUSE=""
 
-DEPEND=">=dev-lang/python-3.0.0
-		dev-python/argparse"
-RDEPEND="${DEPEND}"
-
-inherit git-2 eutils
+RDEPEND="${PYTHON_DEPS}"
+DEPEND="${RDEPEND}"
 
 src_prepare() {
 	epatch "${FILESDIR}/${P}-dedupe.patch" || die
+	epatch_user
 }
 
 src_install() {
-	dobin dex || die
-	dodoc README || die
-	doman dex.1 || die
+	dobin dex
+	python_replicate_script "${ED}/usr/bin/dex"
+	dodoc README
+	doman dex.1
 }
