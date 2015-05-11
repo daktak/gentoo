@@ -26,7 +26,7 @@ dev-perl/gtk2-perl
 RDEPEND="${DEPEND}"
 
 src_prepare() {
-	epatch ${FILESDIR}/lib.patch || die
+	epatch "${FILESDIR}/lib.patch" || die
 }
 
 src_install() {

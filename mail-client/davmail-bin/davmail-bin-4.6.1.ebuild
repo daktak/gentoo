@@ -1,8 +1,8 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI="5"
 
 inherit eutils java-pkg-2 user
 
@@ -26,22 +26,22 @@ KEYWORDS="~amd64 ~x86"
 IUSE="server"
 
 DEPEND="|| (
-	>=virtual/jre-1.6
-	>=virtual/jdk-1.6
+	>=virtual/jre-1.6:=
+	>=virtual/jdk-1.6:=
 	)
-  !mail-client/davmail"
+	!mail-client/davmail"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${MY_P}-${PV}-${MY_REV}"
 
 pkg_setup() {
-  if use server ; then
-    enewuser davmail -1 -1 /dev/null
-  fi
+	if use server ; then
+		enewuser davmail -1 -1 /dev/null
+	fi
 }
 
 src_install() {
-	cd "${S}"
+	#cd "${S}"
 
 	# libraries
 	java-pkg_dojar lib/*.jar

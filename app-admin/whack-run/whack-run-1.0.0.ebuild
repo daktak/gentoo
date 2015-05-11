@@ -11,7 +11,7 @@ DESCRIPTION="Compile and run relocatable Linux programs"
 HOMEPAGE="https://github.com/mwilliamson/whack-run"
 SRC_URI="https://github.com/mwilliamson/${PN}/archive/${PV}.tar.gz"
 
-LICENSE=""
+LICENSE="ASIS"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
