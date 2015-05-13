@@ -18,9 +18,13 @@ IUSE="+abi_x86_64 +abi_x86_32"
 DEPEND="media-libs/libgpod"
 RDEPEND="${DEPEND}"
 
+src_prepare() {
+	cp "${FILESDIR}/Makefile" src || die
+}
+
 src_compile() {
 	cd src
-	./build.sh || die
+	emake || die
 }
 
 src_install() {
