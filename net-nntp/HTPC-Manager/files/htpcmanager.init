@@ -33,7 +33,7 @@ start() {
         ebegin "Starting HTPC-Manager"
         start-stop-daemon --start --pidfile ${pidfile} -u ${USER} -g ${GROUP}\
         --exec ${bin} ${program} -- \
-        --daemon --pid ${pidfile} --datadir ${var_dir} --port ${PORT}
+        --daemon --pid ${pidfile} --datadir ${var_dir} --port ${PORT} --webdir ${WEBDIR}
         eend $?
 }
 

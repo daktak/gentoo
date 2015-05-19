@@ -6,11 +6,11 @@ EAPI=5
 
 PYTHON_COMPAT=( python2_6 python2_7 )
 
-inherit python-r1 eutils user
+inherit python-r1 eutils user git-2
 
 DESCRIPTION="Manage your HTPC from anywhere"
 HOMEPAGE="http://htpc.io"
-SRC_URI="https://github.com/styxit/${PN}/archive/${PV}.tar.gz"
+EGIT_REPO_URI="https://github.com/styxit/HTPC-Manager.git"
 
 LICENSE="MIT"
 SLOT="0"
@@ -47,12 +47,23 @@ src_install() {
 	insinto /etc/logrotate.d
 	insopts -m0644 -o root -g root
 	newins "${FILESDIR}/${MY_PN}.logrotate" ${MY_PN}
-
+	# wierd stuff ;-)
+	last_commit=$(git rev-parse HEAD)
+	echo ${last_commit} > version.txt
 	insinto /usr/share/${PN}
-	doins -r htpc interfaces libs modules Htpc.py || die
+	doins -r htpc interfaces libs modules Htpc.py version.txt || die
+	fowners ${MY_PN}:${MY_PN} /usr/share/${PN}/version.txt
 }
 
 pkg_postinst() {
+	# we need to remove .git which old ebuild installed
+	if [[ -d "/usr/share/${PN}/.git" ]] ; then
+	   ewarn "stale files from previous ebuild detected"
+	   ewarn "/usr/share/${PN}/.git removed."
+	   ewarn "To ensure proper operation, you should unmerge package and remove directory /usr/share/${PN} and then emerge package again"
+	   ewarn "Sorry for the inconvenience"
+	   rm -Rf "/usr/share/${PN}/.git"
+	fi
 	elog "New user/group ${MY_PN}/${MY_PN} has been created"
 	elog
 	elog "Config file is located in /etc/${MY_PN}/${MY_PN}.ini"
