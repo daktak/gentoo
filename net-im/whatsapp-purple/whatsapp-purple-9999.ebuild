@@ -19,3 +19,11 @@ EGIT_REPO_URI="https://github.com/davidgfnet/whatsapp-purple.git"
 DEPEND="net-im/pidgin
 media-libs/freeimage"
 RDEPEND="${DEPEND}"
+
+src_install() {
+        # wierd stuff ;-)
+		last_commit=$(git rev-parse HEAD)
+		echo ${last_commit} > version.txt
+		dodoc version.txt
+		default
+}
