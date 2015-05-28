@@ -16,7 +16,7 @@ KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="net-im/pidgin
-	dev-util/thrift"
+	dev-util/apache-thrift"
 RDEPEND="${DEPEND}"
 
 src_install() {
