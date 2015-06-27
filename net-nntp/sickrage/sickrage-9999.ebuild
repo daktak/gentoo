@@ -60,6 +60,8 @@ src_install() {
 
 	insinto /usr/share/${PN}
 	doins -r autoProcessTV gui lib runscripts sickbeard tests tornado SickBeard.py googlecode_upload.py setup.py updater.py version.txt
+
+	fowners -R ${PN}:${PN} /usr/share/${PN}
 }
 
 pkg_postinst() {
