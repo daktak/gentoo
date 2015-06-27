@@ -6,7 +6,7 @@ EAPI=5
 
 PYTHON_COMPAT=( python2_6 python2_7 )
 
-EGIT_REPO_URI="https://github.com/echel0n/SickRage.git"
+EGIT_REPO_URI="https://github.com/SiCKRAGETV/SickRage.git"
 
 inherit eutils user git-2 python-r1
 
