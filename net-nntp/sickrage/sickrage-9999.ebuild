@@ -24,9 +24,7 @@ RDEPEND="
 "
 
 pkg_setup() {
-	# Control PYTHON_USE_WITH
-	python_set_active_version 2
-	python_pkg_setup
+	python-single-r1_pkg_setup
 
 	# Create sickrage group
 	enewgroup ${PN}
