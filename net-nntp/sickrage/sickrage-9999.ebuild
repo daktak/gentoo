@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python2_6 python2_7 )
 
 EGIT_REPO_URI="https://github.com/SiCKRAGETV/SickRage.git"
 
-inherit eutils user git-2 python-r1
+inherit eutils user git-2 python-any-r1
 
 DESCRIPTION="SickRage - Searches TheTVDB and TVRage for shows"
 HOMEPAGE="http://www.sickrage.tv/"
@@ -24,7 +24,7 @@ RDEPEND="
 "
 
 pkg_setup() {
-	python-single-r1_pkg_setup
+	python-any-r1_pkg_setup
 
 	# Create sickrage group
 	enewgroup ${PN}
@@ -54,12 +54,12 @@ src_install() {
 	insopts -m0644 -o root -g root
 	newins "${FILESDIR}/${PN}.logrotate" ${PN}
 
-	# wierd stuff ;-)
+	# weird stuff ;-)
 	last_commit=$(git rev-parse HEAD)
 	echo ${last_commit} > version.txt
 
 	insinto /usr/share/${PN}
-	doins -r autoProcessTV cherrypy gui lib sickbeard tests SickBeard.py googlecode_upload.py setup.py updater.py version.txt
+	doins -r autoProcessTV gui lib runscripts sickbeard tests tornado SickBeard.py googlecode_upload.py setup.py updater.py version.txt
 }
 
 pkg_postinst() {
@@ -73,8 +73,6 @@ pkg_postinst() {
 	   rm -Rf "/usr/share/${PN}/.git"
 	fi
 
-	python_mod_optimize /usr/share/${PN}
-
 	elog "SickRage has been installed with data directories in /var/${PN}"
 	elog
 	elog "New user/group ${PN}/${PN} has been created"
@@ -87,8 +85,4 @@ pkg_postinst() {
 	elog "Visit http://<host ip>:8081 to configure SickRage"
 	elog "Default web username/password : sickrage/secret"
 	elog
-}
-
-pkg_postrm() {
-	python_mod_cleanup /usr/share/${PN}
 }
