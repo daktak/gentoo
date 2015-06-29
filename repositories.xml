@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE repositories SYSTEM "/dtd/repositories.dtd">
+<repositories version="1.0">
+  <repo quality="testing" status="unofficial">
+    <name>daktak</name>
+    <description lang="en">daktaks HTPC overlay</description>
+    <homepage>https://github.com/daktak/gentoo</homepage>
+    <owner>
+      <email>daktak</email>
+      <name>daktak</name>
+    </owner>
+    <source type="git">https://github.com/daktak/gentoo.git</source>
+    <source type="git">git://github.com/daktak/gentoo.git</source>
+  </repo>
+</repositories>

@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<layman>
+  <overlay type="git" src="https://github.com/daktak/gentoo.git" contact="daktak" name="daktak">
+    <link>https://github.com/daktak/gentoo</link>
+    <description>daktaks HTPC overlay</description>
+  </overlay>
+</layman>
