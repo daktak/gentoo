@@ -7,7 +7,7 @@ EAPI=5
 inherit autotools eutils
 
 if [[ ${PV} == "9999" ]] ; then
-	EGIT_REPO_URI="git://repo.or.cz/siplcs"
+	EGIT_REPO_URI="http://repo.or.cz/siplcs"
 	EGIT_BRANCH=mob
 	inherit git-2
 else
@@ -71,6 +71,11 @@ src_configure() {
 }
 
 src_install() {
+        # wierd stuff ;-)
+        last_commit=$(git rev-parse HEAD)
+        echo ${last_commit} > version.txt
+        dodoc version.txt
+
 	emake install DESTDIR="${D}"
 	dodoc AUTHORS ChangeLog NEWS TODO README
 }
