@@ -5,11 +5,11 @@
 EAPI=5
 
 inherit autotools eutils
-
+COMMIT="368a15e89645f4633c266960a4995c69b83dfccf"
 DESCRIPTION="Pidgin Plug-in SIPE (Sip Exchange Protocol)"
 HOMEPAGE="http://sipe.sourceforge.net/"
-SRC_URI="http://repo.or.cz/w/siplcs.git/snapshot/78cdbea046adbc73d52fa3b95f3737278cffafb0.tar.gz"
-S="${WORKDIR}/siplcs-78cdbea"
+SRC_URI="http://repo.or.cz/w/siplcs.git/snapshot/${COMMIT}.tar.gz"
+S="${WORKDIR}/siplcs-${COMMIT:0:7}"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
