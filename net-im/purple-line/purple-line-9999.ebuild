@@ -16,6 +16,7 @@ KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="net-im/pidgin
+	dev-libs/libgcrypt
 	dev-util/apache-thrift"
 RDEPEND="${DEPEND}"
 
