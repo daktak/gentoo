@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Hidden=false
+Terminal=false
+Icon=phone
+Name=LinConnect
+Exec=/usr/bin/linconnect_server.py
+Path=/usr/bin
