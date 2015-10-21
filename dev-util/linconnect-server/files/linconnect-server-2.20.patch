@@ -1,0 +1,18 @@
+--- LinConnectServer/main/linconnect_server.py	2014-05-08 06:48:01.000000000 +1000
++++ LinConnectServer/main/linconnect_server.py	2015-10-09 13:28:29.419662770 +1100
+@@ -1,3 +1,4 @@
++#!/usr/bin/env python2
+ '''
+     LinConnect: Mirror Android notifications on Linux Desktop
+ 
+@@ -88,8 +89,8 @@
+ 
+ class Notification(object):
+     if parser.getboolean('other', 'enable_instruction_webpage') == 1:
+-        with open(os.path.join(script_dir, 'index.html'), 'rb') as f:
+-            _index_source = f.read()
++        #with open(os.path.join(script_dir, 'index.html'), 'rb') as f:
++        #    _index_source = f.read()
+ 
+         def index(self):
+             return self._index_source % (version, "<br/>".join(get_local_ip()))
