@@ -18,6 +18,10 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
+DEPEND="${PYTHON_DEPS}
+		dev-python/unidecode"
+RDEPEND="${DEPEND}"
+
 pkg_setup() {
 	# Create lazylibrarian group
 	enewgroup ${PN}
