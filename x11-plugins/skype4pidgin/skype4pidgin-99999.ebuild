@@ -4,11 +4,11 @@
 
 EAPI=5
 
-inherit subversion
+inherit git-2 
 
 DESCRIPTION="Skype API PLugin for Pidgin"
-HOMEPAGE="http://myjobspace.co.nz/images/pidgin/"
-ESVN_REPO_URI="http://skype4pidgin.googlecode.com/svn/trunk/"
+HOMEPAGE="https://github.com/EionRobb/skype4pidgin"
+EGIT_REPO_URI="https://github.com/EionRobb/skype4pidgin"
 LICENSE="GPL-2 CCPL-Attribution-ShareAlike-NonCommercial-3.0"
 KEYWORDS="~amd64 ~x86"
 IUSE="dbus nls"
