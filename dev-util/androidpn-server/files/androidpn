@@ -1,0 +1,29 @@
+#!/sbin/runscript
+# Copyright 1999-2013 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Id$
+
+depend() {
+	need net
+}
+
+BASEDIR="/opt/androidpn-server"
+CLASSPATH="$BASEDIR/conf"
+JAVABINARY="/etc/java-config-2/current-system-vm/bin/java"
+PIDFILE="/var/run/androidpn.pid"
+
+start() {
+	ebegin "Starting androidpn"
+	start-stop-daemon --start -b -m --pidfile "$PIDFILE" --quiet --exec $JAVABINARY --name androidpn \
+	-- -server -classpath $CLASSPATH -Dbase.dir=$BASEDIR -jar $BASEDIR/lib/starter.jar 
+	sleep 1
+	[ -e "$PIDFILE" -a -e /proc/$(cat "$PIDFILE") ]
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping androidpn"
+	start-stop-daemon --stop --pidfile "$PIDFILE" --quiet --name androidpn
+	eend $?
+}
+
