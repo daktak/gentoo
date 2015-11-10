@@ -14,6 +14,7 @@ PIDFILE="/var/run/androidpn.pid"
 
 start() {
 	ebegin "Starting androidpn"
+	cd $BASEDIR/conf
 	start-stop-daemon --start -b -m --pidfile "$PIDFILE" --quiet --exec $JAVABINARY --name androidpn \
 	-- -server -classpath $CLASSPATH -Dbase.dir=$BASEDIR -jar $BASEDIR/lib/starter.jar 
 	sleep 1

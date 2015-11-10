@@ -21,11 +21,12 @@ RDEPEND=">=virtual/jdk-1.7
 	${DEPEND}"
 
 src_install() {
-	insinto /opt/"${PN}/conf"
-	doins conf/* || die
-	insinto /opt/"${PN}/console"
-	doins console/* || die
-	insinto /opt/"${PN}/lib"
+	insinto "/opt/${PN}/conf"
+	doins -r conf/*  || die
+	insinto "/opt/${PN}/console"
+	doins -r console/*  || die
+	insinto "/opt/${PN}/lib"
 	doins lib/* || die
+	dodir "/opt/${PN}/logs"
 	doinitd "${FILESDIR}/androidpn" || die
 }
