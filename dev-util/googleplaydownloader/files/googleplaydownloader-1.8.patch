@@ -1,6 +1,6 @@
-diff -uNar googleplaydownloader/googleplaydownloader.py googleplaydownloader/googleplaydownloader.py
+diff -uNar googleplaydownloader/googleplaydownloader.py googleplaydownloader/googleplaydownloader/googleplaydownloader.py
 --- googleplaydownloader/googleplaydownloader.py	2015-09-28 02:16:43.000000000 +1000
-+++ googleplaydownloader/googleplaydownloader.py	2015-11-12 09:46:06.950016068 +1100
++++ googleplaydownloader/googleplaydownloader.py	2015-11-12 15:59:34.860293901 +1100
 @@ -19,9 +19,10 @@
  HERE = os.path.abspath(os.path.dirname(__file__))
  _icons_path = os.path.join(HERE, 'img')
@@ -15,7 +15,23 @@ diff -uNar googleplaydownloader/googleplaydownloader.py googleplaydownloader/goo
  
  
  config = {}
-@@ -125,6 +126,7 @@
+@@ -33,6 +34,7 @@
+   config_dict["android_ID"] = ""
+   config_dict["gmail_password"]= ""
+   config_dict["gmail_address"] = ""
++  config_dict["directory"] = ""
+ 
+   error = None
+   if contact_developper == True:
+@@ -52,6 +54,7 @@
+     config_dict["android_ID"] = str(default_account_dict["android_ID"])
+     config_dict["gmail_password"] = str(default_account_dict["gmail_password"])
+     config_dict["gmail_address"] = str(default_account_dict["gmail_address"])
++    config_dict["directory"] = str(default_account_dict["download_folder_path"])
+ 
+   input_dict.update(config_dict)
+ 
+@@ -125,6 +128,7 @@
  def analyse_local_apks(list_of_apks, playstore_api, download_folder_path, dlg, return_function):
    list_apks_to_update = []
    for position, filename in enumerate(list_of_apks):
@@ -23,7 +39,7 @@ diff -uNar googleplaydownloader/googleplaydownloader.py googleplaydownloader/goo
      wx.CallAfter(dlg.Update, position, "%i/%i : %s\nPlease Wait..." %(position+1, len(list_of_apks), filename))
  
      #Get APK info from file on disk
-@@ -165,6 +167,7 @@
+@@ -165,6 +169,7 @@
      doc = m.docV2
      title = doc.title
      vc = doc.details.appDetails.versionCode
@@ -31,7 +47,7 @@ diff -uNar googleplaydownloader/googleplaydownloader.py googleplaydownloader/goo
  
      #Update progress dialog
      wx.CallAfter(dlg.Update, position, "%i/%i : %s\n%s\nSize : %s\nPlease Wait...(there is no download progression)" %(position+1, len(list_of_packages_to_download), title, packagename, sizeof_fmt(doc.details.appDetails.installationSize)))
-@@ -296,12 +299,22 @@
+@@ -296,12 +301,22 @@
      self.SetMinSize((700,400))
      search_entry.SetFocus()
  
@@ -55,7 +71,7 @@ diff -uNar googleplaydownloader/googleplaydownloader.py googleplaydownloader/goo
          dlg = wx.ProgressDialog("Updating APKs",
                                     "_" * 30 + "\n"*2,
                                     maximum = len(list_of_apks),
-@@ -379,6 +392,7 @@
+@@ -379,6 +394,7 @@
        config["android_ID"] = dlg.android_ID.GetValue()
        config["gmail_address"] = dlg.gmail_address.GetValue()
        config["gmail_password"] = dlg.gmail_password.GetValue()
@@ -63,7 +79,7 @@ diff -uNar googleplaydownloader/googleplaydownloader.py googleplaydownloader/goo
  
  
      dlg.Destroy()
-@@ -415,10 +429,16 @@
+@@ -415,10 +431,16 @@
            message += "\n%s" % package_name
          message += "\n%s\n" % exception
  
@@ -84,7 +100,7 @@ diff -uNar googleplaydownloader/googleplaydownloader.py googleplaydownloader/goo
  
    def ask_download_folder_path(self):
      dlg = wx.DirDialog(self, "Choose a download folder:",  defaultPath = config["download_folder_path"], style=wx.DD_DEFAULT_STYLE)
-@@ -479,12 +499,19 @@
+@@ -479,12 +501,19 @@
        for packagename, filename, apk_version_code, store_version_code in list_apks_to_update :
          message += u"\n%s Version : %s -> %s" % (filename ,apk_version_code, store_version_code)
          list_of_packages_to_download.append([packagename, filename])
@@ -108,7 +124,7 @@ diff -uNar googleplaydownloader/googleplaydownloader.py googleplaydownloader/goo
          #Progress Dialog
          dlg = wx.ProgressDialog("Updating APKs",
                                   " " * 30 + "\n"*4,
-@@ -493,6 +520,10 @@
+@@ -493,6 +522,10 @@
                                   style = wx.PD_CAN_ABORT|wx.PD_AUTO_HIDE
                                   )
          thread.start_new_thread(download_selection, (self.playstore_api, list_of_packages_to_download, dlg, self.after_download))
@@ -119,7 +135,16 @@ diff -uNar googleplaydownloader/googleplaydownloader.py googleplaydownloader/goo
  
  class ConfigDialog(wx.Dialog):
    def __init__(self, parent):
-@@ -548,6 +579,13 @@
+@@ -507,7 +540,7 @@
+     sizer.Add(self.use_default_btn, 0, wx.ALL, 5)
+     sizer.Add(self.use_custom_btn, 0, wx.ALL, 5)
+ 
+-    self.gridSizer = gridSizer = wx.FlexGridSizer(rows=5, cols=2, hgap=5, vgap=5)
++    self.gridSizer = gridSizer = wx.FlexGridSizer(rows=6, cols=2, hgap=5, vgap=5)
+     sizer.Add(self.gridSizer, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5)
+ 
+     self.custom_widgets = []
+@@ -548,6 +581,13 @@
      gridSizer.Add(label,0, wx.ALIGN_CENTER_VERTICAL|wx.LEFT,5)
      gridSizer.Add(self.language,1, wx.EXPAND|wx.ALIGN_CENTRE|wx.ALL, 5)
  
@@ -133,7 +158,7 @@ diff -uNar googleplaydownloader/googleplaydownloader.py googleplaydownloader/goo
      line = wx.StaticLine(self, -1, size=(20,-1), style=wx.LI_HORIZONTAL)
      sizer.Add(line, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL|wx.RIGHT|wx.TOP, 5)
  
-@@ -588,6 +626,7 @@
+@@ -588,6 +628,7 @@
      self.android_ID.SetValue(config["android_ID"])
      self.gmail_address.SetValue(config["gmail_address"])
      self.gmail_password.SetValue(config["gmail_password"])
@@ -141,7 +166,7 @@ diff -uNar googleplaydownloader/googleplaydownloader.py googleplaydownloader/goo
  
    def generate_android_id(self, event=None):
      #Launch Java to create an AndroidID
-@@ -644,6 +683,10 @@
+@@ -644,6 +685,10 @@
  
      #Connection
      self.panel.connect_to_googleplay_api()
