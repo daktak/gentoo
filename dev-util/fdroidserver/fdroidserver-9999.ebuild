@@ -19,5 +19,6 @@ KEYWORDS="~amd64"
 IUSE=""
 DEPEND="${PYTHON_DEPS}
 	dev-python/pyasn1-modules
+	dev-python/pyyaml
 	dev-python/paramiko"
 RDEPEND="${DEPEND}"
