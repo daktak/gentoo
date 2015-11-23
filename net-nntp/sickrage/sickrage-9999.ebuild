@@ -59,7 +59,7 @@ src_install() {
 	echo ${last_commit} > version.txt
 
 	insinto /usr/share/${PN}
-	doins -r autoProcessTV gui lib runscripts sickbeard tests tornado SickBeard.py googlecode_upload.py setup.py updater.py version.txt
+	doins -r autoProcessTV contrib gui lib runscripts sickbeard sickrage tests tornado SickBeard.py version.txt
 
 	fowners -R ${PN}:${PN} /usr/share/${PN}
 }
