@@ -17,5 +17,6 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND="dev-libs/libffi"
+DEPEND="dev-libs/libffi
+		dev-python/clint"
 RDEPEND="${DEPEND}"
