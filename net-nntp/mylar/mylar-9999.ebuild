@@ -70,7 +70,7 @@ pkg_postinst() {
 	   rm -Rf "/usr/share/${PN}/.git"
 	fi
 
-	python_mod_optimize /usr/share/${PN}
+	#python_mod_optimize /usr/share/${PN}
 
 	elog "Headphones has been installed with data directories in /var/${PN}"
 	elog
@@ -86,6 +86,3 @@ pkg_postinst() {
 	elog
 }
 
-pkg_postrm() {
-	python_mod_cleanup /usr/share/${PN}
-}
