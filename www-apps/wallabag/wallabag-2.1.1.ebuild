@@ -76,6 +76,7 @@ src_install() {
 pkg_postinst() {
 	elog "Install and upgrade instructions can be found here:"
 	elog "http://doc.wallabag.org/en/v2/user/installation.html"
+	elog "remove var/cache after using wabapp-config to install"
 
 	webapp_pkg_postinst
 }
