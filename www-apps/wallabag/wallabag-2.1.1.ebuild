@@ -37,7 +37,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND=">=virtual/httpd-php-5.4
-	>=dev-lang/php-5.5[pdo,session,ctype,xml,hash,simplexml,json,gd,unicode,tidy,iconv,curl,nls,tokenizer]
+	net-libs/nodejs[npm]
+	>=dev-lang/php-5.5[pdo,session,ctype,xml,hash,simplexml,json,gd,unicode,tidy,iconv,curl,nls,tokenizer,bcmath]
 	|| ( dev-lang/php[mysql] dev-lang/php[postgres] dev-lang/php[sqlite] )"
 
 DEPEND=">=dev-lang/php-5.5.9"
@@ -56,6 +57,8 @@ src_unpack() {
 src_prepare() {
 	SYMFONY_ENV=prod php -d memory_limit=-1 "${T}/${COMPOSER}" install --no-dev --optimize-autoloader --prefer-dist --no-interaction --verbose || die
 	php bin/console wallabag:install --env=prod || die
+	npm install || die
+	grunt || die
 	eapply_user
 }
 
@@ -73,6 +76,7 @@ src_install() {
 pkg_postinst() {
 	elog "Install and upgrade instructions can be found here:"
 	elog "http://doc.wallabag.org/en/v2/user/installation.html"
+	elog "remove var/cache after using wabapp-config to install"
 
 	webapp_pkg_postinst
 }
