@@ -56,7 +56,7 @@ src_install() {
 	echo ${last_commit} > version.txt
 
 	insinto /usr/share/${PN}
-	doins -r bs4 cherrypy data mylar lib mako Mylar.py version.txt post-processing
+	doins -r cache data mylar lib Mylar.py version.txt post-processing
 }
 
 pkg_postinst() {
