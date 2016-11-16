@@ -9,11 +9,17 @@ inherit eutils java-pkg-2 user
 MY_REV="2427"
 MY_PN="davmail"
 
-if use x86 ; then
-	MY_P="${MY_PN}-linux-x86"
-else
-	MY_P="${MY_PN}-linux-x86_64"
-fi
+case ${ARCH} in
+        amd64)
+			MY_P="${MY_PN}-linux-x86_64"
+        ;;
+        x86)
+			MY_P="${MY_PN}-linux-x86"
+        ;;
+        *)
+            eerror "Given architecture is not supported."
+        ;;
+esac
 
 SRC_URI="mirror://sourceforge/${MY_PN}/${MY_P}-${PV}-${MY_REV}.tgz"
 DESCRIPTION="POP/IMAP/SMTP/Caldav/Carddav/LDAP Exchange Gateway"
