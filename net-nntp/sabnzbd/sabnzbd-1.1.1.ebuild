@@ -15,7 +15,7 @@ MY_P="${P/sab/SAB}"
 DESCRIPTION="Binary newsgrabber in Python, with web-interface. Successor of old SABnzbd project"
 HOMEPAGE="http://www.sabnzbd.org/"
 SRC_URI="https://github.com/${PN}/${PN}/releases/download/${PV}/${MY_P}-src.tar.gz"
-ud
+
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
