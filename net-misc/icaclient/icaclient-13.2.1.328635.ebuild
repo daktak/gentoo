@@ -54,11 +54,18 @@ RDEPEND="dev-libs/atk
 	x11-terms/xterm"
 DEPEND=""
 
-if use amd64 ; then
-	ICAARCH=linuxx64
-elif use x86 ; then
-	ICAARCH=linuxx86
-fi
+    case ${ARCH} in
+        amd64)
+            ICAARCH=linuxx64
+        ;;
+        x86)
+            ICAARCH=linuxx86
+        ;;
+        *)
+            eerror "Given architecture is not supported by Citrix."
+        ;;
+    esac
+
 S="${WORKDIR}/${ICAARCH}/${ICAARCH}.cor"
 
 pkg_nofetch() {

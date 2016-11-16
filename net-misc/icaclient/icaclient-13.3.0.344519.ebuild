@@ -61,14 +61,21 @@ pkg_nofetch() {
 }
 
 src_unpack() {
-	default
+    default
 
-	if use amd64 ; then
-		ICAARCH=linuxx64
-	elif use x86 ; then
-		ICAARCH=linuxx86
-	fi
-	S="${WORKDIR}/${ICAARCH}/${ICAARCH}.cor"
+    case ${ARCH} in
+        amd64)
+            ICAARCH=linuxx64
+        ;;
+        x86)
+            ICAARCH=linuxx86
+        ;;
+        *)
+            eerror "Given architecture is not supported by Citrix."
+        ;;
+    esac
+
+    S="${WORKDIR}/${ICAARCH}/${ICAARCH}.cor"
 }
 
 src_install() {
