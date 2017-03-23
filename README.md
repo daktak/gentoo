@@ -1,9 +1,10 @@
 Gentoo
 ======
 
-This gentoo overlay is largley meant to work along side the soehest overlay and
-contains ebuilds relating to maintaining a gentoo based xbmc htpc.
+This gentoo overlay is largley meant to work along side the nextoo overlay and
+contains ebuilds relating to maintaining a gentoo based kodi htpc. Some pidgin 
+plugins are known to find there way in.
 
-Although I push updates to sabnzbd etc if I get impatient.
+Although I push updates if I get impatient.
 
     # layman -f -o https://raw.githubusercontent.com/daktak/gentoo/master/repositories.xml -a daktak
