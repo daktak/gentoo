@@ -23,8 +23,7 @@ IUSE=""
 
 pkg_setup() {
 	# Control PYTHON_USE_WITH
-	python_set_active_version 2
-	python_pkg_setup
+	python-r1_pkg_setup
 
 	# Create couchpotato group
 	enewgroup ${PN}
@@ -66,7 +65,6 @@ pkg_postinst() {
 	   rm -Rf "/usr/share/${PN}/.git"
 	fi
 
-	python_mod_optimize /usr/share/${PN}
 
 	elog "Couchpotato has been installed with data directories in /var/${PN}"
 	elog
@@ -83,6 +81,3 @@ pkg_postinst() {
 	elog
 }
 
-pkg_postrm() {
-	python_mod_cleanup /usr/share/${PN}
-}
