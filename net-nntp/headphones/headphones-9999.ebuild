@@ -51,7 +51,7 @@ src_install() {
 	echo ${last_commit} > version.txt
 
 	insinto /usr/share/${PN}
-	doins -r bs4 cherrypy data headphones html5lib lib mako Headphones.py version.txt
+	doins -r data headphones lib Headphones.py version.txt
 }
 
 pkg_postinst() {
