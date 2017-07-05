@@ -38,7 +38,7 @@ RDEPEND="
 	${PYTHON_DEPS}
 	>=app-arch/par2cmdline-0.4
 	>=dev-python/cheetah-2.0.1
-	net-nntp/sabyenc
+	dev-python/sabyenc
 	dev-python/configobj
 	dev-python/feedparser
 	dev-python/gntp
