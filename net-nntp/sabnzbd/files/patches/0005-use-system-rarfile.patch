@@ -1,15 +1,15 @@
 diff -uNar a/sabnzbd/assembler.py b/sabnzbd/assembler.py
 --- a/sabnzbd/assembler.py	2017-08-17 18:35:45.000000000 +1000
 +++ b/sabnzbd/assembler.py	2017-08-20 08:36:15.616664033 +1000
-@@ -36,7 +36,7 @@
+@@ -37,7 +37,7 @@
  from sabnzbd.postproc import PostProcessor
  import sabnzbd.downloader
  import sabnzbd.par2file as par2file
 -import sabnzbd.utils.rarfile as rarfile
 +import rarfile
- from sabnzbd.encoding import unicoder, is_utf8
+ from sabnzbd.encoding import unicoder
  from sabnzbd.rating import Rating
- 
+
 diff -uNar a/sabnzbd/dirscanner.py b/sabnzbd/dirscanner.py
 --- a/sabnzbd/dirscanner.py	2017-08-17 18:35:45.000000000 +1000
 +++ b/sabnzbd/dirscanner.py	2017-08-20 08:36:25.401629371 +1000
