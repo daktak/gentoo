@@ -11,6 +11,7 @@ inherit python-r1 eutils git-r3 distutils-r1
 DESCRIPTION="Installable catalogue of FOSS applications for the Android platform"
 HOMEPAGE="https://gitlab.com/fdroid/fdroidserver"
 EGIT_REPO_URI="https://gitlab.com/fdroid/fdroidserver.git"
+EGIT_COMMIT="${pv}"
 
 LICENSE="GPL-3"
 SLOT="0"
