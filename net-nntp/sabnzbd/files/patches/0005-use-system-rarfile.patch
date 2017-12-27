@@ -28,12 +28,12 @@ diff -uNar a/sabnzbd/newsunpack.py b/sabnzbd/newsunpack.py
 @@ -30,7 +30,7 @@
  
  import sabnzbd
- from sabnzbd.encoding import TRANS, UNTRANS, unicoder, platform_encode, deunicode
+ from sabnzbd.encoding import TRANS, unicoder, platform_encode, deunicode
 -import sabnzbd.utils.rarfile as rarfile
 +import rarfile
  from sabnzbd.misc import format_time_string, find_on_path, make_script_path, int_conv, \
      real_path, globber, globber_full, get_all_passwords, renamer, clip_path, \
-     has_win_device, calc_age, long_path
+     has_win_device, calc_age, long_path, remove_file
 diff -uNar a/sabnzbd/postproc.py b/sabnzbd/postproc.py
 --- a/sabnzbd/postproc.py	2017-08-17 18:35:45.000000000 +1000
 +++ b/sabnzbd/postproc.py	2017-08-20 08:36:48.738546701 +1000
@@ -45,4 +45,4 @@ diff -uNar a/sabnzbd/postproc.py b/sabnzbd/postproc.py
 +import rarfile
  import sabnzbd.utils.checkdir
  
- # Match samples
+ MAX_FAST_JOB_COUNT = 3
