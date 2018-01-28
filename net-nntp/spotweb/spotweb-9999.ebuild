@@ -37,9 +37,9 @@ src_install() {
 	insinto ${MY_HTDOCSDIR}
 	dodoc README.md
 	#install htdoc files
-	doins favicon.ico install.php index.php notifications.xml retrieve.php upgrade-db.php || die "failed to install"
-	doins settings.php usenetservers.xml migrate-cache2.php migrate-cache.php || die "failed to install"
-	doins -r NNTP images js lib locales templates tests utils vendor || die "failed to install"
+	doins favicon.ico install.php index.php notifications.xml retrieve.php || die "failed to install"
+	doins settings.php usenetservers.xml composer.json composer.lock || die "failed to install"
+	doins -r bin images js lib locales templates utils vendor || die "failed to install"
 	webapp_postinst_txt en "${FILESDIR}"/postinstall-en.txt
 	#doins "${FILESDIR}"/.htaccess || die "failed to install htaccess"
 	webapp_src_install
