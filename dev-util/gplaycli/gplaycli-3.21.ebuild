@@ -4,7 +4,7 @@
 
 EAPI=5
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python3_{4,5,6} )
 
 inherit python-r1 distutils-r1 eutils python-utils-r1
 
@@ -18,5 +18,9 @@ KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="dev-libs/libffi
+		dev-util/androguard
+		>=dev-python/gpapi-0.4.2
+		dev-python/pyaxmlparser
+		dev-python/pycryptodomex
 		dev-python/clint"
 RDEPEND="${DEPEND}"
