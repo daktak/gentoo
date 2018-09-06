@@ -4,7 +4,7 @@
 
 EAPI="6"
 
-PYTHON_COMPAT=( python3_{4,5,6} )
+PYTHON_COMPAT=( python3_{4,5,6,7} )
 
 inherit python-r1 eutils git-r3 distutils-r1
 
@@ -20,6 +20,7 @@ IUSE=""
 DEPEND="${PYTHON_DEPS}
 	dev-python/pyasn1-modules
 	dev-python/pyyaml
+	dev-python/Babel
 	dev-python/paramiko"
 RDEPEND="${DEPEND}"
 
