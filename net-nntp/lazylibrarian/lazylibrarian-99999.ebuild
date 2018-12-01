@@ -58,7 +58,7 @@ src_install() {
 	echo ${last_commit} > version.txt
 
 	insinto /usr/share/${PN}
-	doins -r cherrypy data lazylibrarian lib mako LazyLibrarian.py version.txt
+	doins -r cherrypy data lazylibrarian lib lib3 mako LazyLibrarian.py version.txt
 	fowners ${PN}:${PN} /usr/share/${PN}/version.txt
 }
 
