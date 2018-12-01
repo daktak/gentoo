@@ -6,7 +6,7 @@ EAPI=5
 
 PYTHON_COMPAT=(python2_6 python2_7)
 
-EGIT_REPO_URI="https://github.com/DobyTang/LazyLibrarian.git"
+EGIT_REPO_URI="https://gitlab.com/LazyLibrarian/LazyLibrarian.git"
 
 inherit eutils user git-2 python-r1
 
