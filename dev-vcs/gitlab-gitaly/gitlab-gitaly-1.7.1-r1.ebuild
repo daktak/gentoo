@@ -34,7 +34,7 @@ src_prepare()
     # Fix compiling of nokogumbo, see 
 	# https://github.com/rubys/nokogumbo/issues/40#issuecomment-182667202
 	pushd ruby
-	gem install nokogumbo -- --with-ldflags='-L. -Wl,-O1 -Wl,--as-needed -fstack-protector -rdynamic -Wl,-export-dynamic'
+	sudo gem install nokogiri -- --with-xml2-include=/usr/include/libxml2/libxml/ --use-system-libraries
 	bundle config build.nokogumbo --with-ldflags='-L. -Wl,-O1 -Wl,--as-needed -fstack-protector -rdynamic -Wl,-export-dynamic'
 	popd
 }
