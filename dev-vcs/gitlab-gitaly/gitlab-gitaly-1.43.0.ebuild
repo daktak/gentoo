@@ -14,8 +14,8 @@ HOMEPAGE="https://gitlab.com/gitlab-org/gitaly"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~arm"
-
-DEPEND=">=dev-lang/go-1.8.3
+RESTRICT="network-sandbox"
+DEPEND=">=dev-lang/go-1.10.0
 		dev-libs/icu
 		dev-ruby/bundler"
 RDEPEND="${DEPEND}"
@@ -31,12 +31,22 @@ src_prepare()
 	# See https://gitlab.com/gitlab-org/gitaly/issues/493
 	sed -s 's#LDFLAGS#GO_LDFLAGS#g' -i Makefile || die
 
-    # Fix compiling of nokogumbo, see 
+	# Fix compiling of nokogumbo, see 
 	# https://github.com/rubys/nokogumbo/issues/40#issuecomment-182667202
 	pushd ruby
-	sudo gem install nokogiri -- --with-xml2-include=/usr/include/libxml2/libxml/ --use-system-libraries
-	bundle config build.nokogumbo --with-ldflags='-L. -Wl,-O1 -Wl,--as-needed -fstack-protector -rdynamic -Wl,-export-dynamic'
+	# emerge -C gumbo
+	#gem install nokogumbo -v '1.5.0' -- --with-ldflags='-L. -Wl,-O1 -Wl,--as-needed -fstack-protector -rdynamic -Wl,-export-dynamic'
+	#bundle config build.nokogumbo -v '1.5.0' --with-ldflags='-L. -Wl,-O1 -Wl,--as-needed -fstack-protector -rdynamic -Wl,-export-dynamic'
+	bundle config build.nokogumbo -v '1.5.0' --with-ldflags='-Wl,--undefined --with-xml2-include=/usr/include/libxml2/libxml/ --use-system-libraries'
+	#bundle config build.nokogumbo -v '1.5.0' --with-ldflags='-L. -Wl,-O1 -Wl,--as-needed -fstack-protector -rdynamic -Wl,-export-dynamic'
 	popd
+}
+
+find_files()
+{
+	for f in $(find ${ED}${1} -type f) ; do
+		echo $f | sed "s#${ED}##"
+	done
 }
 
 src_install()
@@ -49,16 +59,25 @@ src_install()
 
 	into "/usr" # This will install the binary to /usr/bin. Don't specify the "bin" folder!
 	newbin "gitaly" "gitlab-gitaly"
+	dobin "gitaly-ssh"
 
 	insinto "/var/lib/gitlab-gitaly"
 	doins -r "ruby"
 
-	# make binaries executable
-	exeinto "/var/lib/gitlab-gitaly/ruby/bin"
-	doexe "ruby/bin/"*
+	fperms 0755 /var/lib/gitlab-gitaly/ruby/git-hooks/gitlab-shell-hook
 
-	exeinto /var/lib/gitlab-gitaly/ruby/vendor/bundle/ruby/*/bin/
-	doexe ruby/vendor/bundle/ruby/*/bin/*
+	# If we are using wildcards, the shell fills them without prefixing ${ED}. Thus
+	# we would target a file list from the real system instead from the sandbox which
+	# results in errors if the system has other files than the sandbox.
+	for bin in $(find_files /var/lib/gitlab-gitaly/ruby/bin) ; do
+		fperms 0755 $bin
+	done
+	for hook in $(find_files /var/lib/gitlab-gitaly/ruby/gitlab-shell/hooks) ; do
+		fperms 0755 $hook 
+	done
+	for bin in $(find_files "/var/lib/gitlab-gitaly/ruby/vendor/bundle/ruby/*/bin") ; do
+		fperms 0755 $bin
+	done
 
 	insinto "/etc/gitaly"
 	newins "config.toml.example" "config.toml"
