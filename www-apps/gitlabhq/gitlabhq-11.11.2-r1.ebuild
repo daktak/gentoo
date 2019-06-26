@@ -231,7 +231,8 @@ each_ruby_install() {
 
 	# Fix compiling of nokogumbo, see 
 	# https://github.com/rubys/nokogumbo/issues/40#issuecomment-182667202
-	${BUNDLE} config build.nokogumbo --use-system-libraries
+	#gem install nokogumbo -v '1.5.0' -- --with-ldflags='-L. -Wl,-O1 -Wl,--as-needed -fstack-protector -rdynamic -Wl,-export-dynamic'
+	${BUNDLE} config build.nokogumbo -v '1.5.0' --with-ldflags='-Wl,--undefined --with-xml2-include=/usr/include/libxml2/libxml/ --use-system-libraries'
 	#${BUNDLE} config build.nokogumbo --with-ldflags='-Wl,--undefined'
 
 	# Fix invalid ldflags for charlock_holmes,
