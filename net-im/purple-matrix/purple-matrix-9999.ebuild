@@ -3,7 +3,7 @@
 
 EAPI=5
 
-inherit git-2
+inherit git-r3
 
 DESCRIPTION="libpurple (Pidgin, Finch) protocol plugin for Matrix.org."
 HOMEPAGE="https://github.com/matrix-org/purple-matrix#readme"

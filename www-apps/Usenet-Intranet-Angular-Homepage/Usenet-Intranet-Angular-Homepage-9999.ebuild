@@ -4,7 +4,7 @@
 
 EAPI="5"
 
-inherit webapp git-2 eutils
+inherit webapp git-r3 eutils
 
 DESCRIPTION="A simple little one-page Intranet homepage"
 HOMEPAGE="https://github.com/daktak/Usenet-Intranet-Angular-Homepage"

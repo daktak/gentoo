@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit git-2 
+inherit git-r3 
 
 DESCRIPTION="Skype API PLugin for Pidgin"
 HOMEPAGE="https://github.com/EionRobb/skype4pidgin"

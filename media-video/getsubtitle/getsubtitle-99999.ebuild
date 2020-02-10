@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit git-2 autotools-utils autotools
+inherit git-r3 autotools-utils autotools
 
 BUILD_DIR=${S}
 

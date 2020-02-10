@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit git-2
+inherit git-r3
 
 DESCRIPTION="libpurple (Pidgin, Finch) protocol plugin for LINE."
 HOMEPAGE="http://altrepo.eu/git/purple-line"

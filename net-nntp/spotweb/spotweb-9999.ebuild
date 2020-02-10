@@ -4,7 +4,7 @@
 
 EAPI="5"
 
-inherit eutils user git-2 webapp
+inherit eutils user git-r3 webapp
 
 PYTHON_DEPEND="2:2.6"
 

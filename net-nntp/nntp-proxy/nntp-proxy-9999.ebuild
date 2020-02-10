@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit git-2 eutils
+inherit git-r3 eutils
 
 DESCRIPTION="simple NNTP proxy with SSL support"
 HOMEPAGE="https://github.com/nieluj/nntp-proxy"

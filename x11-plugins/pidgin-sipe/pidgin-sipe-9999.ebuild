@@ -9,7 +9,7 @@ inherit autotools eutils
 if [[ ${PV} == "9999" ]] ; then
 	EGIT_REPO_URI="http://repo.or.cz/siplcs"
 	EGIT_BRANCH=mob
-	inherit git-2
+	inherit git-r3
 else
 	SRC_URI="mirror://sourceforge/sipe/${P}.tar.gz"
 	KEYWORDS="~amd64 ~x86"

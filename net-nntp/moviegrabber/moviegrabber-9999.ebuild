@@ -6,7 +6,7 @@ EAPI="5"
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit eutils git-2 python-r1 user
+inherit eutils git-r3 python-r1 user
 
 DESCRIPTION="MovieGrabber is a fully automated way of downloading movie from
 usenet"

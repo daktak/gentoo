@@ -8,7 +8,7 @@ PYTHON_COMPAT=(python2_6 python2_7)
 
 EGIT_REPO_URI="https://github.com/rembo10/headphones.git"
 
-inherit eutils user git-2 python-r1
+inherit eutils user git-r3 python-r1
 
 DESCRIPTION="Automatic music downloader for SABnzbd"
 HOMEPAGE="https://github.com/rembo10/headphones#readme"

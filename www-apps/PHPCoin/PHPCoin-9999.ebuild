@@ -4,7 +4,7 @@
 
 EAPI="5"
 
-inherit webapp git-2 eutils
+inherit webapp git-r3 eutils
 
 DESCRIPTION="A PHP frontend for Bitcoind"
 HOMEPAGE="http://github.com/BCEmporium/PHPCoin"

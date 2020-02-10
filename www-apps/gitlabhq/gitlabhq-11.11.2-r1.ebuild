@@ -16,7 +16,7 @@ PYTHON_COMPAT=( python2_7 )
 EGIT_REPO_URI="https://gitlab.com/gitlab-org/gitlab-ce.git"
 EGIT_COMMIT="v${PV}"
 
-inherit eutils git-2 python-r1 ruby-ng versionator user linux-info systemd
+inherit eutils git-r3 python-r1 ruby-ng versionator user linux-info systemd
 
 DESCRIPTION="GitLab is a free project and repository management application"
 HOMEPAGE="https://about.gitlab.com/gitlab-ci/"
@@ -51,7 +51,7 @@ GEMS_DEPEND="
 	net-libs/http-parser"
 DEPEND="${GEMS_DEPEND}
 	>=dev-lang/ruby-2.5[ssl]
-	>dev-vcs/git-2.2.1
+	>dev-vcs/git-r3.2.1
 	>=dev-vcs/gitlab-shell-9.2.0
 	>=dev-vcs/gitlab-gitaly-1.43.0
 	>=www-servers/gitlab-workhorse-8.7.0
@@ -95,7 +95,7 @@ pkg_setup() {
 }
 
 all_ruby_unpack() {
-	git-2_src_unpack
+	git-r3_src_unpack
 }
 
 each_ruby_prepare() {

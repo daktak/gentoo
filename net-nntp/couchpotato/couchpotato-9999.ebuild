@@ -11,7 +11,7 @@ PYTHON_USE_WITH="sqlite"
 
 EGIT_REPO_URI="https://github.com/RuudBurger/CouchPotatoServer.git"
 
-inherit eutils user git-2 python-r1
+inherit eutils user git-r3 python-r1
 
 DESCRIPTION="CouchPotatoServer (CPS) V2 is an automatic NZB and torrent downloader for movies"
 HOMEPAGE="https://github.com/RuudBurger/CouchPotatoServer#readme"

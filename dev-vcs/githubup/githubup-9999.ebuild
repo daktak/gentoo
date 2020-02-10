@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit git-2
+inherit git-r3
 
 DESCRIPTION="Automated solution to grab chinese subtitles from
 http://www.shooter.cn"

@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit git-2 
+inherit git-r3 
 
 DESCRIPTION="Pidgin plugin to disable keepalives (protocol pings) on a per-account basis"
 HOMEPAGE="https://github.com/EionRobb/pidgin-no-keepalives"

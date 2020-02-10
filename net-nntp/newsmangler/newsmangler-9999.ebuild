@@ -6,7 +6,7 @@ EAPI=5
 
 PYTHON_COMPAT=( python2_6 python2_7 )
 
-inherit git-2 python-r1
+inherit git-r3 python-r1
 
 DESCRIPTION="NNTP binary poster with mulitple connection support"
 HOMEPAGE="https://github.com/madcowfred/newsmangler"

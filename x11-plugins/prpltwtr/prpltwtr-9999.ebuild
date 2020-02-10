@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit autotools autotools-utils git-2
+inherit autotools autotools-utils git-r3
 
 DESCRIPTION="libpurple twitter protocol"
 HOMEPAGE="https://code.google.com/p/prpltwtr/"

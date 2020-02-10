@@ -4,7 +4,7 @@
 
 EAPI="5"
 
-inherit webapp git-2
+inherit webapp git-r3
 
 DESCRIPTION="Ampache is a PHP-based tool for managing, updating and playing your audio files via a web interface."
 HOMEPAGE="http://www.ampache.org/"
