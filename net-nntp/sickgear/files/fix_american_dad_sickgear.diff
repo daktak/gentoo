@@ -1,19 +1,17 @@
-diff --git a/lib/tvdb_api/tvdb_api.py b/lib/tvdb_api/tvdb_api.py
-index 0970288..b45d619 100644
---- a/lib/tvdb_api/tvdb_api.py
-+++ b/lib/tvdb_api/tvdb_api.py
-@@ -834,6 +834,14 @@ class Tvdb:
-             seas_no = int(float(elem_seasnum.text))
-             ep_no = int(float(elem_epno.text))
+--- a/lib/tvdb_api.py	2020-04-09 14:26:58.099829873 +1000
++++ b/lib/tvdb_api.py	2020-04-09 14:27:41.737884219 +1000
+@@ -1003,6 +1003,14 @@
+                 seas_no = int(float(elem_seasnum))
+                 ep_no = int(float(elem_epno))
  
-+            # Fixes American Dad! issue from TVDB
-+            if sid == 73141:
-+                if seas_no==2:
-+                    seas_no = 1
-+                    ep_no = ep_no+7
-+                if seas_no>2:
-+                    seas_no=seas_no-1
++                # Fixes American Dad! issue from TVDB
++                if sid == 73141:
++                    if seas_no==2:
++                        seas_no = 1
++                        ep_no = ep_no+7
++                    if seas_no>2:
++                        seas_no=seas_no-1
 +
-             for cur_item in cur_ep.getchildren():
-                 tag = cur_item.tag.lower()
-                 value = cur_item.text
+                 for k, v in iteritems(cur_ep):
+                     k = k.lower()
+ 
