@@ -1,5 +1,5 @@
---- a/lib/tvdb_api.py	2020-04-09 14:26:58.099829873 +1000
-+++ b/lib/tvdb_api.py	2020-04-09 14:27:41.737884219 +1000
+--- a/lib/tvdb_api/tvdb_api.py	2020-04-09 14:26:58.099829873 +1000
++++ b/lib/tvdb_api/tvdb_api.py	2020-04-09 14:27:41.737884219 +1000
 @@ -1003,6 +1003,14 @@
                  seas_no = int(float(elem_seasnum))
                  ep_no = int(float(elem_epno))
