@@ -4,7 +4,7 @@
 
 EAPI=5
 
-PYTHON_COMPAT=(python2_6 python2_7)
+PYTHON_COMPAT=(python3_6 python3_7 python3_8)
 
 EGIT_REPO_URI="https://github.com/SickGear/SickGear.git"
 
@@ -19,7 +19,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="
-	dev-python/cheetah
+	dev-python/cheetah3
 "
 
 pkg_setup() {
