@@ -55,7 +55,7 @@ RDEPEND="
 	acpi? ( sys-power/acpid )
 	tools? ( !media-video/nvidia-settings )
 	X? (
-		<x11-base/xorg-server-1.19.99:=
+		<x11-base/xorg-server-1.20.99:=
 		>=x11-libs/libvdpau-0.3-r1
 		sys-libs/zlib[${MULTILIB_USEDEP}]
 		multilib? (
@@ -166,9 +166,9 @@ src_prepare() {
 			eerror "You must build this against 2.6.9 or higher kernels."
 		fi
 
-		if kernel_is ge 4 11 0 ; then
-			eapply "${FILESDIR}"/nvidia-340.104-uvm-kernel-4.11.patch
-		fi
+		#if kernel_is ge 4 11 0 ; then
+	#		eapply "${FILESDIR}"/nvidia-340.104-uvm-kernel-4.11.patch
+		#fi
 		if kernel_is ge 5 6 0 ; then
 			eapply "${FILESDIR}"/xf86-video-nvidia-legacy-0001-fix-5.6-rc1.patch 
 		fi
@@ -180,7 +180,7 @@ src_prepare() {
 			eapply "${FILESDIR}"/xf86-video-nvidia-legacy-0004-fix-5.8.patch
 		fi
 		if kernel_is ge 5 9 0 ; then
-			eapply "${FILESDIR}"/xf86-video-nvidia-legacy-0004-fix-5.9.patch
+			eapply "${FILESDIR}"/xf86-video-nvidia-legacy-0005-fix-5.9.patch
 		fi
 
 		# If greater than 2.6.5 use M= instead of SUBDIR=
