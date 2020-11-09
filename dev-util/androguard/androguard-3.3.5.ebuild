@@ -4,7 +4,7 @@
 
 EAPI=5
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python2_7 python3{_6,_7,_8,_9} )
 
 inherit python-r1 distutils-r1 eutils python-utils-r1
 
