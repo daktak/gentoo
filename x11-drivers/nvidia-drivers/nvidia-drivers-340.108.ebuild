@@ -1,7 +1,7 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 inherit eutils flag-o-matic linux-info linux-mod multilib-minimal nvidia-driver \
 	portability toolchain-funcs unpacker user udev
 
@@ -35,7 +35,7 @@ COMMON="
 		dev-libs/atk
 		dev-libs/glib:2
 		dev-libs/jansson
-		x11-libs/gdk-pixbuf[X]
+		x11-libs/gdk-pixbuf
 		>=x11-libs/gtk+-2.4:2
 		x11-libs/libX11
 		x11-libs/libXext
