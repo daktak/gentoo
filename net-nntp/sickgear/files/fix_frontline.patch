@@ -4,7 +4,7 @@
                  seas_no = int(float(elem_seasnum))
                  ep_no = int(float(elem_epno))
  
-+                if sid == 80646
++                if sid == 80646:
 +                    seas_no = seas_no - 1982
 +
                  for k, v in iteritems(cur_ep):
