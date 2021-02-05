@@ -1,0 +1,12 @@
+--- lib/tvdb_api/tvdb_api.py	2021-01-23 14:50:46.453937441 +1100
++++ lib/tvdb_api/tvdb_api.py	2021-02-05 16:37:00.698044206 +1100
+@@ -759,6 +759,9 @@
+                 seas_no = int(float(elem_seasnum))
+                 ep_no = int(float(elem_epno))
+ 
++                if sid == 80646
++                    seas_no = seas_no - 1982
++
+                 for k, v in iteritems(cur_ep):
+                     k = k.lower()
+ 
