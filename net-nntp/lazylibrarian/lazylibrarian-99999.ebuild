@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=6
 
-PYTHON_COMPAT=(python2_6 python2_7 python3_6 python3_7 python3_8)
+PYTHON_COMPAT=(python2_6 python2_7 python3_6 python3_7 python3_8 python3_9)
 
 EGIT_REPO_URI="https://gitlab.com/LazyLibrarian/LazyLibrarian.git"
 
