@@ -169,25 +169,27 @@ src_prepare() {
 		#if kernel_is ge 4 11 0 ; then
 	#		eapply "${FILESDIR}"/nvidia-340.104-uvm-kernel-4.11.patch
 		#fi
-		if kernel_is ge 5 6 0 ; then
-			eapply "${FILESDIR}"/xf86-video-nvidia-legacy-0001-fix-5.6-rc1.patch 
-		fi
+		#if kernel_is ge 5 6 0 ; then
+		#	eapply "${FILESDIR}"/xf86-video-nvidia-legacy-0001-fix-5.6-rc1.patch 
+		#fi
 		if kernel_is ge 5 7 0 ; then
-			eapply "${FILESDIR}"/xf86-video-nvidia-legacy-0002-fix-5.7-rc1.patch
-			eapply "${FILESDIR}"/xf86-video-nvidia-legacy-0003-fix-5.7-rc1-reinstate-legacy-support.patch
+			eapply "${FILESDIR}"/0001-kernel-5.7.patch
 		fi
 		if kernel_is ge 5 8 0 ; then
-			eapply "${FILESDIR}"/xf86-video-nvidia-legacy-0004-fix-5.8.patch
+			eapply "${FILESDIR}"/0002-kernel-5.8.patch
 		fi
 		if kernel_is ge 5 9 0 ; then
-			eapply "${FILESDIR}"/xf86-video-nvidia-legacy-0005-fix-5.9.patch
+			eapply "${FILESDIR}"/0003-kernel-5.9.patch
 		fi
 		if kernel_is ge 5 10 0 ; then
-			eapply "${FILESDIR}"/xf86-video-nvidia-legacy-0006-fix-5.10.patch
+			eapply "${FILESDIR}"/0004-kernel-5.10.patch
 		fi
 		if kernel_is ge 5 11 0 ; then
-			eapply "${FILESDIR}"/xf86-video-nvidia-legacy-0007-fix-5.11.patch
+			eapply "${FILESDIR}"/0005-kernel-5.11.patch
 		fi
+        if kernel_is ge 5 14 0; then
+			eapply "${FILESDIR}"/0006-kernel-5.14.patch
+        fi
 
 		# If greater than 2.6.5 use M= instead of SUBDIR=
 #		convert_to_m "${NV_SRC}"/Makefile.kbuild
