@@ -1,0 +1,16 @@
+[Unit]
+Description=Readarr is a music collection manager for Usenet and BitTorrent users.
+After=syslog.target network.target
+
+[Service]
+User=readarr
+Group=readarr
+
+Type=simple
+ExecStart=/usr/share/readarr/Readarr
+TimeoutStopSec=20
+KillMode=process
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
