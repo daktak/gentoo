@@ -31,7 +31,6 @@ pkg_setup() {
 
 src_configure() {
   #epatch "${FILESDIR}/fix_american_dad_sickgear.diff"
-  epatch "${FILESDIR}/fix_frontline.patch"
   epatch_user
 }
 
