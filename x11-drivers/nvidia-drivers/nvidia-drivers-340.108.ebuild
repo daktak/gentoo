@@ -14,16 +14,14 @@ AMD64_FBSD_NV_PACKAGE="NVIDIA-FreeBSD-x86_64-${PV}"
 DESCRIPTION="NVIDIA Accelerated Graphics Driver"
 HOMEPAGE="http://www.nvidia.com/ http://www.nvidia.com/Download/Find.aspx"
 SRC_URI="
-	amd64-fbsd? ( ${NV_URI}FreeBSD-x86_64/${PV}/${AMD64_FBSD_NV_PACKAGE}.tar.gz )
 	amd64? ( ${NV_URI}Linux-x86_64/${PV}/${AMD64_NV_PACKAGE}.run )
-	x86-fbsd? ( ${NV_URI}FreeBSD-x86/${PV}/${X86_FBSD_NV_PACKAGE}.tar.gz )
 	x86? ( ${NV_URI}Linux-x86/${PV}/${X86_NV_PACKAGE}.run )
 	tools? ( ${NV_URI}nvidia-settings/nvidia-settings-${PV}.tar.bz2 )
 "
 
 LICENSE="GPL-2 NVIDIA-r2"
 SLOT="0/${PV%.*}"
-KEYWORDS="-* amd64 x86 ~amd64-fbsd ~x86-fbsd"
+KEYWORDS="-* amd64 x86"
 IUSE="acpi multilib kernel_FreeBSD kernel_linux pax_kernel static-libs +tools +X uvm"
 RESTRICT="bindist mirror"
 EMULTILIB_PKG="true"
@@ -138,8 +136,6 @@ pkg_setup() {
 
 	# set variables to where files are in the package structure
 	if use kernel_FreeBSD; then
-		use x86-fbsd   && S="${WORKDIR}/${X86_FBSD_NV_PACKAGE}"
-		use amd64-fbsd && S="${WORKDIR}/${AMD64_FBSD_NV_PACKAGE}"
 		NV_DOC="${S}/doc"
 		NV_OBJ="${S}/obj"
 		NV_SRC="${S}/src"
@@ -192,6 +188,9 @@ src_prepare() {
         fi
         if kernel_is ge 5 15 0; then
 			eapply "${FILESDIR}"/0007-kernel-5.15.patch
+        fi
+        if kernel_is ge 5 16 0; then
+			eapply "${FILESDIR}"/0008-kernel-5.16.patch
         fi
 
 		# If greater than 2.6.5 use M= instead of SUBDIR=
@@ -306,14 +305,6 @@ src_install() {
 		exeinto "$(get_udevdir)"
 		newexe "${FILESDIR}"/nvidia-udev.sh-r1 nvidia-udev.sh
 		udev_newrules "${FILESDIR}"/nvidia.udev-rule 99-nvidia.rules
-	elif use kernel_FreeBSD; then
-		if use x86-fbsd; then
-			insinto /boot/modules
-			doins "${S}/src/nvidia.kld"
-		fi
-
-		exeinto /boot/modules
-		doexe "${S}/src/nvidia.ko"
 	fi
 
 	# NVIDIA kernel <-> userspace driver config lib

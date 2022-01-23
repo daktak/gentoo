@@ -56,6 +56,7 @@ CDEPEND=">=dev-python/jsonschema-2.5.1
 		>=dev-python/typing-extensions-3.7.4
 		dev-python/simplejson
 		dev-python/ijson
+		>=dev-python/matrix-common-1.0.0
 		ldap? ( dev-python/matrix-synapse-ldap3 )"
 DEPEND="${CDEPEND}"
 RDEPEND="${CDEPEND}"
