@@ -53,7 +53,6 @@ RDEPEND="
 	acpi? ( sys-power/acpid )
 	tools? ( !media-video/nvidia-settings )
 	X? (
-		<x11-base/xorg-server-1.20.99:=
 		>=x11-libs/libvdpau-0.3-r1
 		sys-libs/zlib[${MULTILIB_USEDEP}]
 		multilib? (
