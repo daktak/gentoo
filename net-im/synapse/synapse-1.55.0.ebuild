@@ -54,6 +54,7 @@ CDEPEND=">=dev-python/jsonschema-2.5.1
 		>=dev-python/jinja-2.9
 		>=dev-python/bleach-1.4.3
 		>=dev-python/typing-extensions-3.7.4
+		>=dev-python/matrix-common-1.1.0
 		dev-python/simplejson
 		dev-python/ijson
 		ldap? ( dev-python/matrix-synapse-ldap3 )"
