@@ -3,7 +3,7 @@
 
 EAPI=6
 
-PYTHON_COMPAT=( python3_9 python3_8 )
+PYTHON_COMPAT=( python3_9 python3_8 python3_10 )
 inherit distutils-r1
 
 DESCRIPTION="Canonical JSON"

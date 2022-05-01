@@ -3,7 +3,7 @@
 
 EAPI="6"
 
-PYTHON_COMPAT=( python3_8 python3_9 )
+PYTHON_COMPAT=( python3_8 python3_9 python3_10 )
 DISTUTILS_SINGLE_IMPL=1
 inherit distutils-r1 eutils user
 
@@ -54,9 +54,9 @@ CDEPEND=">=dev-python/jsonschema-2.5.1
 		>=dev-python/jinja-2.9
 		>=dev-python/bleach-1.4.3
 		>=dev-python/typing-extensions-3.7.4
-		>=dev-python/matrix-common-1.1.0
 		dev-python/simplejson
 		dev-python/ijson
+		>=dev-python/matrix-common-1.0.0
 		ldap? ( dev-python/matrix-synapse-ldap3 )"
 DEPEND="${CDEPEND}"
 RDEPEND="${CDEPEND}"
