@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python{3_9,3_8} )
+PYTHON_COMPAT=( python{3_9,3_8,3_10} )
 inherit distutils-r1
 
 DESCRIPTION="Python client for the Prometheus monitoring system"
