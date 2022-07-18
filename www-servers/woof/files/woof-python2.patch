@@ -1,8 +1,0 @@
---- woof	2012-12-11 10:27:20.978139993 +1100
-@@ -1,4 +1,4 @@
--#!/usr/bin/env python
-+#!/usr/bin/env python2
- # -*- encoding: utf-8 -*-
- #
- #  woof -- an ad-hoc single file webserver
-

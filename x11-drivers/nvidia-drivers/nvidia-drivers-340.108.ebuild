@@ -332,6 +332,10 @@ src_install() {
 		# Xorg GLX driver
 		donvidia "${NV_X11}"/libglx.so ${NV_SOVER} \
 			/usr/$(get_libdir)/opengl/nvidia/extensions
+
+		#abi override
+		insinto /etc/X11/xorg.conf.d
+		doins "${FILESDIR}"/20-opengl.conf
 	fi
 
 	# OpenCL ICD for NVIDIA
