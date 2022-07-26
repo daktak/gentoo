@@ -34,6 +34,7 @@ RDEPEND="
 	>=dev-python/jinja-2[${PYTHON_USEDEP}]
 	>=dev-python/bleach-1.4.3[${PYTHON_USEDEP}]
 	>=dev-python/psycopg-2.9.1[${PYTHON_USEDEP}]
+	<dev-python/psycopg-3[${PYTHON_USEDEP}]
 
 	>=dev-python/twisted-18.9.0[${PYTHON_USEDEP}]
 	systemd? ( dev-python/python-systemd[${PYTHON_USEDEP}] )
