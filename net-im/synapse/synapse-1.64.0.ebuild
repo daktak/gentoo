@@ -27,13 +27,14 @@ RDEPEND="
 	>=dev-python/unpaddedbase64-2.1.0[${PYTHON_USEDEP}]
 	>=dev-python/canonicaljson-1.4.0[${PYTHON_USEDEP}]
 	>=dev-python/signedjson-1.0.0[${PYTHON_USEDEP}]
-	>=dev-python/matrix-common-1.1.0[${PYTHON_USEDEP}]
+	>=dev-python/matrix-common-1.2.1[${PYTHON_USEDEP}]
 	>=dev-python/ijson-3.0.0[${PYTHON_USEDEP}]
 	>=dev-python/pynacl-1.2.1[${PYTHON_USEDEP}]
 	>=dev-python/service_identity-16.0.0[${PYTHON_USEDEP}]
 	>=dev-python/jinja-2[${PYTHON_USEDEP}]
 	>=dev-python/bleach-1.4.3[${PYTHON_USEDEP}]
 	>=dev-python/psycopg-2.9.1[${PYTHON_USEDEP}]
+	<dev-python/psycopg-3[${PYTHON_USEDEP}]
 
 	>=dev-python/twisted-18.9.0[${PYTHON_USEDEP}]
 	systemd? ( dev-python/python-systemd[${PYTHON_USEDEP}] )
