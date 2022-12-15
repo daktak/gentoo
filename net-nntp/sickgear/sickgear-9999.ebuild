@@ -8,7 +8,7 @@ PYTHON_COMPAT=(python3_6 python3_7 python3_8 python3_9 python3_10)
 
 EGIT_REPO_URI="https://github.com/SickGear/SickGear.git"
 
-inherit eutils user git-r3 python-r1
+inherit eutils git-r3 python-r1
 
 DESCRIPTION="Automatic TV-Series downloader for SABnzbd"
 HOMEPAGE="https://github.com/SickGear/SickGear#readme"

@@ -3,7 +3,7 @@
 
 EAPI=6
 inherit eutils flag-o-matic linux-info linux-mod multilib-minimal nvidia-driver \
-	portability toolchain-funcs unpacker user udev
+	portability toolchain-funcs unpacker udev
 
 NV_URI="http://http.download.nvidia.com/XFree86/"
 X86_NV_PACKAGE="NVIDIA-Linux-x86-${PV}"
