@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=6
+EAPI=7
 
 PYTHON_COMPAT=(python3_6 python3_7 python3_8 python3_9 python3_10)
 

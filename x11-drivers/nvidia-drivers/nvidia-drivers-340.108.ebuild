@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-inherit eutils flag-o-matic linux-info linux-mod multilib-minimal nvidia-driver \
+inherit eutils flag-o-matic linux-info linux-mod multilib-minimal \
 	portability toolchain-funcs unpacker udev
 
 NV_URI="http://http.download.nvidia.com/XFree86/"
@@ -88,12 +88,6 @@ nvidia_drivers_versions_check() {
 		ewarn "Do not file a bug report about this."
 		ewarn ""
 	fi
-
-	# Since Nvidia ships many different series of drivers, we need to give the user
-	# some kind of guidance as to what version they should install. This tries
-	# to point the user in the right direction but can't be perfect. check
-	# nvidia-driver.eclass
-	nvidia-driver-check-warning
 
 	# Kernel features/options to check for
 	CONFIG_CHECK="~ZONE_DMA ~MTRR ~SYSVIPC ~!LOCKDEP"
@@ -500,7 +494,7 @@ pkg_preinst() {
 	if use kernel_linux; then
 		linux-mod_pkg_preinst
 
-		local videogroup="$(egetent group video | cut -d ':' -f 3)"
+		local videogroup="$(getent group video | cut -d ':' -f 3)"
 		if [ -z "${videogroup}" ]; then
 			eerror "Failed to determine the video group gid"
 			die "Failed to determine the video group gid"
