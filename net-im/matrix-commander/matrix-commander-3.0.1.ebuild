@@ -21,7 +21,7 @@ RDEPEND="
 	${PYTHON_DEPS}
 	$(python_gen_cond_dep '
 		>=dev-python/aiofiles-0.6.0[${PYTHON_USEDEP}]
-		>=dev-python/matrix-nio-0.14.1[e2e,${PYTHON_USEDEP}]
+		>=dev-python/matrix-nio-0.14.1[${PYTHON_USEDEP}]
 		dev-python/markdown[${PYTHON_USEDEP}]
 		dev-python/pillow[${PYTHON_USEDEP}]
 		dev-python/python-magic[${PYTHON_USEDEP}]

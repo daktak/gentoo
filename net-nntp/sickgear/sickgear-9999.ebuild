@@ -4,7 +4,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=(python3_6 python3_7 python3_8 python3_9 python3_10)
+PYTHON_COMPAT=(python3_9 python3_10 python3_11)
 
 EGIT_REPO_URI="https://github.com/SickGear/SickGear.git"
 
@@ -56,7 +56,7 @@ src_install() {
 	echo ${last_commit} > version.txt
 
 	insinto /usr/share/${PN}
-	doins -r autoProcessTV gui lib sickbeard tests SickBeard.py sickgear.py tox.ini version.txt
+	doins -r autoProcessTV gui lib sickgear tests SickBeard.py sickgear.py tox.ini version.txt
 }
 
 pkg_postinst() {
