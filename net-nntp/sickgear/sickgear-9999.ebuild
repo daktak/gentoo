@@ -2,13 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=7
+EAPI=8
 
 PYTHON_COMPAT=(python3_9 python3_10 python3_11)
 
 EGIT_REPO_URI="https://github.com/SickGear/SickGear.git"
 
-inherit eutils git-r3 python-r1
+inherit git-r3 python-r1
 
 DESCRIPTION="Automatic TV-Series downloader for SABnzbd"
 HOMEPAGE="https://github.com/SickGear/SickGear#readme"

@@ -1,8 +1,8 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
-inherit eutils flag-o-matic linux-info linux-mod multilib-minimal \
+EAPI=8
+inherit flag-o-matic linux-info linux-mod multilib-minimal \
 	portability toolchain-funcs unpacker udev
 
 NV_URI="http://http.download.nvidia.com/XFree86/"
