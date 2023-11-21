@@ -203,6 +203,9 @@ src_prepare() {
 		if kernel_is ge 6 5 0; then
 		    eapply "${FILESDIR}"/0014-kernel-6.5.patch
 		fi 
+		if kernel_is ge 6 6 0; then
+		    eapply "${FILESDIR}"/0015-kernel-6.6.patch
+		fi 
 
 		# If greater than 2.6.5 use M= instead of SUBDIR=
 #		convert_to_m "${NV_SRC}"/Makefile.kbuild
