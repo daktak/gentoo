@@ -32,6 +32,7 @@ IUSE="test"
 COMMON_DEPEND="
 	dev-libs/expat
 	=media-tv/kodi-21*
+	media-video/bento4
 	"
 DEPEND="
 	${COMMON_DEPEND}
