@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=6
+EAPI=8
 
-inherit git-r3 
+inherit git-r3
 
 DESCRIPTION="simple NNTP proxy with SSL support"
 HOMEPAGE="https://github.com/nieluj/nntp-proxy"
