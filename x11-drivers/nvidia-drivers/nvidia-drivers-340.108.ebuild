@@ -155,6 +155,8 @@ src_prepare() {
 			eerror "You must build this against 2.6.9 or higher kernels."
 		fi
 
+        eapply "${FILESDIR}"/0017-gcc-14.patch
+
 		#if kernel_is ge 4 11 0 ; then
 	#		eapply "${FILESDIR}"/nvidia-340.104-uvm-kernel-4.11.patch
 		#fi
