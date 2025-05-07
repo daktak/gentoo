@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{11,12} )
+PYTHON_COMPAT=( python3_{11..13} )
 inherit bash-completion-r1 optfeature python-single-r1
 
 COMMIT="7ab3fd9a0ef4eb19d882cb3701d2025b4d41b63a"

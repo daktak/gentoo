@@ -4,7 +4,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=(python3_9 python3_10 python3_11)
+PYTHON_COMPAT=( python3_{9..13} )
 
 EGIT_REPO_URI="https://github.com/SickGear/SickGear.git"
 
