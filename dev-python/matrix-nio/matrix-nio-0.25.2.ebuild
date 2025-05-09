@@ -1,39 +1,23 @@
-# Copyright 2021 Gentoo Authors
+# Copyright 2019-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10,11,12,13} )
-DISTUTILS_USE_PEP517="poetry"
-inherit distutils-r1
+PYTHON_COMPAT=( python3_{11..13} )
 
-DESCRIPTION="A Python Matrix client library, designed according to sans I/O principles."
-HOMEPAGE="https://github.com/matrix-nio/matrix-nio"
-SRC_URI="https://github.com/matrix-nio/matrix-nio/archive/${PV}.tar.gz -> ${P}.tar.gz"
+inherit distutils-r1 pypi
 
-LICENSE="ISC"
+DISTUTILS_USE_PEP517="setuptools"
+DISTUTILS_USE_SETUPTOOLS=pyproject.toml
+
+DESCRIPTION="Multilayered Matrix client library"
+HOMEPAGE="https://pypi.python.org/pypi/matrix-nio https://github.com/poljar/matrix-nio"
+
+LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-
-# TODO: the package optionally supports end-to-end encryption.
-# We need to define a use flag and appropriate dependencies to enable that.
+IUSE="+e2e"
 
 DEPEND=""
-RDEPEND="${DEPEND}
-	>=dev-python/future-0.18.2-r1
-	>=dev-python/aiohttp-3.7.4-r1
-	>=dev-python/aiofiles-0.6.0
-	>=dev-python/h11-0.12.0
-	>=dev-python/h2-4.0.0
-	>=dev-python/logbook-1.5.3
-	>=dev-python/jsonschema-4.4.0
-	>=dev-python/unpaddedbase64-2.1.0
-	>=dev-python/pycryptodome-3.10.1
-	>=dev-python/aiohttp-socks-0.7.0"
-BDEPEND="
-	>=dev-python/poetry-core-1.0.0
-"
-
-# PATCHES=(
-# 	"${FILESDIR}/${P}-device_lists_are_optional.patch"
-# )
+BDEPEND="e2e? ( dev-python/python-olm )"
+RDEPEND="${DEPEND}"
