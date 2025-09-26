@@ -4,7 +4,7 @@
  }
  
  build_cflags() {
--    BASE_CFLAGS="-std=gnu17 -O2 -Wno-implicit-function-declaration -Wno-incompatible-pointer-types -D__KERNEL__ \
+-    BASE_CFLAGS="-O2 -Wno-implicit-function-declaration -Wno-incompatible-pointer-types -D__KERNEL__ \
 +    BASE_CFLAGS="-I${SCRIPTDIR} -std=gnu17 -O2 -Wno-implicit-function-declaration -Wno-incompatible-pointer-types -D__KERNEL__ \
  -DKBUILD_BASENAME=\"#conftest$$\" -DKBUILD_MODNAME=\"#conftest$$\" \
  -nostdinc -isystem $ISYSTEM"
@@ -67,7 +67,7 @@
  # NVIDIA specific CFLAGS and #define's.
  #
  
--EXTRA_CFLAGS += -std=gnu17 -D__KERNEL__ -DMODULE -DNVRM -DNV_VERSION_STRING=\"340.108\" -Wno-unused-function -Wuninitialized -fno-strict-aliasing -mno-red-zone -mcmodel=kernel -DNV_UVM_ENABLE -D__linux__ -DNV_DEV_NAME=\"$(MODULE_NAME)\"
+-EXTRA_CFLAGS += -D__KERNEL__ -DMODULE -DNVRM -DNV_VERSION_STRING=\"340.108\" -Wno-unused-function -Wuninitialized -fno-strict-aliasing -mno-red-zone -mcmodel=kernel -DNV_UVM_ENABLE -D__linux__ -DNV_DEV_NAME=\"$(MODULE_NAME)\"
 +ccflags-y += -D__KERNEL__ -DMODULE -DNVRM -DNV_VERSION_STRING=\"340.108\" -Wno-unused-function -Wuninitialized -fno-strict-aliasing -mno-red-zone -mcmodel=kernel -DNV_UVM_ENABLE -D__linux__ -DNV_DEV_NAME=\"$(MODULE_NAME)\"
  
  #
