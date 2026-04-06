@@ -214,6 +214,9 @@ src_prepare() {
 		if kernel_is ge 6 15 0; then
 		    eapply "${FILESDIR}"/0019-kernel-6.15.patch
 		fi
+		if kernel_is ge 6 19 0; then
+		    eapply "${FILESDIR}"/0020-kernel-6.19.patch
+		fi
 
 		# If greater than 2.6.5 use M= instead of SUBDIR=
 #		convert_to_m "${NV_SRC}"/Makefile.kbuild
@@ -483,6 +486,7 @@ src_install-libs() {
 		if use kernel_FreeBSD; then
 			donvidia "${nv_libdir}"/libnvidia-tls.so ${NV_SOVER}
 		else
+		    patchelf --add-needed /lib/libpthread.so.0 libnvidia-tls.so.340.108
 			donvidia "${nv_libdir}"/tls/libnvidia-tls.so ${NV_SOVER}
 		fi
 
