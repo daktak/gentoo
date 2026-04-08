@@ -3,7 +3,7 @@
 
 EAPI=8
 inherit flag-o-matic linux-info linux-mod multilib-minimal \
-	portability toolchain-funcs unpacker udev
+	portability toolchain-funcs unpacker udev toolchain-funcs
 
 NV_URI="http://http.download.nvidia.com/XFree86/"
 X86_NV_PACKAGE="NVIDIA-Linux-x86-${PV}"
@@ -156,6 +156,9 @@ src_prepare() {
 		fi
 
         eapply "${FILESDIR}"/0017-gcc-14.patch
+		if tc-is-gcc && ver_test "$(gcc-version)" -ge 15; then
+			eapply "${FILESDIR}"/0018-gcc-15.patch
+		fi
 
 		#if kernel_is ge 4 11 0 ; then
 	#		eapply "${FILESDIR}"/nvidia-340.104-uvm-kernel-4.11.patch
