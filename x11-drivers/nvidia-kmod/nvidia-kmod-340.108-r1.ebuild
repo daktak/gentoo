@@ -48,6 +48,7 @@ PATCHES=(
 	"${FILESDIR}/buildfix_kernel_6.8.patch"
 	"${FILESDIR}/buildfix_kernel_6.15.patch"
 	"${FILESDIR}/buildfix_kernel_6.19.patch"
+	"${FILESDIR}/buildfix_kernel_7.0.patch"
 )
 
 src_compile() {
