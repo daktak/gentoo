@@ -4,7 +4,7 @@
 EAPI=8
 inherit flag-o-matic linux-mod-r1 readme.gentoo-r1 unpacker
 
-MODULES_KERNEL_MAX=6.19
+MODULES_KERNEL_MAX=7.0
 NV_URI="https://download.nvidia.com/XFree86/"
 
 DESCRIPTION="NVIDIA Accelerated Graphic Driver - kernel module"
